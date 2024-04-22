@@ -1,6 +1,6 @@
 version: '3'
-#DataBase
 services:
+  # DataBase
   db:
     image: mysql:8.0
     container_name: mysql-Task-List
@@ -10,15 +10,16 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     ports:
-      - "5432:5432"
-    volumes:
-      - ./mysql_data:/var/lib/mysql
+      - 3307:3306
 
-#phpMyAdmin
-
-
-
-
-volumes:
-  dbdata:
-  driver: local
+  # phpMyAdmin
+  myadmin:
+    image: phpmyadmin:latest
+    container_name: Task_list_pma_ctn
+    ports:
+      - 82:80
+    links:
+      - db:mysql_host
+    environment:
+      - PMA_HOST=mysql_host
+      - PMA_PORT=$PMA_PORT
