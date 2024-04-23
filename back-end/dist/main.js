@@ -21,7 +21,7 @@ app.listen(API_PORT, () => {
 });
 async function fetchData() {
     try {
-        const [rows, fields] = await connexion_db_1.default.execute('SELECT * FROM Task-list');
+        const [rows, fields] = await connexion_db_1.default.execute(`SELECT * FROM user`);
         console.log('Résultats de la requête :', rows);
     }
     catch (error) {

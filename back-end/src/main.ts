@@ -3,9 +3,11 @@ import dotenv from "dotenv"
 import cors from "cors";
 import { BodyParser } from "body-parser";
 import pool from "./config/connexion-db";
+import { promises } from "dns";
 dotenv.config();
 
 const {API_PORT} = process.env;
+
 
 const app : Application = express();
 
@@ -23,9 +25,10 @@ app.listen(API_PORT, (): void => {
 })
 
 
-async function fetchData() {
+
+async function fetchData() : Promise<void> {
     try {
-        const [rows, fields] = await pool.execute('SELECT * FROM Task-list');
+        const [rows, fields] = await pool.execute(`SELECT * FROM user`);
         console.log('Résultats de la requête :', rows);
     } catch (error) {
         console.error('Erreur lors de l\'exécution de la requête :', error);
@@ -33,4 +36,3 @@ async function fetchData() {
 }
 
 fetchData();
-

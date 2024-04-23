@@ -7,8 +7,8 @@ const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: 'Taskpwd',
-    database: 'Task-list',
-    port: 3306, //
+    database: 'TaskList',
+    port: 3307, //
     waitForConnections: true,
 })
 export default pool;

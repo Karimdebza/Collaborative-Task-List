@@ -10,8 +10,8 @@ const pool = promise_1.default.createPool({
     host: 'localhost',
     user: 'root',
     password: 'Taskpwd',
-    database: 'Task-list',
-    port: 3306, //
+    database: 'TaskList',
+    port: 3307, //
     waitForConnections: true,
 });
 exports.default = pool;
