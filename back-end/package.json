@@ -1,0 +1,32 @@
+{
+  "name": "collaborative-task-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "tsc-watch --onSuccess \"node dist/main.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Karimdebza/Collaborative-Task-List.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Karimdebza/Collaborative-Task-List/issues"
+  },
+  "homepage": "https://github.com/Karimdebza/Collaborative-Task-List#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "mysql2": "^3.9.7",
+    "tsc-watch": "^6.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5"
+  }
+}
