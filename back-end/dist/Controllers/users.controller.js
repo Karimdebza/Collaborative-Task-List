@@ -54,8 +54,28 @@ async function getUserById(req, res) {
 }
 exports.getUserById = getUserById;
 async function updateUser(req, res) {
+    const useId = parseInt(req.params.id);
+    const userData = req.body;
+    const hashedPassword = bcrypt_1.default.hashSync(userData.password, 10);
+    try {
+        await connexion_db_1.default.execute("UPDATE user SET name = ?, email = ?, password = ? WHERE id_user = ? ", [userData.name, userData.email, hashedPassword, useId]);
+        res.status(201).json({ message: "Utilisateur mis à jour avec succès" });
+    }
+    catch (error) {
+        console.error("Erreur lors de la mise à jour de l'utilisateur :", error);
+        res.status(500).json({ message: "Erreur du serveur lors de la mise à jour de l'utilisateur" });
+    }
 }
 exports.updateUser = updateUser;
 async function deleteUser(req, res) {
+    const userId = parseInt(req.params.id);
+    try {
+        await connexion_db_1.default.execute("DELETE FROM user WHERE id_user = ?", [userId]);
+        res.status(201).json({ message: "Utilisateur supprimé avec succès" });
+    }
+    catch (error) {
+        console.error("Erreur lors de la mise à jour de l'utilisateur :", error);
+        res.status(500).json({ message: "Erreur du serveur  lors de la mise à jour de l'utilisateur" });
+    }
 }
 exports.deleteUser = deleteUser;

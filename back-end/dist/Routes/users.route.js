@@ -33,3 +33,5 @@ exports.userRouter = express_1.default.Router();
 exports.userRouter.post("/create", userController.createUser);
 exports.userRouter.get("/all", userController.getAllUsers);
 exports.userRouter.get("/:id", userController.getUserById);
+exports.userRouter.put("/update/:id", userController.updateUser);
+exports.userRouter.delete("/delete/:id", userController.deleteUser);
