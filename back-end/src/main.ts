@@ -1,9 +1,9 @@
 import  express,{ Request, Response,Application } from "express";
 import dotenv from "dotenv"
 import cors from "cors";
-import { BodyParser } from "body-parser";
+import  bodyParser  from "body-parser";
 import pool from "./config/connexion-db";
-import { promises } from "dns";
+import {userRouter} from "./Routes/users.route";
 dotenv.config();
 
 const {API_PORT} = process.env;
@@ -23,8 +23,8 @@ app.listen(API_PORT, (): void => {
     console.log("lapllication tourne sur le port "+ API_PORT)
     
 })
-
-
+app.use(bodyParser.json());
+app.use("/user", userRouter);
 
 async function fetchData() : Promise<void> {
     try {
