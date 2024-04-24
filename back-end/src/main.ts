@@ -4,6 +4,7 @@ import cors from "cors";
 import  bodyParser  from "body-parser";
 import pool from "./config/connexion-db";
 import {userRouter} from "./Routes/users.route";
+import {taskRouter} from "./Routes/task.route";
 dotenv.config();
 
 const {API_PORT} = process.env;
@@ -25,4 +26,5 @@ app.listen(API_PORT, (): void => {
 })
 app.use(bodyParser.json());
 app.use("/user", userRouter);
+app.use("/task", taskRouter);
 
