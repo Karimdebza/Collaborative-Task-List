@@ -20,11 +20,19 @@ async function createUser(req, res) {
     }
     catch (error) {
         console.error("Erreur lors de la création de l'utilisateur :", error);
-        res.status(500).json({ message: "Erreur lors de la création de l'utilisateur" });
+        res.status(500).json({ message: "Erreur du serveur  lors de la création de l'utilisateur" });
     }
 }
 exports.createUser = createUser;
 async function getAllUsers(req, res) {
+    try {
+        const [rows] = await connexion_db_1.default.execute("SELECT * FROM user");
+        res.status(200).json(rows);
+    }
+    catch (error) {
+        console.error("Erreur lors de la récupération des utilisateurs :", error);
+        res.status(500).json({ message: "Erreur du serveur lors de la récupération des utilisateurs" });
+    }
 }
 exports.getAllUsers = getAllUsers;
 async function getUserById(req, res) {

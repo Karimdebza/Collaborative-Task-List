@@ -31,3 +31,4 @@ const express_1 = __importDefault(require("express"));
 const userController = __importStar(require("../Controllers/users.controller"));
 exports.userRouter = express_1.default.Router();
 exports.userRouter.post("/create", userController.createUser);
+exports.userRouter.get("/all", userController.getAllUsers);

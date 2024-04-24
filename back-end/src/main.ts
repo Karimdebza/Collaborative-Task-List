@@ -26,13 +26,3 @@ app.listen(API_PORT, (): void => {
 app.use(bodyParser.json());
 app.use("/user", userRouter);
 
-async function fetchData() : Promise<void> {
-    try {
-        const [rows, fields] = await pool.execute(`SELECT * FROM user`);
-        console.log('Résultats de la requête :', rows);
-    } catch (error) {
-        console.error('Erreur lors de l\'exécution de la requête :', error);
-    }
-}
-
-fetchData();
