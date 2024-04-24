@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import pool from "../config/connexion-db";
 import { User } from "../models/users.model";
 import bcrypt from "bcrypt"
-
+import { QueryResult, FieldPacket } from "mysql2/promise";
 
 export async function createUser(req:Request, res:Response): Promise<void> {
     try {
@@ -33,7 +33,20 @@ export async function getAllUsers(req:Request, res:Response): Promise<void> {
 }
 
 export async function getUserById(req:Request, res:Response): Promise<void> {
-    
+    const userId :number = parseInt(req.params.id) ;
+    try{
+        const [rows] : [QueryResult, FieldPacket[]] = await pool.execute("SELECT * FROM user WHERE id_user = ?", [userId]);
+        const users: User[] = rows as User[];
+        if(Array.isArray(users) && users.length === 0) {
+            res.status(404).json({message: "Utilisateur non trouvé dans la base de données"});
+        } else {
+            res.status(200).json(users[0]);
+        }
+    }
+    catch (error) {
+        console.error("Erreur lors de la récupération de l'utilisateur :", error);
+        res.status(500).json({ message: "Erreur du serveur lors de la récupération de l'utilisateur" });
+    }
 }
 
 export async function updateUser(req:Request, res:Response): Promise<void> {

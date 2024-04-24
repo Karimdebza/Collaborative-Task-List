@@ -32,3 +32,4 @@ const userController = __importStar(require("../Controllers/users.controller"));
 exports.userRouter = express_1.default.Router();
 exports.userRouter.post("/create", userController.createUser);
 exports.userRouter.get("/all", userController.getAllUsers);
+exports.userRouter.get("/:id", userController.getUserById);

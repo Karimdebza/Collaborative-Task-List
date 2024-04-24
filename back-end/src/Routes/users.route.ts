@@ -5,3 +5,4 @@ export const userRouter = express.Router();
 
 userRouter.post("/create", userController.createUser);
 userRouter.get("/all", userController.getAllUsers);
+userRouter.get("/:id", userController.getUserById);

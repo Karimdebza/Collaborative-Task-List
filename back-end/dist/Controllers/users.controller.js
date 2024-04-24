@@ -36,6 +36,21 @@ async function getAllUsers(req, res) {
 }
 exports.getAllUsers = getAllUsers;
 async function getUserById(req, res) {
+    const userId = parseInt(req.params.id);
+    try {
+        const [rows] = await connexion_db_1.default.execute("SELECT * FROM user WHERE id_user = ?", [userId]);
+        const users = rows;
+        if (Array.isArray(users) && users.length === 0) {
+            res.status(404).json({ message: "Utilisateur non trouvé dans la base de données" });
+        }
+        else {
+            res.status(200).json(users[0]);
+        }
+    }
+    catch (error) {
+        console.error("Erreur lors de la récupération de l'utilisateur :", error);
+        res.status(500).json({ message: "Erreur du serveur lors de la récupération de l'utilisateur" });
+    }
 }
 exports.getUserById = getUserById;
 async function updateUser(req, res) {
