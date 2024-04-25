@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTask = exports.updateTask = exports.getTaskById = exports.getAllTasks = exports.createTask = void 0;
 const connexion_db_1 = __importDefault(require("../config/connexion-db"));
 async function createTask(req, res) {
+    const userId = req.params.id;
     try {
         const taskData = req.body;
-        const [result] = await connexion_db_1.default.execute(" INSERT INTO Task (name, description, date_of_create, date_of_expire ) VALUES (?, ?, ?, ?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expire]);
+        const [result] = await connexion_db_1.default.execute("INSERT INTO Task (name, description, date_of_create, date_of_expiry,id_task_list,  id_user ) VALUES (?, ?, ?, ?, ?, ?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, userId]);
         if ('insertId' in result) {
             res.status(201).json({ id: result.insertId });
         }
@@ -23,8 +24,9 @@ async function createTask(req, res) {
 }
 exports.createTask = createTask;
 async function getAllTasks(req, res) {
+    const userId = req.params.id;
     try {
-        const [rows] = await connexion_db_1.default.execute("SELECT * FROM Task");
+        const [rows] = await connexion_db_1.default.execute("SELECT * FROM Task WHERE id_user = ?", [userId]);
         res.status(200).json(rows);
     }
     catch (error) {
@@ -55,7 +57,7 @@ async function updateTask(req, res) {
     const taskId = parseInt(req.params.id);
     const taskData = req.body;
     try {
-        await connexion_db_1.default.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expire = ? ", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expire, taskId]);
+        await connexion_db_1.default.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?, id_task_list = ?, id_user = ? WHERE id_task = ?", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskData.id_user, taskId]);
         res.status(201).json({ message: "Tache mis à jour avec succès" });
     }
     catch (error) {

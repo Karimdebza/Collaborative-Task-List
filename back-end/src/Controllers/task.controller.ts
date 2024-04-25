@@ -5,9 +5,10 @@ import bcrypt from "bcrypt"
 import { QueryResult, FieldPacket } from "mysql2/promise";
 
 export async function createTask(req:Request, res:Response): Promise<void> {
+    const userId = req.params.id;
     try {
         const taskData : Task = req.body;
-        const [result] = await pool.execute(" INSERT INTO Task (name, description, date_of_create, date_of_expire ) VALUES (?, ?, ?, ?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expire ] )
+        const [result] = await pool.execute("INSERT INTO Task (name, description, date_of_create, date_of_expiry,id_task_list,  id_user ) VALUES (?, ?, ?, ?, ?, ?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, userId ] )
         if('insertId' in result ) {
             res.status(201).json({id: result.insertId});
         }
@@ -22,8 +23,9 @@ export async function createTask(req:Request, res:Response): Promise<void> {
 }
 
 export async function getAllTasks(req:Request, res:Response): Promise<void> {
+   const  userId = req.params.id;
     try{
-        const [rows] = await pool.execute("SELECT * FROM Task");
+        const [rows] = await pool.execute("SELECT * FROM Task WHERE id_user = ?", [userId]);
         res.status(200).json(rows);
     } catch (error) {
         console.error("Erreur lors de la récupération des taches :", error);
@@ -52,7 +54,7 @@ export async function updateTask(req:Request, res:Response): Promise<void> {
     const taskId : number = parseInt(req.params.id);
     const taskData : Task = req.body; 
     try{
-        await pool.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expire = ? ", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expire, taskId]);
+        await pool.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?, id_task_list = ?, id_user = ? WHERE id_task = ?", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskData.id_user, taskId]);
         res.status(201).json({message: "Tache mis à jour avec succès" });
     } catch(error) {
         console.error("Erreur lors de la mise à jour de la tache :", error);

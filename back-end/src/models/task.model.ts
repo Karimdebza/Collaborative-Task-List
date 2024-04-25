@@ -3,8 +3,8 @@ export interface Task {
     name : string;
     description: string;
     date_of_create: Date;
-    date_of_expire: Date;
-    id_use?:number;
-    id_task_user?:number;
+    date_of_expiry: Date;
+    id_user?:number;
+    id_task_list?:number;
 
 }
