@@ -54,11 +54,11 @@ async function getUserById(req, res) {
 }
 exports.getUserById = getUserById;
 async function updateUser(req, res) {
-    const useId = parseInt(req.params.id);
+    const userId = parseInt(req.params.id);
     const userData = req.body;
     const hashedPassword = bcrypt_1.default.hashSync(userData.password, 10);
     try {
-        await connexion_db_1.default.execute("UPDATE user SET name = ?, email = ?, password = ? WHERE id_user = ? ", [userData.name, userData.email, hashedPassword, useId]);
+        await connexion_db_1.default.execute("UPDATE user SET name = ?, email = ?, password = ? WHERE id_user = ? ", [userData.name, userData.email, hashedPassword, userId]);
         res.status(201).json({ message: "Utilisateur mis à jour avec succès" });
     }
     catch (error) {

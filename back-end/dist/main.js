@@ -8,6 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const users_route_1 = require("./Routes/users.route");
+const task_route_1 = require("./Routes/task.route");
 dotenv_1.default.config();
 const { API_PORT } = process.env;
 const app = (0, express_1.default)();
@@ -22,3 +23,4 @@ app.listen(API_PORT, () => {
 });
 app.use(body_parser_1.default.json());
 app.use("/user", users_route_1.userRouter);
+app.use("/task", task_route_1.taskRouter);
