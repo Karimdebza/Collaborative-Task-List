@@ -68,7 +68,7 @@ export async function deleteTask(req:Request, res:Response): Promise<void> {
         await pool.execute("DELETE FROM Task WHERE id_task = ?", [taskId]);
         res.status(201).json({message: "Tache supprimé avec succès"});
         } catch (error) {
-        console.error("Erreur lors de la mise à jour de la tache :", error);
-        res.status(500).json({ message: "Erreur du serveur  lors de la mise à jour de la tache " });
+        console.error("Erreur lors de la supression de la tache :", error);
+        res.status(500).json({ message: "Erreur du serveur  lors de la supression de la tache " });
         }
     }

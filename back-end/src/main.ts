@@ -5,6 +5,7 @@ import  bodyParser  from "body-parser";
 import pool from "./config/connexion-db";
 import {userRouter} from "./Routes/users.route";
 import {taskRouter} from "./Routes/task.route";
+import {taskListRouter} from "./Routes/task-list.route";
 dotenv.config();
 
 const {API_PORT} = process.env;
@@ -27,4 +28,5 @@ app.listen(API_PORT, (): void => {
 app.use(bodyParser.json());
 app.use("/user", userRouter);
 app.use("/task", taskRouter);
+app.use("/task-list", taskListRouter);
 
