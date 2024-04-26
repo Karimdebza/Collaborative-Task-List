@@ -9,7 +9,7 @@ async function createTask(req, res) {
     const userId = req.params.id;
     try {
         const taskData = req.body;
-        const [result] = await connexion_db_1.default.execute("INSERT INTO Task (name, description, date_of_create, date_of_expiry,id_task_list,  id_user ) VALUES (?, ?, ?, ?, ?, ?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, userId]);
+        const [result] = await connexion_db_1.default.execute("INSERT INTO Task (name, description, date_of_create, date_of_expiry, id_task_list,  id_user ) VALUES (?, ?, ?, ?, ?, ?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, userId]);
         if ('insertId' in result) {
             res.status(201).json({ id: result.insertId });
         }
