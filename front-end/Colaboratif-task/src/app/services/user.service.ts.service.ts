@@ -12,7 +12,7 @@ export class UserServiceTsService {
   getUserById(userId:number) : Observable<UserInterfaceTs>{
     return this.http.get<UserInterfaceTs>(`http://127.0.0.1:3400/user/${userId}`)
   }
-  createUser(userData:any) : Observable<UserInterfaceTs> {
+  createUser(userData:UserInterfaceTs) : Observable<UserInterfaceTs> {
     return this.http.post<UserInterfaceTs>(`http://127.0.0.1:3400/user/create`, userData);
   }
   getAllUsers(): Observable<UserInterfaceTs[]> {
