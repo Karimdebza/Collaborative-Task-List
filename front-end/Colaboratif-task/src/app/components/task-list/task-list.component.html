@@ -1,2 +1,6 @@
-<p>task-list works!</p>
-<h1>kksksks</h1>
+<div *ngFor="let taskList of taskList">
+    <h2>{{ taskList.title }}</h2>
+    <p>Date de création : {{ taskList.date_of_create }}</p>
+    
+  </div>
+  
