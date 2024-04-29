@@ -25,9 +25,4 @@ this.TaskService.getAllTaskLists(3).subscribe(taskList => {
 })
 }
 
-navigateToTaskListDetails(taskListId: number): void {
-  // Naviguer vers la vue de détails de la liste de tâches avec l'ID de la liste de tâches
-  this.router.navigate(['/task-list', taskListId]);
-}
-
 }
