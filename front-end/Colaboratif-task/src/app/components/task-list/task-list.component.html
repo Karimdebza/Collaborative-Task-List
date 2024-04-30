@@ -1,6 +1,9 @@
-<div *ngFor="let taskList of taskList">
-    <h2>{{ taskList.title }}</h2>
-    <p>Date de création : {{ taskList.date_of_create }}</p>
-    
+<div *ngFor="let taskList of taskList" (click)="navigateToTaskListDetails(taskList.id_task_list)" class="card" style="width: 18rem;">
+  <div class="card-body ">
+  <a href=""> 
+  <h5 class="card-title">{{ taskList.title }}</h5>
+  </a>
+    <p class="card-subtitle mb-2 text-body-secondary">Date de création : {{ taskList.date_of_create }}</p>
+  </div>
   </div>
   
