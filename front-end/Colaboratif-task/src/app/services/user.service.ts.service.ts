@@ -10,20 +10,20 @@ export class UserServiceTsService {
   constructor(private http: HttpClient) { }
 
   getUserById(userId:number) : Observable<UserInterfaceTs>{
-    return this.http.get<UserInterfaceTs>(`http://127.0.0.1:3400/user/${userId}`)
+    return this.http.get<UserInterfaceTs>(`http://localhost:3400/user/${userId}`)
   }
   createUser(userData:UserInterfaceTs) : Observable<UserInterfaceTs> {
-    return this.http.post<UserInterfaceTs>(`http://127.0.0.1:3400/user/create`, userData);
+    return this.http.post<UserInterfaceTs>(`http://localhost:3400/user/create`, userData);
   }
   getAllUsers(): Observable<UserInterfaceTs[]> {
-    return this.http.get<UserInterfaceTs[]>('http://127.0.0.1:3400/user/all');
+    return this.http.get<UserInterfaceTs[]>('http://localhost:3400/user/all');
   }
 
   updateUser(userId: number, updatedUserData: any): Observable<UserInterfaceTs> {
-    return this.http.put<UserInterfaceTs>(`http://127.0.0.1:3400/user/Update/${userId}`, updatedUserData);
+    return this.http.put<UserInterfaceTs>(`http://localhost:3400/user/Update/${userId}`, updatedUserData);
   }
 
   deleteUser(userId: number): Observable<void> {
-    return this.http.delete<void>(`http://127.0.0.1:3400/user/delete/${userId}`);
+    return this.http.delete<void>(`http://localhost:3400/user/delete/${userId}`);
   }
 }
