@@ -10,21 +10,21 @@ export class TaskServiceTsService {
   constructor(private http:HttpClient) { }
 
   createTask(taskData:TaskInterfaceTs, userId:number): Observable<TaskInterfaceTs>{
-    return this.http.post<TaskInterfaceTs>(`http://127.0.0.1:3400/task/create/${userId}`,taskData);
+    return this.http.post<TaskInterfaceTs>(`http://localhost:3400/task/create/${userId}`,taskData);
   }
   getAllTasks(userId: number): Observable<TaskInterfaceTs[]> {
-    return this.http.get<TaskInterfaceTs[]>(`http://127.0.0.1:3400/task/all/${userId}`);
+    return this.http.get<TaskInterfaceTs[]>(`http://localhost:3400/task/all/${userId}`);
   }
 
   getTaskById(taskId: number): Observable<TaskInterfaceTs> {
-    return this.http.get<TaskInterfaceTs>(`http://127.0.0.1:3400/task/${taskId}`);
+    return this.http.get<TaskInterfaceTs>(`http://localhost:3400/task/${taskId}`);
   }
 
   updateTask(taskId: number, updatedTaskData: TaskInterfaceTs): Observable<TaskInterfaceTs> {
-    return this.http.put<TaskInterfaceTs>(`http://127.0.0.1:3400/task/update/${taskId}`, updatedTaskData);
+    return this.http.put<TaskInterfaceTs>(`http://localhost:3400/task/update/${taskId}`, updatedTaskData);
   }
 
   deleteTask(taskId: number): Observable<void> {
-    return this.http.delete<void>(`http://127.0.0.1:3400/task/delete/${taskId}`);
+    return this.http.delete<void>(`http://localhost:3400/task/delete/${taskId}`);
   }
 }
