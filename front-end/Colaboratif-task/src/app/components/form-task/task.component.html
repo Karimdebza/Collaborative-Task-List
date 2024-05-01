@@ -1,15 +1,30 @@
-<form [formGroup]="taskForm" (ngSubmit)="createTask()">
-    <label>Nom de la tâche:</label>
-    <input type="text" formControlName="name">
-  
-    <label>Description:</label>
-    <textarea formControlName="description"></textarea>
-  
-    <label>Date de création:</label>
-    <input type="date" formControlName="date_of_create">
+<form [formGroup]="taskForm"  (ngSubmit)="createTask()">
+    <div class="grid gap-3">
+        <div class="form-group p-2 g-col-6">
+            <label>Nom de la tâche:</label>
+            <input type="text" class="form-control"  formControlName="name">
+        </div>
 
-    <label>Date de expiration:</label>
-    <input type="date" formControlName="date_of_expiry">
-  
-    <button type="submit" [disabled]="taskForm.invalid">Créer la tâche</button>
+        <div class="form-group p-2 g-col-6">
+            <label>Description:</label>
+            <textarea class="form-control"  formControlName="description"></textarea>
+        </div>
+    </div>
+ 
+    <div class="form-group  p-2 g-col-6">
+        <label>Date de création:</label>
+        <input class="form-control"  type="date" formControlName="date_of_create">
+    </div>
+
+    <div class="form-group  p-2 g-col-6">
+        <label>Date de expiration:</label>
+        <input class="form-control"   type="date" formControlName="date_of_expiry">
+    </div>
+
+    <div  class="form-group  p-2 g-col-6">
+        <label>liste des taches</label>
+        <input class="form-control"  type="number" formControlName="id_task_list">
+    </div>
+    
+    <button type="submit" class="btn btn-primary mb-2" [disabled]="taskForm.invalid">Créer la tâche</button>
   </form>

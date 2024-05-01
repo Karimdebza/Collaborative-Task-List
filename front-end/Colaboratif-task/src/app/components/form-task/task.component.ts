@@ -17,7 +17,8 @@ ngOnInit(): void {
     name: ['', Validators.required],
     description: ['', Validators.required],
     date_of_create: [new Date(), Validators.required],
-    date_of_expiry: [new Date(), Validators.required]
+    date_of_expiry: [new Date(), Validators.required],
+    id_task_list: [ , Validators.required]
   })
 }
 
