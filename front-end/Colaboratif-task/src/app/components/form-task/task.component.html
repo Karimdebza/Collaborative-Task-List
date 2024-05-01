@@ -1,0 +1,15 @@
+<form [formGroup]="taskForm" (ngSubmit)="createTask()">
+    <label>Nom de la tâche:</label>
+    <input type="text" formControlName="name">
+  
+    <label>Description:</label>
+    <textarea formControlName="description"></textarea>
+  
+    <label>Date de création:</label>
+    <input type="date" formControlName="date_of_create">
+
+    <label>Date de expiration:</label>
+    <input type="date" formControlName="date_of_expiry">
+  
+    <button type="submit" [disabled]="taskForm.invalid">Créer la tâche</button>
+  </form>
