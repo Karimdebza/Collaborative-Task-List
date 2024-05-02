@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { TaskListInterfaceTs } from 'src/app/interface/task-list.interface.ts';
 import { TaskListServiceTsService } from 'src/app/services/task-list.service.ts.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
@@ -11,12 +11,13 @@ export class TaskListComponent implements OnInit {
 userId!:number;
 taskList:TaskListInterfaceTs[] = [];
 constructor(private TaskService:TaskListServiceTsService,
-  private router: Router
+ 
 ){
 }
 
 ngOnInit(): void {
-  this.displayAllTask()
+  this.displayAllTask();
+ 
 }
 
 displayAllTask(): void {
