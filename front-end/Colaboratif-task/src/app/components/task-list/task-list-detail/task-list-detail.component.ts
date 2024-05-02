@@ -4,9 +4,11 @@ import { TaskListServiceTsService } from 'src/app/services/task-list.service.ts.
 import { ActivatedRoute } from '@angular/router';
 import { TaskInterfaceTs } from 'src/app/interface/task.interface.ts';
 import { TaskServiceTsService } from 'src/app/services/task.service.ts.service';
-import { elementAt } from 'rxjs';
+import { NgIf,NgFor } from "@angular/common";
 @Component({
   selector: 'app-task-list-detail',
+  standalone: true,
+  imports:[NgIf,NgFor],
   templateUrl: './task-list-detail.component.html',
   styleUrls: ['./task-list-detail.component.css']
 })

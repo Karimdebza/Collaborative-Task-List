@@ -10,20 +10,33 @@ import { ActivatedRoute } from '@angular/router';
 export class TaskListComponent implements OnInit {
 userId!:number;
 taskList:TaskListInterfaceTs[] = [];
-constructor(private TaskService:TaskListServiceTsService,
+constructor(private TaskService:TaskListServiceTsService, private route:ActivatedRoute
  
 ){
 }
 
 ngOnInit(): void {
-  this.displayAllTask();
+  // this.route.paramMap.subscribe(params => {
+  //   const idParam = params.get('id');
+  //   if(idParam !== null) {
+  //     this.userId = +idParam
+      this.displayAllTask();
+    // }else{
+    //   console.log("aucune tache et trouver");
+      
+    // }
+  // })
+  
  
 }
 
 displayAllTask(): void {
-this.TaskService.getAllTaskLists(3).subscribe(taskList => {
-  this.taskList = taskList;
-})
+  // const id = this.route.snapshot.paramMap.get('id'); 
+  // if (id) {
+    this.TaskService.getAllTaskLists(3).subscribe(taskList => {
+      this.taskList = taskList; 
+     });
+  // }
+}
 }
 
-}
