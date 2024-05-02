@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { TaskListInterfaceTs } from 'src/app/interface/task-list.interface.ts';
 import { TaskListServiceTsService } from 'src/app/services/task-list.service.ts.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
@@ -10,24 +10,33 @@ import { Router } from '@angular/router';
 export class TaskListComponent implements OnInit {
 userId!:number;
 taskList:TaskListInterfaceTs[] = [];
-constructor(private TaskService:TaskListServiceTsService,
-  private router: Router
+constructor(private TaskService:TaskListServiceTsService, private route:ActivatedRoute
+ 
 ){
 }
 
 ngOnInit(): void {
-  this.displayAllTask()
+  // this.route.paramMap.subscribe(params => {
+  //   const idParam = params.get('id');
+  //   if(idParam !== null) {
+  //     this.userId = +idParam
+      this.displayAllTask();
+    // }else{
+    //   console.log("aucune tache et trouver");
+      
+    // }
+  // })
+  
+ 
 }
 
 displayAllTask(): void {
-this.TaskService.getAllTaskLists(3).subscribe(taskList => {
-  this.taskList = taskList;
-})
+  // const id = this.route.snapshot.paramMap.get('id'); 
+  // if (id) {
+    this.TaskService.getAllTaskLists(3).subscribe(taskList => {
+      this.taskList = taskList; 
+     });
+  // }
+}
 }
 
-navigateToTaskListDetails(taskListId: number): void {
-  // Naviguer vers la vue de détails de la liste de tâches avec l'ID de la liste de tâches
-  this.router.navigate(['/task-list', taskListId]);
-}
-
-}

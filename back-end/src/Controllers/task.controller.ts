@@ -18,7 +18,7 @@ export async function createTask(req:Request, res:Response): Promise<void> {
     } 
     catch (error) {
         console.error("Erreur lors de la création de la tache  :", error);
-        res.status(500).json({ message: "Erreur du serveur lors de la création de la tache " });
+        res.status(500).json({ message: "Erreur du serveur lors de la création de la tache ",error });
     }
 }
 
