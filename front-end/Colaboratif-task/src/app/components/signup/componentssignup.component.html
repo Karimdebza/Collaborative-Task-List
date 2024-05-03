@@ -1,0 +1,15 @@
+<form [formGroup]="registrationForm" (ngSubmit)="createUser()">
+    <div>
+      <label for="name">Nom:</label>
+      <input type="text" id="name" formControlName="name" required>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" formControlName="email" required>
+    </div>
+    <div>
+      <label for="password">Mot de passe:</label>
+      <input type="password" id="password" formControlName="password" required>
+    </div>
+    <button type="submit">S'inscrire</button>
+  </form>
