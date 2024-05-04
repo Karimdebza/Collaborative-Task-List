@@ -5,10 +5,11 @@ import { TaskListDetailComponent } from './components/task-list/task-list-detail
 import { TaskComponent } from './components/form-task/task.component';
 import {ComponentssignupComponent}from './components/signup/componentssignup.component';
 const routes: Routes = [
+  {path: "", redirectTo:"/signup", pathMatch:"full"},
   {path:"signup", component:ComponentssignupComponent},
   {path:"task-list", component:TaskListComponent},
-  { path: 'task-list/:id', component: TaskListDetailComponent  },
-  { path: 'task', component: TaskComponent  }
+  { path: 'task-list/:id', component: TaskListDetailComponent},
+  { path: 'task', component: TaskComponent }
 ];
 
 @NgModule({
