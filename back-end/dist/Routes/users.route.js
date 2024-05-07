@@ -35,3 +35,4 @@ exports.userRouter.get("/all", userController.getAllUsers);
 exports.userRouter.get("/:id", userController.getUserById);
 exports.userRouter.put("/update/:id", userController.updateUser);
 exports.userRouter.delete("/delete/:id", userController.deleteUser);
+exports.userRouter.post('/auth', userController.signinUser);
