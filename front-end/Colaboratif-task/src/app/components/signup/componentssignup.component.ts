@@ -33,7 +33,7 @@ createUser(): void {
       next : data => {
         console.log('Iscription reussie :', data);
         // tomporerment la route task-list quand je cree la page home je fais l'update 
-        this.route.navigate(['/task-list']);
+        this.route.navigate(['/home']);
         
       },
       error : error => {
