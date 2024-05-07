@@ -3,9 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.updateUser = exports.getUserById = exports.getAllUsers = exports.createUser = void 0;
+exports.signinUser = exports.deleteUser = exports.updateUser = exports.getUserById = exports.getAllUsers = exports.createUser = void 0;
 const connexion_db_1 = __importDefault(require("../config/connexion-db"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 async function createUser(req, res) {
     try {
         const userData = req.body;
@@ -79,3 +80,35 @@ async function deleteUser(req, res) {
     }
 }
 exports.deleteUser = deleteUser;
+async function signinUser(req, res) {
+    try {
+        const { email, password } = req.body;
+        const [rows] = await connexion_db_1.default.execute("SELECT * FROM user WHERE email = ?", [email]);
+        const users = rows;
+        if (users.length === 0) {
+            res.status(401).json({ message: "Adresse e-mail incorrecte" });
+            return;
+        }
+        const user = users[0];
+        const passwordMatch = await bcrypt_1.default.compare(password, user.password);
+        if (!passwordMatch) {
+            res.status(401).json({ message: "Mot de passe incorrect" });
+            return;
+        }
+        const payload = { user_id: 123 };
+        let token;
+        if (process.env.JWT_SECRET_KEY) {
+            token = jsonwebtoken_1.default.sign(payload, process.env.JWT_SECRET_KEY);
+            console.log(token);
+        }
+        else {
+            console.error('La clé secrète JWT n\'est pas définie dans les variables d\'environnement.');
+        }
+        res.status(200).json({ message: "Authentification réussie", token });
+    }
+    catch (error) {
+        console.error("Erreur lors de l'authentification de l'utilisateur :", error);
+        res.status(500).json({ message: "Erreur lors de l'authentification de l'utilisateur" });
+    }
+}
+exports.signinUser = signinUser;

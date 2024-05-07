@@ -3,6 +3,7 @@ import pool from "../config/connexion-db";
 import { User } from "../models/users.model";
 import bcrypt from "bcrypt"
 import { QueryResult, FieldPacket } from "mysql2/promise";
+import jwt from "jsonwebtoken";
 
 export async function createUser(req:Request, res:Response): Promise<void> {
     try {
@@ -70,5 +71,35 @@ export async function deleteUser(req:Request, res:Response): Promise<void> {
         } catch (error) {
         console.error("Erreur lors de la mise à jour de l'utilisateur :", error);
         res.status(500).json({ message: "Erreur du serveur  lors de la mise à jour de l'utilisateur" });
+        }
+    }
+
+    export async function signinUser(req:Request, res:Response): Promise<void> {
+        try {
+          const {email, password} = req.body;
+          const  [rows] : [QueryResult, FieldPacket[]]  = await pool.execute("SELECT * FROM user WHERE email = ?", [email]);
+          const users : User[] = rows as User[];
+            if(users.length === 0) {
+                res.status(401).json({ message: "Adresse e-mail incorrecte" });
+            return;
+            }
+            const user = users[0];
+            const passwordMatch = await bcrypt.compare(password, user.password);
+            if(!passwordMatch) {
+                res.status(401).json({ message: "Mot de passe incorrect" });
+            return;
+            }
+            const payload = { user_id: 123 };
+            let token: string | undefined;
+            if (process.env.JWT_SECRET_KEY) {
+                 token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
+                console.log(token);
+            } else {
+                console.error('La clé secrète JWT n\'est pas définie dans les variables d\'environnement.');
+            }
+            res.status(200).json({ message: "Authentification réussie", token });
+        } catch (error) {
+            console.error("Erreur lors de l'authentification de l'utilisateur :", error);
+            res.status(500).json({ message: "Erreur lors de l'authentification de l'utilisateur" });
         }
     }

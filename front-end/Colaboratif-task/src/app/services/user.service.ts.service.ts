@@ -19,11 +19,15 @@ export class UserServiceTsService {
     return this.http.get<UserInterfaceTs[]>('http://localhost:3400/user/all');
   }
 
-  updateUser(userId: number, updatedUserData: any): Observable<UserInterfaceTs> {
+  updateUser(userId: number, updatedUserData: UserInterfaceTs): Observable<UserInterfaceTs> {
     return this.http.put<UserInterfaceTs>(`http://localhost:3400/user/Update/${userId}`, updatedUserData);
   }
 
   deleteUser(userId: number): Observable<void> {
     return this.http.delete<void>(`http://localhost:3400/user/delete/${userId}`);
   }
+
+  signinUser(credentials:UserInterfaceTs): Observable<UserInterfaceTs> {
+    return this.http.post<UserInterfaceTs>(`http://localhost:3400/user/auth`, credentials);
+}
 }

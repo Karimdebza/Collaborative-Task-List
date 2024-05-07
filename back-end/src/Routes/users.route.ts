@@ -8,3 +8,4 @@ userRouter.get("/all", userController.getAllUsers);
 userRouter.get("/:id", userController.getUserById);
 userRouter.put("/update/:id", userController.updateUser);
 userRouter.delete("/delete/:id", userController.deleteUser);
+userRouter.post('/auth', userController.signinUser)
