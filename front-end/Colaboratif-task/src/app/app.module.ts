@@ -8,6 +8,7 @@ import { TaskComponent } from './components/form-task/task.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentssignupComponent } from './components/signup/componentssignup.component';
 import { SigninComponent } from './components/signin/signin.component';
+import { HomeComponent } from './components/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,6 +16,7 @@ import { SigninComponent } from './components/signin/signin.component';
     TaskComponent,
     ComponentssignupComponent,
     SigninComponent,
+    HomeComponent,
     
   ],
   imports: [
