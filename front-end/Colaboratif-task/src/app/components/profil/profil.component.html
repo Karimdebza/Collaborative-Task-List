@@ -1,20 +1,16 @@
-<form [formGroup]="profilForm" (ngSubmit)="getUserData()">
-    <div>
-        <label for="name">Nom:</label>
-        <input type="text" id="name" formControlName="name">
-        <!-- Affichage des erreurs de validation -->
-        <div *ngIf="profilForm.get('name')?.invalid && (profilForm.get('name')?.dirty || profilForm.get('name')?.touched)">
-          <div *ngIf="profilForm.get('name')?.errors?.['required']">Le nom est requis</div>
-        </div>
-      </div>
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" formControlName="email">
-        <!-- Affichage des erreurs de validation -->
-        <div *ngIf="profilForm.get('email')?.invalid && (profilForm.get('email')?.dirty || profilForm.get('email')?.touched)">
-          <div *ngIf="profilForm.get('email')?.errors?.['required']">L'email est requis</div>
-          <div *ngIf="profilForm.get('email')?.errors?.['email']">L'email n'est pas valide</div>
-        </div>
-      </div>
-      <button type="submit" [disabled]="profilForm.invalid">Enregistrer</button>
-    </form>
+<form [formGroup]="profilForm"  (ngSubmit)="updateUserData()" class="card shadow-none p-3 mb-5 bg-body-tertiary rounded " 
+style="width: 55em; margin-left: auto; margin-right: auto; margin-top: 5em;">
+<div class="form-group row">
+    <label for="name" class="col-sm-2 col-form-label">Nom:</label>
+    <input type="text" id="name" class="form-control mb-3" formControlName="name">
+  </div>
+  <div class="form-group row">
+    <label for="email" class="col-sm-2 col-form-label">Email:</label>
+    <input type="email" id="email" class="form-control mb-3" formControlName="email">
+  </div>
+  <div class="form-group row">
+    <label for="password" class="col-sm-2 col-form-label">Mot de passe:</label>
+    <input type="password" class="form-control mb-3" id="password" formControlName="password">
+  </div>
+  <button type="submit" class="btn btn-primary mb-2" >Enregistrer</button>
+</form>

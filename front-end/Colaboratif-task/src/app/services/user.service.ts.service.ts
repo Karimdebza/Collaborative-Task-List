@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { UserInterfaceTs } from '../interface/user.interface.ts';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +29,10 @@ export class UserServiceTsService {
   }
 
   signinUser(credentials:UserInterfaceTs): Observable<UserInterfaceTs> {
-    return this.http.post<UserInterfaceTs>(`http://localhost:3400/user/auth`, credentials);
+    return this.http.post<UserInterfaceTs>(`http://localhost:3400/user/auth`, credentials).pipe(
+      tap(response => {
+        localStorage.setItem('id_user', response.id_user.toString());
+      })
+    )
 }
 }

@@ -9,36 +9,64 @@ import { UserServiceTsService } from 'src/app/services/user.service.ts.service';
 export class ProfilComponent implements OnInit {
 
   profilForm!:FormGroup;
-  userId!:number;
+  userId:number |null = null ;
 
 
   constructor(private userSevice:UserServiceTsService, private formBuilder:FormBuilder){}
 
 ngOnInit(): void {
-  
+  const userIdString = localStorage.getItem('id_user');
+  console.log('ID de l\'utilisateur :', userIdString); // Vérifier la valeur de l'ID dans la console
+  this.userId = userIdString ? Number(userIdString) : null;
 this.profilForm = this.formBuilder.group({
-  name:['', Validators.required],
+    name:['', Validators.required],
     email:['', [Validators.required, Validators.email]],
+    password:['', [Validators.required, Validators.required]],
 })
 
-
+this.getUserData();
 }
 
 
 getUserData() {
-  this.userSevice.getUserById(4).subscribe({
+  if (typeof this.userId === 'number') { //
+  this.userSevice.getUserById(this.userId).subscribe({
     next : data => {
       console.log("recuperation des données reussi", data);
       this.profilForm.patchValue({
         name: data.name,
-        email: data.email
+        email: data.email,
+        password: data.password
       });
     },
     error: error =>  {
       console.error("erreur lors de la recuperation des données ", error)
     }
   })
+}else {
+  console.error("L'ID de l'utilisateur est null.");
 }
 
+}
+
+updateUserData() {
+ 
+  if (this.profilForm.valid) {
+    const formData = this.profilForm.value;
+
+    if (typeof this.userId === 'number') { // Vérifier si userId est un nombre
+      this.userSevice.updateUser(this.userId, formData).subscribe({
+        next: data => {
+          console.log("Mise à jour des données réussie :", data);
+        },
+        error: error => {
+          console.error("Erreur lors de la mise à jour des données :", error);
+        }
+      });
+    } else {
+      console.error("L'ID de l'utilisateur est null.");
+    }
+  }
+}
 
 }
