@@ -95,7 +95,8 @@ async function signinUser(req, res) {
             res.status(401).json({ message: "Mot de passe incorrect" });
             return;
         }
-        const payload = { user_id: 123 };
+        const userId = user.id_user;
+        const payload = { user_id: userId };
         let token;
         if (process.env.JWT_SECRET_KEY) {
             token = jsonwebtoken_1.default.sign(payload, process.env.JWT_SECRET_KEY);

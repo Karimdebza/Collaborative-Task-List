@@ -89,7 +89,8 @@ export async function deleteUser(req:Request, res:Response): Promise<void> {
                 res.status(401).json({ message: "Mot de passe incorrect" });
             return;
             }
-            const payload = { user_id: 123 };
+            const userId = user.id_user;
+            const payload = { user_id:userId };
             let token: string | undefined;
             if (process.env.JWT_SECRET_KEY) {
                  token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
