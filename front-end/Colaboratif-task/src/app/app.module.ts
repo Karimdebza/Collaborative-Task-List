@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentssignupComponent } from './components/signup/componentssignup.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { HomeComponent } from './components/home/home.component';
+import { ProfilComponent } from './components/profil/profil.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,6 +18,7 @@ import { HomeComponent } from './components/home/home.component';
     ComponentssignupComponent,
     SigninComponent,
     HomeComponent,
+    ProfilComponent,
     
   ],
   imports: [
