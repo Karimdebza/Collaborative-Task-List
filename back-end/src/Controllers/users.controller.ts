@@ -4,6 +4,7 @@ import { User } from "../models/users.model";
 import bcrypt from "bcrypt"
 import { QueryResult, FieldPacket } from "mysql2/promise";
 import jwt from "jsonwebtoken";
+import { createSecretKey } from "crypto";
 
 export async function createUser(req:Request, res:Response): Promise<void> {
     try {
@@ -102,5 +103,14 @@ export async function deleteUser(req:Request, res:Response): Promise<void> {
         } catch (error) {
             console.error("Erreur lors de l'authentification de l'utilisateur :", error);
             res.status(500).json({ message: "Erreur lors de l'authentification de l'utilisateur" });
+        }
+    }
+
+    export function signoutUser(req: Request, res: Response): void {
+        try{
+        res.clearCookie('jwt'); // Si vous utilisez des cookies pour stocker le token JWT
+        res.status(200).json({ message: "Déconnexion réussie" });
+        }catch(error){
+            res.status(500).json({message : error})
         }
     }

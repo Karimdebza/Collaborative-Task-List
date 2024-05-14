@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signinUser = exports.deleteUser = exports.updateUser = exports.getUserById = exports.getAllUsers = exports.createUser = void 0;
+exports.signoutUser = exports.signinUser = exports.deleteUser = exports.updateUser = exports.getUserById = exports.getAllUsers = exports.createUser = void 0;
 const connexion_db_1 = __importDefault(require("../config/connexion-db"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -113,3 +113,13 @@ async function signinUser(req, res) {
     }
 }
 exports.signinUser = signinUser;
+function signoutUser(req, res) {
+    try {
+        res.clearCookie('jwt'); // Si vous utilisez des cookies pour stocker le token JWT
+        res.status(200).json({ message: "Déconnexion réussie" });
+    }
+    catch (error) {
+        res.status(500).json({ message: error });
+    }
+}
+exports.signoutUser = signoutUser;

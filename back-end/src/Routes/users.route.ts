@@ -9,3 +9,4 @@ userRouter.get("/:id", userController.getUserById);
 userRouter.put("/update/:id", userController.updateUser);
 userRouter.delete("/delete/:id", userController.deleteUser);
 userRouter.post('/auth', userController.signinUser)
+userRouter.post('/logout', userController.signoutUser)
