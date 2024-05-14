@@ -37,6 +37,8 @@ export class UserServiceTsService {
           if (parts.length === 3) {
             const payload = JSON.parse(atob(parts[1])); // Décoder la charge utile du token JWT
             const userId = payload.user_id; // Extraire l'ID de l'utilisateur de la charge utile
+            console.log(userId);
+            
             localStorage.setItem('id_user', userId.toString());
           } else {
             console.error("Le token JWT n'est pas au format attendu :", token);
