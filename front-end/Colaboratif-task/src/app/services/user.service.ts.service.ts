@@ -31,7 +31,20 @@ export class UserServiceTsService {
   signinUser(credentials:UserInterfaceTs): Observable<UserInterfaceTs> {
     return this.http.post<UserInterfaceTs>(`http://localhost:3400/user/auth`, credentials).pipe(
       tap(response => {
-        localStorage.setItem('id_user', response.id_user.toString());
+        const token = response.token;
+        if (token) {
+          const parts = token.split('.'); // Diviser le token JWT en ses parties
+          if (parts.length === 3) {
+            const payload = JSON.parse(atob(parts[1])); // Décoder la charge utile du token JWT
+            const userId = payload.user_id; // Extraire l'ID de l'utilisateur de la charge utile
+            localStorage.setItem('id_user', userId.toString());
+          } else {
+            console.error("Le token JWT n'est pas au format attendu :", token);
+          }
+        } else {
+          console.error("Le token JWT est manquant dans la réponse :", response);
+        }
+
       })
     )
 }
