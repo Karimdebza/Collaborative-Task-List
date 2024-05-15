@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserServiceTsService } from 'src/app/services/user.service.ts.service';
 @Component({
   selector: 'app-profil',
@@ -12,7 +13,7 @@ export class ProfilComponent implements OnInit {
   userId:number |null = null ;
 
 
-  constructor(private userSevice:UserServiceTsService, private formBuilder:FormBuilder){}
+  constructor(private userSevice:UserServiceTsService, private formBuilder:FormBuilder, private route : Router){}
 
 ngOnInit(): void {
   const userIdString = localStorage.getItem('id_user');
@@ -67,6 +68,20 @@ updateUserData() {
       console.error("L'ID de l'utilisateur est null.");
     }
   }
+}
+
+
+logout(): void {
+  this.userSevice.logout().subscribe({
+    next: () =>{
+     console.log('deconextion reussie');
+     this.route.navigate(['/signin']);
+    },
+    error: error => {
+      // Gérez les erreurs de déconnexion
+      console.error('Erreur lors de la déconnexion', error);
+    }
+  })
 }
 
 }

@@ -50,4 +50,9 @@ export class UserServiceTsService {
       })
     )
 }
+
+
+logout(): Observable<UserInterfaceTs> {
+  return this.http.post<UserInterfaceTs>('http://localhost:3400/user/logout', {});
+}
 }

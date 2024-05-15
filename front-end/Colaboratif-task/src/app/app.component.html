@@ -1,5 +1,5 @@
  <header>
-    <nav class="navbar  " style="background-color: #e3f2fd;">
+    <nav *ngIf="showNavigation" class="navbar  " style="background-color: #e3f2fd;">
       <a class="navbar-brand " href="home">
         <img src="../assets/R.png" alt="logo" width="40" height="40">
       </a>  
@@ -21,7 +21,7 @@
 
 <router-outlet></router-outlet>
 
-<footer class="bg-body-tertiary text-center text-lg-start " style="padding-top:  11em ;">
+<footer *ngIf="showNavigation" class="bg-body-tertiary text-center text-lg-start " style="padding-top:  11em ;">
   <!-- Copyright -->
   <div class="text-center p-3" style="background-color: #e3f2fd;">
     © 2020 Copyright:
