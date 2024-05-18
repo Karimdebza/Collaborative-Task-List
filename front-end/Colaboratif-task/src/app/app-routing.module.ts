@@ -7,6 +7,7 @@ import {ComponentssignupComponent}from './components/signup/componentssignup.com
 import { SigninComponent } from './components/signin/signin.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfilComponent } from './components/profil/profil.component';
+import { FormListComponent } from './components/task-list/form-list/form-list.component';
 const routes: Routes = [
   {path: "", redirectTo:"/signin", pathMatch:"full"},
   {path:"signup", component:ComponentssignupComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path:"task-list", component:TaskListComponent},
   { path: 'task-list/:id', component: TaskListDetailComponent},
   { path: 'task', component: TaskComponent },
-  { path: 'profil', component: ProfilComponent }
+  { path: 'profil', component: ProfilComponent },
+  { path: 'form-list', component: FormListComponent}
 ];
 
 @NgModule({

@@ -10,6 +10,7 @@ import { ComponentssignupComponent } from './components/signup/componentssignup.
 import { SigninComponent } from './components/signin/signin.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfilComponent } from './components/profil/profil.component';
+import { FormListComponent } from './components/task-list/form-list/form-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +20,7 @@ import { ProfilComponent } from './components/profil/profil.component';
     SigninComponent,
     HomeComponent,
     ProfilComponent,
+    FormListComponent,
     
   ],
   imports: [
