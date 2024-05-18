@@ -25,7 +25,7 @@ export async function createTaskList(req:Request, res:Response): Promise<void> {
 export async function getAllTaskLists(req:Request, res:Response): Promise<void> {
    const  userId = req.params.id;
     try{
-        const [rows] = await pool.execute("SELECT * FROM TaskLists WHERE id_user = ?", [userId]);
+        const [rows] = await pool.execute("SELECT * FROM TaskLists ");
         res.status(200).json(rows);
     } catch (error) {
         console.error("Erreur lors de la récupération des listes de  taches :", error);
