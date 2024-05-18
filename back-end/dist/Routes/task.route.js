@@ -30,7 +30,7 @@ exports.taskRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const taskController = __importStar(require("../Controllers/task.controller"));
 exports.taskRouter = express_1.default.Router();
-exports.taskRouter.post("/create/:id", taskController.createTask);
+exports.taskRouter.post("/create", taskController.createTask);
 exports.taskRouter.get("/all/:id", taskController.getAllTasks);
 exports.taskRouter.get("/:id", taskController.getTaskById);
 exports.taskRouter.put("/update/:id", taskController.updateTask);

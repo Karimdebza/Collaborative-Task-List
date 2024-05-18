@@ -3,7 +3,7 @@ import * as taskController from "../Controllers/task.controller";
 
 export const taskRouter = express.Router();
 
-taskRouter.post("/create/:id", taskController.createTask);
+taskRouter.post("/create", taskController.createTask);
 taskRouter.get("/all/:id", taskController.getAllTasks);
 taskRouter.get("/:id", taskController.getTaskById);
 taskRouter.put("/update/:id", taskController.updateTask);
