@@ -9,8 +9,8 @@ export class TaskListServiceTsService {
 
   constructor(private http:HttpClient) { }
 
-  getAllTaskLists(userId: number): Observable<TaskListInterfaceTs[]> {
-    return this.http.get<TaskListInterfaceTs[]>(`http://localhost:3400/task-list/all/${userId}`);
+  getAllTaskLists(): Observable<TaskListInterfaceTs[]> {
+    return this.http.get<TaskListInterfaceTs[]>(`http://localhost:3400/task-list/all`);
   }
 
   getTaskListById(taskListId: number): Observable<TaskListInterfaceTs> {
