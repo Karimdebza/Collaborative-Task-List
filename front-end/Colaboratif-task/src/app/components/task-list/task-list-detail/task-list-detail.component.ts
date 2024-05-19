@@ -51,5 +51,17 @@ export class TaskListDetailComponent implements OnInit {
       });
     }
   }
+
+  deleteTask(): void{
+    this.taskService.deleteTask(33).subscribe({
+      next : data => {
+        console.log("supression reussie", data);
+        
+      },
+      error : error => {
+        console.error("error de la supression de la tache", error);
+      }
+    })
+  }
   
 }
