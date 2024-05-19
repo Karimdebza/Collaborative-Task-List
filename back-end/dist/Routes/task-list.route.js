@@ -30,7 +30,7 @@ exports.taskListRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const taskListController = __importStar(require("../Controllers/task-list.controller"));
 exports.taskListRouter = express_1.default.Router();
-exports.taskListRouter.post("/create", taskListController.createTaskList);
+exports.taskListRouter.post("/create/:id", taskListController.createTaskList);
 exports.taskListRouter.get("/all", taskListController.getAllTaskLists);
 exports.taskListRouter.get("/:id", taskListController.getTaskListById);
 exports.taskListRouter.put("/update/:id", taskListController.updateTaskList);
