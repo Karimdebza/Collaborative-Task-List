@@ -1,8 +1,8 @@
-<div class="row">
-<div *ngFor="let taskList of taskList" class="card mb-3 mt-3   d-flex shadow-lg bg-body-tertiary rounded">
-  <h2 >{{ taskList.title }}</h2>
+<div class="row mx-auto ">
+<div *ngFor="let taskList of taskList" class="card  mb-5 mt-3    d-flex shadow-lg bg-body-tertiary rounded">
+  <h3 >{{ taskList.title }}</h3>
     <p>Date de création : {{ taskList.date_of_create }}</p>
-   <button class="btn btn-primary" [routerLink]="['/task-list', taskList.id_task_list]">Voir les détails </button>
+   <button class="btn btn-primary  " [routerLink]="['/task-list', taskList.id_task_list]">Voir les détails </button>
   </div>
 </div>
 <button class="btn btn-primary "><a href="form-list" class="link-light">creation de liste</a></button>
