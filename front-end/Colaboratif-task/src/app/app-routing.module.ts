@@ -17,7 +17,8 @@ const routes: Routes = [
   { path: 'task-list/:id', component: TaskListDetailComponent},
   { path: 'task', component: TaskComponent },
   { path: 'profil', component: ProfilComponent },
-  { path: 'form-list', component: FormListComponent}
+  { path: 'form-list', component: FormListComponent},
+  { path: 'task/edit/:id', component: TaskComponent },
 ];
 
 @NgModule({

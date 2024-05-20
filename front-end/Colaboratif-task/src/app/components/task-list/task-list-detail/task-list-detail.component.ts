@@ -16,6 +16,7 @@ export class TaskListDetailComponent implements OnInit {
   taskList!:TaskListInterfaceTs;
   taskListId!:number;
   tasks!: TaskInterfaceTs[];
+  taskId!:number;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +35,10 @@ export class TaskListDetailComponent implements OnInit {
         console.log("aucune tache et trouver");
         
       }
-    })
+    });
+    
+    
+    
   }
 
   loadTask(): void {
@@ -47,15 +51,19 @@ export class TaskListDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id'); 
     if (id) {
       this.taskListService.getTaskListById(+id).subscribe(taskList => {
+
         this.taskList = taskList; 
       });
+    }else{
+      console.log("id null")
     }
   }
 
-  deleteTask(): void{
-    this.taskService.deleteTask(33).subscribe({
+  deleteTask(taskId:number): void{
+    this.taskService.deleteTask(taskId).subscribe({
       next : data => {
         console.log("supression reussie", data);
+        this.loadTask();
         
       },
       error : error => {
