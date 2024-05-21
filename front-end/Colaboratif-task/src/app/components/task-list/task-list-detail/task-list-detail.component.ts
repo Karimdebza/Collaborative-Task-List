@@ -5,10 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { TaskInterfaceTs } from 'src/app/interface/task.interface.ts';
 import { TaskServiceTsService } from 'src/app/services/task.service.ts.service';
 import { NgIf,NgFor } from "@angular/common";
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-task-list-detail',
   standalone: true,
-  imports:[NgIf,NgFor],
+  imports:[NgIf,NgFor,RouterLink],
   templateUrl: './task-list-detail.component.html',
   styleUrls: ['./task-list-detail.component.css']
 })

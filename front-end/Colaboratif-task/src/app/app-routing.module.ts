@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'profil', component: ProfilComponent },
   { path: 'form-list', component: FormListComponent},
   { path: 'task/edit/:id', component: TaskComponent },
+  { path: '', redirectTo: '/task', pathMatch: 'full' }
 ];
 
 @NgModule({

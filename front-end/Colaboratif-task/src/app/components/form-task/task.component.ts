@@ -36,9 +36,10 @@ ngOnInit(): void {
 
 formTask():void {
   if (typeof this.userId === 'number') {
+    if (this.taskId !== null) {
   if(this.taskForm.valid){
     if(this.userId){
-    this.ServiceTask.updateTask(this.userId,this.taskForm.value).subscribe({
+    this.ServiceTask.updateTask(this.taskId,this.taskForm.value).subscribe({
       next :data => {
         console.log("create new task",data);
 
@@ -48,6 +49,7 @@ formTask():void {
         console.error("error:",error)
       }
     });
+  
   }else{
     this.ServiceTask.createTask(this.taskForm.value,this.userId).subscribe(() => {
       console.log('Tâche créée avec succès');
@@ -59,5 +61,9 @@ formTask():void {
   "user id is null"
 }
 }
+
+
+}
+
 
 }

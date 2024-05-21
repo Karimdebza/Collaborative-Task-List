@@ -11,6 +11,8 @@ import { SigninComponent } from './components/signin/signin.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { FormListComponent } from './components/task-list/form-list/form-list.component';
+import { RouterModule } from '@angular/router';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +30,7 @@ import { FormListComponent } from './components/task-list/form-list/form-list.co
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    RouterModule
     
   ],
   providers: [],
