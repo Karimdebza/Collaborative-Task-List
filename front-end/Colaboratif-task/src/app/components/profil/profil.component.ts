@@ -59,6 +59,7 @@ updateUserData() {
       this.userSevice.updateUser(this.userId, formData).subscribe({
         next: data => {
           console.log("Mise à jour des données réussie :", data);
+          this.getUserData();
         },
         error: error => {
           console.error("Erreur lors de la mise à jour des données :", error);

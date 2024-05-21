@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TaskListServiceTsService } from 'src/app/services/task-list.service.ts.service';
 @Component({
   selector: 'app-form-list',
@@ -10,7 +11,7 @@ export class FormListComponent {
 listForm!:FormGroup;
 userId:number | null = null;
 
-constructor(private Form:FormBuilder, private ServiceTask:TaskListServiceTsService){}
+constructor(private Form:FormBuilder, private ServiceTask:TaskListServiceTsService, private router:Router){}
 
 
 ngOnInit(): void {

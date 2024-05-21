@@ -1,4 +1,4 @@
-<form [formGroup]="taskForm"  (ngSubmit)="createTask()">
+<form [formGroup]="taskForm"  (ngSubmit)="formTask()">
     <div class="grid gap-3">
         <div class="form-group p-2 g-col-6">
             <label>Nom de la tâche:</label>
@@ -26,5 +26,7 @@
         <input class="form-control"  type="number" formControlName="id_task_list">
     </div>
     
-    <button type="submit" class="btn btn-primary " [disabled]="taskForm.invalid">Créer la tâche</button>
+    <button type="submit" class="btn btn-primary " [disabled]="taskForm.invalid">
+        
+        Créer la tâche</button>
   </form>

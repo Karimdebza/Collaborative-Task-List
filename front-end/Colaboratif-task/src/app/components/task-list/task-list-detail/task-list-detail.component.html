@@ -7,8 +7,9 @@
           <p>{{ task.description }}</p>
           <p>{{ task.date_of_expiry }}</p>
           <p>Date de création : {{ task.date_of_create }}</p>
-          <button  class="btn btn-success">edit</button>
-          <button (click)="deleteTask()" class="btn btn-danger">delete</button>
+          <a [routerLink]="['/task/edit', task.id_task]" class="btn btn-success">Modifier</a>
+          <button (click)="deleteTask(task.id_task)" class="btn btn-danger">delete</button>
         </li>
       </ul>
+      <button class="btn btn-primary" > <a class="link-light" href="/task">create task</a></button>
 </div>
