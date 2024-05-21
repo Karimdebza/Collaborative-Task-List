@@ -1,12 +1,12 @@
 <div *ngIf="taskList">
     <h2>{{ taskList.title }}</h2>
-    <p>Date de création : {{ taskList.date_of_create }}</p>
+    <p>Date de création : {{ taskList.date_of_create  | date:'yyyy-MM-dd'}}</p>
     <ul>
         <li *ngFor="let task of tasks" class="card w-50 mb-3 shadow-lg bg-body-tertiary rounded">
           <h3>{{ task.name }}</h3>
           <p>{{ task.description }}</p>
-          <p>{{ task.date_of_expiry }}</p>
-          <p>Date de création : {{ task.date_of_create }}</p>
+          <p> date de expiration: {{ task.date_of_expiry | date:'yyyy-MM-dd'}}</p>
+          <p>Date de création: {{ task.date_of_create | date:'yyyy-MM-dd'}}</p>
           <a [routerLink]="['/task/edit', task.id_task]" class="btn btn-success">Modifier</a>
           <button (click)="deleteTask(task.id_task)" class="btn btn-danger">delete</button>
         </li>

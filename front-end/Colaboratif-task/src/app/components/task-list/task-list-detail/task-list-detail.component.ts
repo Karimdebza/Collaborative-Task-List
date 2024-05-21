@@ -6,10 +6,11 @@ import { TaskInterfaceTs } from 'src/app/interface/task.interface.ts';
 import { TaskServiceTsService } from 'src/app/services/task.service.ts.service';
 import { NgIf,NgFor } from "@angular/common";
 import { RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-task-list-detail',
   standalone: true,
-  imports:[NgIf,NgFor,RouterLink],
+  imports:[NgIf,NgFor,RouterLink,DatePipe],
   templateUrl: './task-list-detail.component.html',
   styleUrls: ['./task-list-detail.component.css']
 })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TaskServiceTsService } from 'src/app/services/task.service.ts.service';
-// import { TaskInterfaceTs } from 'src/app/interface/task.interface.ts';
+import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-task',
@@ -13,11 +13,11 @@ export class TaskComponent implements OnInit {
 taskForm!:FormGroup;
 taskId: number | null = null;
 userId: number | null = null;
-constructor(private Form:FormBuilder, private ServiceTask:TaskServiceTsService, private router:Router, private route: ActivatedRoute){}
+constructor(private Form:FormBuilder, private ServiceTask:TaskServiceTsService, private router:Router, private route: ActivatedRoute, private datePipe: DatePipe){}
 
 ngOnInit(): void {
   const userIdString = localStorage.getItem('id_user');
-  console.log('ID de l\'utilisateur :', userIdString); // Vérifier la valeur de l'ID dans la console
+  console.log('ID de l\'utilisateur :', userIdString); 
   this.userId = userIdString ? Number(userIdString) : null;
   this.taskForm = this.Form.group({
     name: ['', Validators.required],
@@ -29,7 +29,16 @@ ngOnInit(): void {
   this.taskId = this.route.snapshot.paramMap.get('id') ? Number(this.route.snapshot.paramMap.get('id')) : null;
   if (this.taskId) {
     this.ServiceTask.getTaskById(this.taskId).subscribe(task => {
-      this.taskForm.patchValue(task);
+      const formattedDateCreate = this.datePipe.transform(task.date_of_create, 'yyyy-MM-dd');
+      const formattedDateExpiry = this.datePipe.transform(task.date_of_expiry, 'yyyy-MM-dd');
+      this.taskForm.patchValue({
+        name:task.name,
+        description:task.description,
+        date_of_create:formattedDateCreate,
+        date_of_expiry:formattedDateExpiry,
+        id_task_list: task.id_task_list
+
+      });
     });
   }
 }
