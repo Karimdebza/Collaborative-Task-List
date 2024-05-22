@@ -3,12 +3,13 @@ import { HttpClient } from "@angular/common/http";
 import { UserInterfaceTs } from '../interface/user.interface.ts';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class UserServiceTsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router:Router) { }
 
   getUserById(userId:number) : Observable<UserInterfaceTs>{
     return this.http.get<UserInterfaceTs>(`http://localhost:3400/user/${userId}`)
@@ -40,6 +41,7 @@ export class UserServiceTsService {
             console.log(userId);
             
             localStorage.setItem('id_user', userId.toString());
+            
           } else {
             console.error("Le token JWT n'est pas au format attendu :", token);
           }
@@ -53,6 +55,17 @@ export class UserServiceTsService {
 
 
 logout(): Observable<UserInterfaceTs> {
-  return this.http.post<UserInterfaceTs>('http://localhost:3400/user/logout', {});
+  return this.http.post<UserInterfaceTs>('http://localhost:3400/user/logout', {}).pipe(
+    tap(() => {
+      localStorage.removeItem('id_user');
+      localStorage.removeItem('token');
+      this.router.navigate(['/signin']);
+    })
+  );
+}
+
+isLoggedIn(): boolean {
+  return !!localStorage.getItem('token');
+  
 }
 }
