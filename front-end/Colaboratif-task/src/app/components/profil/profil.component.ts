@@ -13,7 +13,7 @@ export class ProfilComponent implements OnInit {
   userId:number |null = null ;
 
 
-  constructor(private userSevice:UserServiceTsService, private formBuilder:FormBuilder, private route : Router){}
+  constructor(public userSevice:UserServiceTsService, private formBuilder:FormBuilder, private route : Router){}
 
 ngOnInit(): void {
   const userIdString = localStorage.getItem('id_user');
