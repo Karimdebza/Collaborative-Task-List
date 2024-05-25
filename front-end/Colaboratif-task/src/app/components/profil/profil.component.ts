@@ -73,7 +73,14 @@ updateUserData() {
 
 
 logout(): void {
-this.userSevice.logout();
+this.userSevice.logout().subscribe({
+  next : () => {
+    console.log("deconextion reussie");
+  },
+  error: () => {
+    console.error("error de la deconexion ");
+  }
+})
 }
 
 }
