@@ -41,6 +41,7 @@ export class UserServiceTsService {
             console.log(userId);
             
             localStorage.setItem('id_user', userId.toString());
+            localStorage.setItem('token', token);
             
           } else {
             console.error("Le token JWT n'est pas au format attendu :", token);

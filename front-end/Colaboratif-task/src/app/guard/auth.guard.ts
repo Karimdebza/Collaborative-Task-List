@@ -6,10 +6,14 @@ const authService = inject(UserServiceTsService);
   const router = inject(Router);
 
   if(authService.isLoggedIn()){
-    return false;
+    return true;
 
   }else {
+    router.navigate(['/signin']);
+  
     
-    return true ;
+    return false;
+    
+    
   }
 };
