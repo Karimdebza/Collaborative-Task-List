@@ -13,7 +13,7 @@ export class ProfilComponent implements OnInit {
   userId:number |null = null ;
 
 
-  constructor(private userSevice:UserServiceTsService, private formBuilder:FormBuilder, private route : Router){}
+  constructor(public userSevice:UserServiceTsService, private formBuilder:FormBuilder, private route : Router){}
 
 ngOnInit(): void {
   const userIdString = localStorage.getItem('id_user');
@@ -73,16 +73,14 @@ updateUserData() {
 
 
 logout(): void {
-  this.userSevice.logout().subscribe({
-    next: () =>{
-     console.log('deconextion reussie');
-     this.route.navigate(['/signin']);
-    },
-    error: error => {
-      // Gérez les erreurs de déconnexion
-      console.error('Erreur lors de la déconnexion', error);
-    }
-  })
+this.userSevice.logout().subscribe({
+  next : () => {
+    console.log("deconextion reussie");
+  },
+  error: () => {
+    console.error("error de la deconexion ");
+  }
+})
 }
 
 }
