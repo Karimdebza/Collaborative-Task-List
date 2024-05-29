@@ -30,8 +30,8 @@ createListTask():void {
   if(this.listForm.valid){
     this.ServiceTask.createTaskList(this.listForm.value,this.userId).subscribe({
       next :data => {
-        console.log("create new task");
-        
+        console.log("create new task list");
+        this.router.navigate(['/task-list']);
       },
       error : error => {
         console.error("error:",error)

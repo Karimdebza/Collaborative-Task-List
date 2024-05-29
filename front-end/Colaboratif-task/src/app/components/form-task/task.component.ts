@@ -43,35 +43,42 @@ ngOnInit(): void {
   }
 }
 
-formTask():void {
-  if (typeof this.userId === 'number') {
-    if (this.taskId !== null) {
-  if(this.taskForm.valid){
-    if(this.userId){
-    this.ServiceTask.updateTask(this.taskId,this.taskForm.value).subscribe({
-      next :data => {
-        console.log("create new task",data);
+formTask(): void {
+  // Vérifiez si l'userId est de type 'number'
+  if (typeof this.userId !== 'number') {
+    console.error("userId doit être un nombre.");
+    return;
+  }
 
+  // Vérifiez si le formulaire est valide
+  if (!this.taskForm.valid) {
+    console.error("Le formulaire de tâche n'est pas valide.");
+    return;
+  }
+
+  // Si taskId n'est pas null, mettez à jour la tâche existante
+  if (this.taskId !== null) {
+    this.ServiceTask.updateTask(this.taskId, this.taskForm.value).subscribe({
+      next: data => {
+        console.log("Tâche mise à jour avec succès", data);
         this.router.navigate(['/task-list']);
-    },
-      error : error => {
-        console.error("error:",error)
+      },
+      error: error => {
+        console.error("Erreur lors de la mise à jour de la tâche :", error);
       }
     });
-  
-  }else{
-    this.ServiceTask.createTask(this.taskForm.value,this.userId).subscribe(() => {
-      console.log('Tâche créée avec succès');
-      this.router.navigate(['/task-list']);
+  } else {
+    // Créez une nouvelle tâche
+    this.ServiceTask.createTask(this.taskForm.value, this.userId).subscribe({
+      next: () => {
+        console.log('Tâche créée avec succès');
+        this.router.navigate(['/task-list']);
+      },
+      error: error => {
+        console.error("Erreur lors de la création de la tâche :", error);
+      }
     });
   }
-  }
-}else{
-  "user id is null"
-}
-}
-
-
 }
 
 
