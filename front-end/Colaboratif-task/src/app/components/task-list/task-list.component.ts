@@ -23,9 +23,11 @@ ngOnInit(): void {
 }
 
 displayAllTask(): void {
-    this.TaskService.getAllTaskLists().subscribe(taskList => {
+  if (typeof this.userId === 'number') {
+    this.TaskService.getAllTaskLists(this.userId).subscribe(taskList => {
       this.taskList = taskList; 
      });
+  }
 }
 
 
