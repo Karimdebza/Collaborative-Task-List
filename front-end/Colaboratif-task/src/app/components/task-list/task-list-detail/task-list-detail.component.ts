@@ -17,8 +17,9 @@ import { DatePipe } from '@angular/common';
 export class TaskListDetailComponent implements OnInit {
   taskList!:TaskListInterfaceTs;
   taskListId: number | null = null;
-  tasks!: TaskInterfaceTs[];
+  tasks: TaskInterfaceTs[] = [];
   taskId!:number;
+  userid : number | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,10 +28,13 @@ export class TaskListDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void  {
+    this.userid = this.getUserIdFromLocalStorage();
     this.taskListId = this.getTaskListIdFromRoute();
     if (this.taskListId) {
       this.loadTaskListDetails(this.taskListId);
-      this.loadTasks(this.taskListId);
+      if (typeof this.userid === 'number') {
+      this.loadTasks(this.userid);
+      }
     } else {
       console.error("ID de la liste des tâches non trouvé");
     }
@@ -39,11 +43,18 @@ export class TaskListDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     return id ? +id : null;
   }
+  getUserIdFromLocalStorage(): number | null {
+    const userIdString = localStorage.getItem('id_user');
+    return userIdString ? Number(userIdString) : null;
+  }
 
-  loadTasks(taskListId: number): void {
-    this.taskService.getAllTasks(taskListId).subscribe(tasks => {
+  loadTasks(userid:number): void {
+    if (typeof this.userid === 'number') {
+    this.taskService.getAllTasks(this.userid).subscribe(tasks => {
+      
       this.tasks = tasks;
     });
+  }
   }
 
   loadTaskListDetails(taskListId: number): void {
