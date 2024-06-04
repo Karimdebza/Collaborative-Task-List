@@ -16,9 +16,10 @@ import { DatePipe } from '@angular/common';
 })
 export class TaskListDetailComponent implements OnInit {
   taskList!:TaskListInterfaceTs;
-  taskListId!:number;
-  tasks!: TaskInterfaceTs[];
+  taskListId: number | null = null;
+  tasks: TaskInterfaceTs[] = [];
   taskId!:number;
+  userid : number | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,45 +28,50 @@ export class TaskListDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void  {
-    this.loadTaskListDetails();
-    this.route.paramMap.subscribe(params => {
-      const idParam = params.get('id');
-      if(idParam !== null) {
-        this.taskListId = +idParam
-        this.loadTask();
-      }else{
-        console.log("aucune tache et trouver");
-        
+    this.userid = this.getUserIdFromLocalStorage();
+    this.taskListId = this.getTaskListIdFromRoute();
+    if (this.taskListId) {
+      this.loadTaskListDetails(this.taskListId);
+      if (typeof this.userid === 'number') {
+      this.loadTasks(this.userid);
       }
-    });
-    
-    
-    
-  }
-
-  loadTask(): void {
-    this.taskService.getAllTasks(this.taskListId).subscribe(tasks => {
-      this.tasks = tasks;
-    })
-  }
-
-  loadTaskListDetails(): void {
-    const id = this.route.snapshot.paramMap.get('id'); 
-    if (id) {
-      this.taskListService.getTaskListById(+id).subscribe(taskList => {
-
-        this.taskList = taskList; 
-      });
-    }else{
-      console.log("id null")
+    } else {
+      console.error("ID de la liste des tâches non trouvé");
     }
+  }
+  getTaskListIdFromRoute(): number | null {
+    const id = this.route.snapshot.paramMap.get('id');
+    return id ? +id : null;
+  }
+  getUserIdFromLocalStorage(): number | null {
+    const userIdString = localStorage.getItem('id_user');
+    return userIdString ? Number(userIdString) : null;
+  }
+
+  loadTasks(userid:number): void {
+    if (typeof this.userid === 'number') {
+    this.taskService.getAllTasks(this.userid).subscribe(tasks => {
+      
+      this.tasks = tasks;
+    });
+  }
+  }
+
+  loadTaskListDetails(taskListId: number): void {
+    this.taskListService.getTaskListById(taskListId).subscribe(taskList => {
+      this.taskList = taskList;
+    });
   }
 
   deleteTask(taskId:number): void{
     this.taskService.deleteTask(taskId).subscribe({
       next : data => {
         console.log("supression reussie", data);
-        this.loadTask();
+        if (typeof this.taskListId !== 'number') {
+          console.error("userId doit être un nombre.");
+          return;
+        }
+        this.loadTasks(this.taskListId); 
         
       },
       error : error => {

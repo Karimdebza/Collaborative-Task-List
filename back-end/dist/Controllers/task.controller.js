@@ -56,8 +56,10 @@ exports.getTaskById = getTaskById;
 async function updateTask(req, res) {
     const taskId = parseInt(req.params.id);
     const taskData = req.body;
+    // Debug: Afficher les paramètres pour vérifier leur contenu
+    //   console.log("Paramètres SQL :", parameters);
     try {
-        await connexion_db_1.default.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?, id_task_list = ?, id_user = ? WHERE id_task = ?", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskData.id_user, taskId]);
+        await connexion_db_1.default.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?, id_task_list = ?  WHERE id_task = ?", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskId]);
         res.status(201).json({ message: "Tache mis à jour avec succès" });
     }
     catch (error) {

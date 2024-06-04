@@ -26,7 +26,7 @@ exports.createTaskList = createTaskList;
 async function getAllTaskLists(req, res) {
     const userId = req.params.id;
     try {
-        const [rows] = await connexion_db_1.default.execute("SELECT * FROM TaskLists ");
+        const [rows] = await connexion_db_1.default.execute("SELECT * FROM TaskLists WHERE  id_user = ? ", [userId]);
         res.status(200).json(rows);
     }
     catch (error) {

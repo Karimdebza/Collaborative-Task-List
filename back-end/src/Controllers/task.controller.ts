@@ -50,11 +50,16 @@ export async function getTaskById(req:Request, res:Response): Promise<void> {
     }
 }
 
+
 export async function updateTask(req:Request, res:Response): Promise<void> {
     const taskId : number = parseInt(req.params.id);
     const taskData : Task = req.body; 
+   
+    
+      // Debug: Afficher les paramètres pour vérifier leur contenu
+    //   console.log("Paramètres SQL :", parameters);
     try{
-        await pool.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?, id_task_list = ?, id_user = ? WHERE id_task = ?", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskData.id_user, taskId]);
+        await pool.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?, id_task_list = ?  WHERE id_task = ?",[taskData.name, taskData.description,taskData.date_of_create,taskData.date_of_expiry,taskData.id_task_list, taskId]);
         res.status(201).json({message: "Tache mis à jour avec succès" });
     } catch(error) {
         console.error("Erreur lors de la mise à jour de la tache :", error);
