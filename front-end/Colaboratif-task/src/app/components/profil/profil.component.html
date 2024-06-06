@@ -1,18 +1,18 @@
-<form [formGroup]="profilForm"  (ngSubmit)="updateUserData()" class="card shadow-none p-3 mb-5 bg-body-tertiary rounded " 
-style="width: 55em; margin-left: auto; margin-right: auto; margin-top: 5em;">
+<form [formGroup]="profilForm"  (ngSubmit)="updateUserData()" class="card w-75  mb-3 shadow-lg bg-body-tertiary rounded" 
+style=" margin-left: auto; margin-right: auto; margin-top: 5em;">
 <div class="form-group row">
     <label for="name" class="col-sm-2 col-form-label">Nom:</label>
-    <input type="text" id="name" class="form-control mb-3" formControlName="name">
+    <input type="text" id="name" class="form-control mb-5 w-75 mx-auto" formControlName="name">
   </div>
   <div class="form-group row">
     <label for="email" class="col-sm-2 col-form-label">Email:</label>
-    <input type="email" id="email" class="form-control mb-3" formControlName="email">
+    <input type="email" id="email" class="form-control mb-5 w-75 mx-auto" formControlName="email">
   </div>
   <div class="form-group row">
     <label for="password" class="col-sm-2 col-form-label">Mot de passe:</label>
-    <input type="password" class="form-control mb-3" id="password" formControlName="password">
+    <input type="password" class="form-control mb-5 w-75 mx-auto" id="password" formControlName="password">
   </div>
-  <button type="submit" class="btn btn-primary mb-2" >Enregistrer</button>
+  <button type="submit" class="btn btn-primary mb-2 w-75 mx-auto" >Enregistrer</button>
 </form>
 
 <button  *ngIf="userSevice.isLoggedIn()" class="btn btn-danger mt-2 "   (click)="logout()">Deconexion</button>

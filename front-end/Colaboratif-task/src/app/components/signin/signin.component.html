@@ -1,22 +1,22 @@
 <form [formGroup]="authForm" (ngSubmit)="authenticateUser()"
- class="card shadow-none p-3 mb-5 bg-body-tertiary rounded " 
- style="width: 55em; margin-left: auto; margin-right: auto; margin-top: 5em;"
+ class="card w-75  mb-3 shadow-lg bg-body-tertiary rounded " 
+ style=" margin-left: auto; margin-right: auto; margin-top: 5em;"
 >
     <div class="form-group row">
-      <label for="email" class="col-sm-2 col-form-label">Email:</label>
+      <label for="email" class="col-sm-2 col-form-label ">Email:</label>
       <div class="col-sm-5">
-        <input type="email" class="form-control-plaintext mb-3" id="email" formControlName="email" placeholder="adresse email"  required>
+        <input type="email" class="form-control mb-5 mt-3  " id="email" formControlName="email" placeholder="adresse email"  required>
       </div>    
     </div>
     <div class="form-group row">
       <label for="password" class="col-sm-2 col-form-label">Mot de passe:</label>
       <div class="col-sm-5">
-        <input type="password" class="form-control mb-3" id="password" formControlName="password" placeholder="Password" required>
+        <input type="password" class="form-control mb-5 mt-3 "id="password" formControlName="password" placeholder="Password" required>
       </div>
     </div>
     <p class="mb-5">
       vous avez pas de compte?
     <a href="signup"> Inscrivez-vous</a>
   </p>
-    <button type="submit" class="btn btn-primary mb-2 ">Connectez vous</button>
+    <button type="submit" class="btn btn-primary mb-2 w-75 mx-auto">Connectez vous</button>
   </form>
