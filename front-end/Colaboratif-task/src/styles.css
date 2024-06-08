@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Ensure the root element of the Angular application takes the full height */
+  app-root {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  app-signup {
+    flex: 1;
+  }
+  

@@ -1,28 +1,28 @@
-<form [formGroup]="registrationForm" (ngSubmit)="createUser()"
- class="card w-75  mb-3 shadow-lg bg-body-tertiary rounded " 
- style=" margin-left: auto; margin-right: auto; margin-top: 5em;"
->
-  <div class="form-group row">
-      <label for="name" class="col-sm-2 col-form-label ">Nom:</label>
-      <div class="col-sm-5 ">
+<div class="body">
+  <form [formGroup]="registrationForm" (ngSubmit)="createUser()"
+    class="card w-75 mb-3 pt-3 mx-auto shadow-lg bg-body-tertiary rounded form-container">
+    <div class="form-group row">
+      <label for="name" class="col-sm-2 col-form-label">Nom:</label>
+      <div class="col-sm-5">
         <input type="text" class="form-control-plaintext mb-5 mt-3" id="name" placeholder="Nom" formControlName="name" required>
       </div>
-  </div>
+    </div>
     <div class="form-group row">
       <label for="email" class="col-sm-2 col-form-label">Email:</label>
       <div class="col-sm-5">
-        <input type="email" class="form-control-plaintext mb-5 mt-3 " id="email" formControlName="email" placeholder="adresse email"  required>
-      </div>    
+        <input type="email" class="form-control-plaintext mb-5 mt-3" id="email" formControlName="email" placeholder="adresse email" required>
+      </div>
     </div>
     <div class="form-group row">
       <label for="password" class="col-sm-2 col-form-label">Mot de passe:</label>
       <div class="col-sm-5">
-        <input type="password" class="form-control mb-5 mt-3 " id="password" formControlName="password" placeholder="Password" required>
+        <input type="password" class="form-control mb-5 mt-3" id="password" formControlName="password" placeholder="Password" required>
       </div>
     </div>
     <p class="mb-5">
       vous avez deja un compte?
-    <a href="signin"> conectez-vous</a>
-  </p>
+      <a href="signin"> conectez-vous</a>
+    </p>
     <button type="submit" class="btn btn-primary mb-2 w-75 mx-auto">S'inscrire</button>
   </form>
+</div>

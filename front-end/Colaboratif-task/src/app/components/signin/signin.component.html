@@ -1,6 +1,8 @@
+<div class="body">
+
 <form [formGroup]="authForm" (ngSubmit)="authenticateUser()"
- class="card w-75  mb-3 shadow-lg bg-body-tertiary rounded " 
- style=" margin-left: auto; margin-right: auto; margin-top: 5em;"
+class="card w-75 mb-3 pt-3 mx-auto shadow-lg bg-body-tertiary rounded form-container"
+ 
 >
     <div class="form-group row">
       <label for="email" class="col-sm-2 col-form-label ">Email:</label>
@@ -20,3 +22,5 @@
   </p>
     <button type="submit" class="btn btn-primary mb-2 w-75 mx-auto">Connectez vous</button>
   </form>
+
+</div>
