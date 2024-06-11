@@ -10,7 +10,18 @@ export async function createTask(req:Request, res:Response): Promise<void> {
         const taskData : Task = req.body;
         const [result] = await pool.execute("INSERT INTO Task (name, description, date_of_create, date_of_expiry, id_task_list,  id_user ) VALUES (?, ?, ?, ?, ?, ?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, userId ] )
         if('insertId' in result ) {
+            const taskName = taskData.name;
+      const io = req.app.get('io'); // Accédez à l'instance de Socket.io
+      if (io) { // Vérifiez si l'instance de Socket.io est définie
+        io.emit('receivedNotification', {
+          message: `Nouvelle tâche créée: ${taskName}`,
+          date: new Date()
+        });
+      }
+
             res.status(201).json({id: result.insertId});
+
+
         }
         else {
             res.status(500).json({ message: "Erreur lors de la création de la tache : aucune ID insérée" });
