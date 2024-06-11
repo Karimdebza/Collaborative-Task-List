@@ -42,6 +42,12 @@ ngOnInit(): void {
       
     }
     this.notificationService.requestPermission();
+    this.socketService.onNotification((notification) => {
+      console.log('Notification received:', notification);
+      this.notificationService.showNotification('Nouvelle notification!',{
+        body:notification.message
+      });
+    });
 }
 initializeTaskForm(): void {
   this.taskForm = this.Form.group({
