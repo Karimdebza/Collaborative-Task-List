@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { TaskServiceTsService } from 'src/app/services/task.service.ts.service';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { SocketServiceTsService } from '../../services/socket.service.ts.service'; // Importer SocketService
+import { NotificationServiceTsService } from '../../services/notification.service.ts.service'; // Importer NotificationService
+
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
@@ -15,7 +18,14 @@ taskId: number | null = null;
 userId: number | null = null;
 taskListId: number | null = null;
 
-constructor(private Form:FormBuilder, private ServiceTask:TaskServiceTsService, private router:Router, private route: ActivatedRoute, private datePipe: DatePipe){}
+constructor(
+  private Form:FormBuilder, 
+  private ServiceTask:TaskServiceTsService,
+  private router:Router, private route: ActivatedRoute,
+  private datePipe: DatePipe,
+  private socketService:SocketServiceTsService,
+  private notificationService:NotificationServiceTsService
+){}
 
 ngOnInit(): void {
     // Récupérer l'utilisateur et l'ID de la liste des tâches
@@ -29,7 +39,15 @@ ngOnInit(): void {
     this.taskId = this.getTaskIdFromRoute();
     if (this.taskId) {
       this.loadTaskDetails(this.taskId);
+      
     }
+    this.notificationService.requestPermission();
+    this.socketService.onNotification((notification) => {
+      console.log('Notification received:', notification);
+      this.notificationService.showNotification('Nouvelle notification!',{
+        body:notification.message
+      });
+    });
 }
 initializeTaskForm(): void {
   this.taskForm = this.Form.group({
@@ -85,7 +103,14 @@ updateTask(): void {
   this.ServiceTask.updateTask(this.taskId!, this.taskForm.value).subscribe({
     next: data => {
       console.log("Tâche mise à jour avec succès", data);
-     
+
+
+     const notification = {message:'Tache modifier avec succes', date: new Date()};
+     this.socketService.sendNotification(notification);
+
+     this.notificationService.showNotification('task modifier ',{
+      body:notification.message
+     })
       this.router.navigate(['/task-list']);
     },
     error: error => {
@@ -100,6 +125,15 @@ createTask(): void {
       
       console.log('Tâche créée avec succès');
     
+       
+       const notification = { message: 'Tache créé avec succes ', date: new Date() };
+       this.socketService.sendNotification(notification);
+
+       
+       this.notificationService.showNotification('Tache cree', {
+         body: notification.message,
+       });
+
       this.router.navigate(['/task-list']);
     },
     error: error => {
