@@ -13,6 +13,7 @@ import { ProfilComponent } from './components/profil/profil.component';
 import { FormListComponent } from './components/task-list/form-list/form-list.component';
 import { RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { NotificationComponent } from './components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DatePipe } from '@angular/common';
     HomeComponent,
     ProfilComponent,
     FormListComponent,
+    NotificationComponent,
     
   ],
   imports: [

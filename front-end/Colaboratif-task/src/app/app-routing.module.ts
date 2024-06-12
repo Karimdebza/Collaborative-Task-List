@@ -8,6 +8,7 @@ import { SigninComponent } from './components/signin/signin.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { FormListComponent } from './components/task-list/form-list/form-list.component';
+import { NotificationComponent } from './components/notification/notification.component';
 import { authGuard } from './guard/auth.guard';
 
 
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'profil', component: ProfilComponent, canActivate:[authGuard] },
   { path: 'form-list', component: FormListComponent, canActivate:[authGuard]},
   { path: 'task/edit/:id', component: TaskComponent, canActivate:[authGuard] },
+  {path:'notification', component:NotificationComponent, canActivate:[authGuard]},
   { path: '', redirectTo: '/task', pathMatch: 'full' }
 ];
 
