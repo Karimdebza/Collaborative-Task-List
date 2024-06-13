@@ -1,5 +1,5 @@
 <button (click)="sendTestNotification()">Send Test Notification</button>
-<div *ngFor="let notification of notification">
+<div *ngFor="let notification of notifications">
   <div>{{ notification.message }}</div>
   <div>{{ notification.date | date:'short' }}</div>
 </div>

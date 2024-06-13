@@ -70,9 +70,11 @@ export class TaskListDetailComponent implements OnInit {
   deleteTask(taskId:number): void{
     this.taskService.deleteTask(taskId).subscribe({
       next : data => {
+        console.log("supression reussie", data); // Ajout du log ici pour vérifier
+        
         const notification = {message:'Tache supprimer avec succes', date: new Date()};
         this.socketService.sendNotification(notification);
-   
+        console.log('Sending notification:', notification);
         this.notificationService.showNotification('tache supprimer  ',{
          body:notification.message
         })
