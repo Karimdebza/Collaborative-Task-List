@@ -68,6 +68,14 @@ async function updateTask(req, res) {
     //   console.log("Paramètres SQL :", parameters);
     try {
         await connexion_db_1.default.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?, id_task_list = ?  WHERE id_task = ?", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskId]);
+        const taskName = taskData.name;
+        const io = req.app.get('io'); // Accédez à l'instance de Socket.io
+        if (io) { // Vérifiez si l'instance de Socket.io est définie
+            io.emit('receivedNotification', {
+                message: ` tâche modifier: ${taskName}`,
+                date: new Date()
+            });
+        }
         res.status(201).json({ message: "Tache mis à jour avec succès" });
     }
     catch (error) {
@@ -77,9 +85,18 @@ async function updateTask(req, res) {
 }
 exports.updateTask = updateTask;
 async function deleteTask(req, res) {
+    const taskData = req.body;
     const taskId = parseInt(req.params.id);
     try {
         await connexion_db_1.default.execute("DELETE FROM Task WHERE id_task = ?", [taskId]);
+        const taskName = taskData.name;
+        const io = req.app.get('io'); // Accédez à l'instance de Socket.io
+        if (io) { // Vérifiez si l'instance de Socket.io est définie
+            io.emit('receivedNotification', {
+                message: ` tâche supprimer: ${taskName}`,
+                date: new Date()
+            });
+        }
         res.status(201).json({ message: "Tache supprimé avec succès" });
     }
     catch (error) {
