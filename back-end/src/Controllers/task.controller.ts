@@ -71,6 +71,15 @@ export async function updateTask(req:Request, res:Response): Promise<void> {
     //   console.log("Paramètres SQL :", parameters);
     try{
         await pool.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?, id_task_list = ?  WHERE id_task = ?",[taskData.name, taskData.description,taskData.date_of_create,taskData.date_of_expiry,taskData.id_task_list, taskId]);
+        const taskName = taskData.name;
+        const io = req.app.get('io'); // Accédez à l'instance de Socket.io
+        if (io) { // Vérifiez si l'instance de Socket.io est définie
+          io.emit('receivedNotification', {
+            message: ` tâche modifier: ${taskName}`,
+            date: new Date()
+          });
+        }
+        
         res.status(201).json({message: "Tache mis à jour avec succès" });
     } catch(error) {
         console.error("Erreur lors de la mise à jour de la tache :", error);
@@ -79,9 +88,18 @@ export async function updateTask(req:Request, res:Response): Promise<void> {
 }
 
 export async function deleteTask(req:Request, res:Response): Promise<void> {
+    const taskData : Task = req.body; 
     const taskId: number = parseInt(req.params.id);
     try {
         await pool.execute("DELETE FROM Task WHERE id_task = ?", [taskId]);
+        const taskName = taskData.name;
+        const io = req.app.get('io'); // Accédez à l'instance de Socket.io
+        if (io) { // Vérifiez si l'instance de Socket.io est définie
+          io.emit('receivedNotification', {
+            message: ` tâche supprimer: ${taskName}`,
+            date: new Date()
+          });
+        }
         res.status(201).json({message: "Tache supprimé avec succès"});
         } catch (error) {
         console.error("Erreur lors de la supression de la tache :", error);

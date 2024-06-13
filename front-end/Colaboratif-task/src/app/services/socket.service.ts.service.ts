@@ -21,15 +21,15 @@ private socket : Socket;
    }
 
 
-   onNotification(callback: (notification:any) => void){
+   onNotification(callback: (notification: any) => void) {
     this.socket.on('receivedNotification', (notification) => {
-      console.log('Notification received from server:', notification);
+      console.log('Notification received from server in service:', notification);
       callback(notification);
     });
-   }
+  }
 
 
-   // fermer la connextion de la socket 
+
 
    disconnect(){
     if(this.socket){

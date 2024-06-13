@@ -7,6 +7,8 @@ import { TaskServiceTsService } from 'src/app/services/task.service.ts.service';
 import { NgIf,NgFor } from "@angular/common";
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { SocketServiceTsService } from 'src/app/services/socket.service.ts.service';
+import { NotificationServiceTsService } from 'src/app/services/notification.service.ts.service';
 @Component({
   selector: 'app-task-list-detail',
   standalone: true,
@@ -24,7 +26,9 @@ export class TaskListDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private taskListService: TaskListServiceTsService,
-    private taskService: TaskServiceTsService
+    private taskService: TaskServiceTsService,
+    private socketService: SocketServiceTsService,
+    private notificationService: NotificationServiceTsService
   ) { }
 
   ngOnInit(): void  {
@@ -66,6 +70,14 @@ export class TaskListDetailComponent implements OnInit {
   deleteTask(taskId:number): void{
     this.taskService.deleteTask(taskId).subscribe({
       next : data => {
+        console.log("supression reussie", data); // Ajout du log ici pour vérifier
+        
+        const notification = {message:'Tache supprimer avec succes', date: new Date()};
+        this.socketService.sendNotification(notification);
+        console.log('Sending notification:', notification);
+        this.notificationService.showNotification('tache supprimer  ',{
+         body:notification.message
+        })
         console.log("supression reussie", data);
         if (typeof this.taskListId !== 'number') {
           console.error("userId doit être un nombre.");
