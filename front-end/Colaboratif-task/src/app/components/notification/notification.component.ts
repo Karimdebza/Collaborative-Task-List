@@ -11,6 +11,7 @@ export class NotificationComponent implements OnInit {
   constructor(private notificationservice:SocketServiceTsService){}
 
   ngOnInit(): void {
+    console.log('NotificationComponent initialized');
    this.notificationservice.onNotification((notification: any) => {
     console.log('Notification received:', notification);
     this.notification.push(notification);

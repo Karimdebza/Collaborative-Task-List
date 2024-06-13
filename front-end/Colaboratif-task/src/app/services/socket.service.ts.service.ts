@@ -16,12 +16,16 @@ private socket : Socket;
    }
 
    sendNotification(notification:any){
+    console.log('Sending notification:', notification);
     this.socket.emit('sendNotification',notification);
    }
 
 
    onNotification(callback: (notification:any) => void){
-    this.socket.on("recevedNotification", callback);
+    this.socket.on('receivedNotification', (notification) => {
+      console.log('Notification received from server:', notification);
+      callback(notification);
+    });
    }
 
 
