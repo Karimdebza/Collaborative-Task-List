@@ -40,9 +40,12 @@ io.on("connection", (socket) => {
 
   // Handle custom events for notifications
   socket.on("sendNotification", (data) => {
-    io.emit("receiveNotification", data); // Broadcast to all connected clients
+    console.log("Notification received on server:", data);
+    io.emit("receivedNotification", data); // Corrected event name
   });
 });
+
+app.set('io', io); // Attach io instance to the app for later use in controllers
 
 app.use("/user", userRouter);
 app.use("/task", taskRouter);
