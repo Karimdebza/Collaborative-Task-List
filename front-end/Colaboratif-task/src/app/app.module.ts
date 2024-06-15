@@ -14,6 +14,10 @@ import { FormListComponent } from './components/task-list/form-list/form-list.co
 import { RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { NotificationComponent } from './components/notification/notification.component';
+ 
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarComponent } from './components/calendar/calendar.component'; 
+
 
 @NgModule({
   declarations: [
@@ -26,6 +30,7 @@ import { NotificationComponent } from './components/notification/notification.co
     ProfilComponent,
     FormListComponent,
     NotificationComponent,
+    CalendarComponent,
     
   ],
   imports: [
@@ -33,7 +38,8 @@ import { NotificationComponent } from './components/notification/notification.co
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    FullCalendarModule // Add FullCalendarModule to imports
     
   ],
   providers: [DatePipe],

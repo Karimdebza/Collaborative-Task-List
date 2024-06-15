@@ -3,17 +3,17 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import { CalendarOptions } from '@fullcalendar/core';
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-calendar',
+  templateUrl: './calendar.component.html',
+  styleUrls: ['./calendar.component.css']
 })
-export class HomeComponent {
+export class CalendarComponent {
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, googleCalendarPlugin],
     initialView: 'dayGridMonth',
-    googleCalendarApiKey: 'YOUR_GOOGLE_API_KEY',
+    googleCalendarApiKey: 'karimkey',
     events: {
-      googleCalendarId: 'YOUR_GOOGLE_CALENDAR_ID@group.calendar.google.com'
+      googleCalendarId: '1'
     }
   };
 }

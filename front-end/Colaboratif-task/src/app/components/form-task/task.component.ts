@@ -6,8 +6,7 @@ import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SocketServiceTsService } from '../../services/socket.service.ts.service'; 
 import { NotificationServiceTsService } from '../../services/notification.service.ts.service'; 
-import { CalendarService } from 'src/app/services/calendar.service';
-import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-task',
@@ -26,7 +25,8 @@ constructor(
   private router:Router, private route: ActivatedRoute,
   private datePipe: DatePipe,
   private socketService:SocketServiceTsService,
-  private notificationService:NotificationServiceTsService
+  private notificationService:NotificationServiceTsService,
+
 ){}
 
 ngOnInit(): void {
@@ -50,7 +50,12 @@ ngOnInit(): void {
         body:notification.message
       });
     });
+
+    
 }
+
+
+
 initializeTaskForm(): void {
   this.taskForm = this.Form.group({
     name: ['', Validators.required],
@@ -87,6 +92,9 @@ loadTaskDetails(taskId: number): void {
     });
   });
 }
+
+
+
 formTask(): void {
 
   if (!this.taskForm.valid) {
