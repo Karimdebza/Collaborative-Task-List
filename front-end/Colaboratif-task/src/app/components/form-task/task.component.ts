@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { TaskServiceTsService } from 'src/app/services/task.service.ts.service';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { SocketServiceTsService } from '../../services/socket.service.ts.service'; // Importer SocketService
-import { NotificationServiceTsService } from '../../services/notification.service.ts.service'; // Importer NotificationService
+import { SocketServiceTsService } from '../../services/socket.service.ts.service'; 
+import { NotificationServiceTsService } from '../../services/notification.service.ts.service'; 
+
 
 @Component({
   selector: 'app-task',
@@ -24,7 +25,8 @@ constructor(
   private router:Router, private route: ActivatedRoute,
   private datePipe: DatePipe,
   private socketService:SocketServiceTsService,
-  private notificationService:NotificationServiceTsService
+  private notificationService:NotificationServiceTsService,
+
 ){}
 
 ngOnInit(): void {
@@ -48,7 +50,12 @@ ngOnInit(): void {
         body:notification.message
       });
     });
+
+    
 }
+
+
+
 initializeTaskForm(): void {
   this.taskForm = this.Form.group({
     name: ['', Validators.required],
@@ -85,6 +92,9 @@ loadTaskDetails(taskId: number): void {
     });
   });
 }
+
+
+
 formTask(): void {
 
   if (!this.taskForm.valid) {
@@ -141,6 +151,9 @@ createTask(): void {
     }
   });
 }
+
+
+
 }
 
 
