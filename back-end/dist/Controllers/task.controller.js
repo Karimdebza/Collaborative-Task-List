@@ -3,13 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTask = exports.updateTask = exports.getTaskById = exports.getAllTasks = exports.createTask = void 0;
+exports.stopTraking = exports.startTraking = exports.deleteTask = exports.updateTask = exports.getTaskById = exports.getAllTasks = exports.createTask = void 0;
 const connexion_db_1 = __importDefault(require("../config/connexion-db"));
 async function createTask(req, res) {
     const userId = req.params.id;
     try {
         const taskData = req.body;
-        const [result] = await connexion_db_1.default.execute("INSERT INTO Task (name, description, date_of_create, date_of_expiry, id_task_list,  id_user ) VALUES (?, ?, ?, ?, ?, ?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, userId]);
+        const [result] = await connexion_db_1.default.execute("INSERT INTO Task (name, description, date_of_create, date_of_expiry, id_task_list, timeSpent,  startTime, isTracking,  id_user ) VALUES (?, ?, ?, ?, ?, ?,?,?,?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskData.timeSpent, taskData.startTime, taskData.isTracking, userId]);
         if ('insertId' in result) {
             const taskName = taskData.name;
             const io = req.app.get('io'); // Accédez à l'instance de Socket.io
@@ -105,3 +105,30 @@ async function deleteTask(req, res) {
     }
 }
 exports.deleteTask = deleteTask;
+async function startTraking(req, res) {
+    try {
+        const taskId = req.params.id;
+        const query = ` UPDATE Task SET startTime = NOW(), isTracking = TRUE WHERE id_task = ?`;
+        await connexion_db_1.default.execute(query, [taskId]);
+        const task = await connexion_db_1.default.execute('SELECT * FROM Task WHERE id = ?', [taskId]);
+        res.json(task[0]);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Erreur du serveur   ", error });
+    }
+}
+exports.startTraking = startTraking;
+async function stopTraking(req, res) {
+    const taskId = req.params.id;
+    const query = `
+          UPDATE tasks
+          SET timeSpent = timeSpent + TIMESTAMPDIFF(MINUTE, startTime, NOW()), 
+              isTracking = FALSE, 
+              startTime = NULL
+          WHERE id = ?
+        `;
+    await connexion_db_1.default.execute(query, [taskId]);
+    const task = connexion_db_1.default.execute('SELECT * FROM Task WHERE id_task = ?', [taskId]);
+    res.json(task[0]);
+}
+exports.stopTraking = stopTraking;

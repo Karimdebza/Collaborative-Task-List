@@ -8,7 +8,7 @@ export async function createTask(req:Request, res:Response): Promise<void> {
     const userId = req.params.id;
     try {
         const taskData : Task = req.body;
-        const [result] = await pool.execute("INSERT INTO Task (name, description, date_of_create, date_of_expiry, id_task_list,  id_user ) VALUES (?, ?, ?, ?, ?, ?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, userId ] )
+        const [result] = await pool.execute("INSERT INTO Task (name, description, date_of_create, date_of_expiry, id_task_list, timeSpent,  startTime, isTracking,  id_user ) VALUES (?, ?, ?, ?, ?, ?,?,?,?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskData.timeSpent, taskData.startTime, taskData.isTracking, userId ] )
         if('insertId' in result ) {
             const taskName = taskData.name;
       const io = req.app.get('io'); // Accédez à l'instance de Socket.io
@@ -106,3 +106,32 @@ export async function deleteTask(req:Request, res:Response): Promise<void> {
         res.status(500).json({ message: "Erreur du serveur  lors de la supression de la tache " });
         }
     }
+
+    export async function startTraking(req:Request, res: Response) : Promise<void> {
+       try {
+        const taskId = req.params.id;
+        const query = ` UPDATE Task SET startTime = NOW(), isTracking = TRUE WHERE id_task = ?`;
+        await pool.execute(query, [taskId]);
+        const task = await pool.execute('SELECT * FROM Task WHERE id = ?', [taskId]);
+        res.json(task[0]);
+
+        }
+        catch (error) {
+            res.status(500).json({ message: "Erreur du serveur   ", error });
+        }
+            }
+
+ export async function stopTraking(req:Request, res: Response) : Promise<void> {
+      
+        const taskId = req.params.id;
+        const query = `
+          UPDATE tasks
+          SET timeSpent = timeSpent + TIMESTAMPDIFF(MINUTE, startTime, NOW()), 
+              isTracking = FALSE, 
+              startTime = NULL
+          WHERE id = ?
+        `;
+        await pool.execute(query, [taskId]);
+        const task = pool.execute('SELECT * FROM Task WHERE id_task = ?', [taskId]);
+        res.json(task[0]);
+ }

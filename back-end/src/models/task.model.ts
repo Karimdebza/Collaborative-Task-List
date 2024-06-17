@@ -6,5 +6,9 @@ export interface Task {
     date_of_expiry: Date;
     id_user?:number;
     id_task_list?:number;
+    timeSpent : number;
+    startTime :Date;
+    isTracking : boolean;
+
 
 }
