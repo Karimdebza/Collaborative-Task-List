@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.stopTraking = exports.startTraking = exports.deleteTask = exports.updateTask = exports.getTaskById = exports.getAllTasks = exports.createTask = void 0;
+exports.stopTracking = exports.startTraking = exports.deleteTask = exports.updateTask = exports.getTaskById = exports.getAllTasks = exports.createTask = void 0;
 const connexion_db_1 = __importDefault(require("../config/connexion-db"));
 async function createTask(req, res) {
     const userId = req.params.id;
@@ -67,7 +67,7 @@ async function updateTask(req, res) {
     // Debug: Afficher les paramètres pour vérifier leur contenu
     //   console.log("Paramètres SQL :", parameters);
     try {
-        await connexion_db_1.default.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?, id_task_list = ?  WHERE id_task = ?", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskId]);
+        await connexion_db_1.default.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry, timeSpent = ?, startTime = ?, isTracking = ?, = ?, id_task_list = ?  WHERE id_task = ?", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskData.timeSpent, taskData.startTime, taskData.isTracking, taskId]);
         const taskName = taskData.name;
         const io = req.app.get('io'); // Accédez à l'instance de Socket.io
         if (io) { // Vérifiez si l'instance de Socket.io est définie
@@ -110,7 +110,7 @@ async function startTraking(req, res) {
         const taskId = req.params.id;
         const query = ` UPDATE Task SET startTime = NOW(), isTracking = TRUE WHERE id_task = ?`;
         await connexion_db_1.default.execute(query, [taskId]);
-        const task = await connexion_db_1.default.execute('SELECT * FROM Task WHERE id = ?', [taskId]);
+        const task = await connexion_db_1.default.execute('SELECT * FROM Task WHERE id_task = ?', [taskId]);
         res.json(task[0]);
     }
     catch (error) {
@@ -118,17 +118,29 @@ async function startTraking(req, res) {
     }
 }
 exports.startTraking = startTraking;
-async function stopTraking(req, res) {
+async function stopTracking(req, res) {
     const taskId = req.params.id;
     const query = `
-          UPDATE tasks
-          SET timeSpent = timeSpent + TIMESTAMPDIFF(MINUTE, startTime, NOW()), 
-              isTracking = FALSE, 
-              startTime = NULL
-          WHERE id = ?
-        `;
-    await connexion_db_1.default.execute(query, [taskId]);
-    const task = connexion_db_1.default.execute('SELECT * FROM Task WHERE id_task = ?', [taskId]);
-    res.json(task[0]);
+                  UPDATE Task
+                  SET timeSpent = timeSpent + TIMESTAMPDIFF(MINUTE, startTime, NOW()), 
+                      isTracking = FALSE, 
+                      startTime = NULL
+                  WHERE id_task = ?
+                `;
+    try {
+        // Exécutez la mise à jour de la tâche
+        await connexion_db_1.default.execute(query, [taskId]);
+        const [rows] = await connexion_db_1.default.execute('SELECT * FROM Task WHERE id_task = ?', [taskId]);
+        if (rows.length === 0) {
+            res.status(404).json({ message: 'Task not found' });
+            return;
+        }
+        // Envoyez la tâche mise à jour en réponse
+        res.json(rows[0]);
+    }
+    catch (error) {
+        console.error('Error stopping task tracking:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 }
-exports.stopTraking = stopTraking;
+exports.stopTracking = stopTracking;

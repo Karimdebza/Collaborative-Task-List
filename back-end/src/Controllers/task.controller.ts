@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import pool from "../config/connexion-db";
 import { Task } from "../models/task.model";
-import bcrypt from "bcrypt"
+
 import { QueryResult, FieldPacket } from "mysql2/promise";
+import { RowDataPacket } from 'mysql2';
 
 export async function createTask(req:Request, res:Response): Promise<void> {
     const userId = req.params.id;
@@ -70,7 +71,7 @@ export async function updateTask(req:Request, res:Response): Promise<void> {
       // Debug: Afficher les paramètres pour vérifier leur contenu
     //   console.log("Paramètres SQL :", parameters);
     try{
-        await pool.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?, id_task_list = ?  WHERE id_task = ?",[taskData.name, taskData.description,taskData.date_of_create,taskData.date_of_expiry,taskData.id_task_list, taskId]);
+        await pool.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry, timeSpent = ?, startTime = ?, isTracking = ?, = ?, id_task_list = ?  WHERE id_task = ?",[taskData.name, taskData.description,taskData.date_of_create,taskData.date_of_expiry,taskData.id_task_list, taskData.timeSpent, taskData.startTime, taskData.isTracking, taskId]);
         const taskName = taskData.name;
         const io = req.app.get('io'); // Accédez à l'instance de Socket.io
         if (io) { // Vérifiez si l'instance de Socket.io est définie
@@ -112,7 +113,7 @@ export async function deleteTask(req:Request, res:Response): Promise<void> {
         const taskId = req.params.id;
         const query = ` UPDATE Task SET startTime = NOW(), isTracking = TRUE WHERE id_task = ?`;
         await pool.execute(query, [taskId]);
-        const task = await pool.execute('SELECT * FROM Task WHERE id = ?', [taskId]);
+        const task = await pool.execute('SELECT * FROM Task WHERE id_task = ?', [taskId]);
         res.json(task[0]);
 
         }
@@ -121,17 +122,30 @@ export async function deleteTask(req:Request, res:Response): Promise<void> {
         }
             }
 
- export async function stopTraking(req:Request, res: Response) : Promise<void> {
-      
-        const taskId = req.params.id;
-        const query = `
-          UPDATE tasks
-          SET timeSpent = timeSpent + TIMESTAMPDIFF(MINUTE, startTime, NOW()), 
-              isTracking = FALSE, 
-              startTime = NULL
-          WHERE id = ?
-        `;
-        await pool.execute(query, [taskId]);
-        const task = pool.execute('SELECT * FROM Task WHERE id_task = ?', [taskId]);
-        res.json(task[0]);
- }
+            export async function stopTracking(req: Request, res: Response): Promise<void> {
+                const taskId = req.params.id;
+                const query = `
+                  UPDATE Task
+                  SET timeSpent = timeSpent + TIMESTAMPDIFF(MINUTE, startTime, NOW()), 
+                      isTracking = FALSE, 
+                      startTime = NULL
+                  WHERE id_task = ?
+                `;
+              
+                try {
+                  // Exécutez la mise à jour de la tâche
+                  await pool.execute(query, [taskId]);
+                const [rows] = await pool.execute<(RowDataPacket & { id: number; name: string; description: string; date_of_create: Date; date_of_expiry: Date; timeSpent: number; startTime?: Date; isTracking: boolean; })[]>('SELECT * FROM Task WHERE id_task = ?', [taskId]);
+
+                if (rows.length === 0) {
+                res.status(404).json({ message: 'Task not found' });
+                return;
+                }
+              
+                  // Envoyez la tâche mise à jour en réponse
+                  res.json(rows[0]);
+                } catch (error) {
+                  console.error('Error stopping task tracking:', error);
+                  res.status(500).json({ message: 'Internal server error' });
+                }
+              }
