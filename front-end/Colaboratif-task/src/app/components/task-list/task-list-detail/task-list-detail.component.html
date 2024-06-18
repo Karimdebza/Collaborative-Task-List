@@ -2,17 +2,17 @@
     <h2>{{ taskList.title }}</h2>
     <p>Date de création : {{ taskList.date_of_create  | date:'yyyy-MM-dd'}}</p>
     <ul>
-        <li *ngFor="let task of tasks" class="card w-50 mb-3 shadow-lg bg-body-tertiary rounded">
+        <li *ngFor="let task of tasks" class=" mx-auto card w-75 mb-3 shadow-lg bg-body-tertiary rounded">
           <h3>{{ task.name }}</h3>
           <p>{{ task.description }}</p>
           <p> date de expiration: {{ task.date_of_expiry | date:'yyyy-MM-dd'}}</p>
           <p>Date de création: {{ task.date_of_create | date:'yyyy-MM-dd'}}</p>
+          <p>Temps passé: {{ task.timeSpent }} minutes</p>
+          <button (click)="startTracking(task.id_task)" *ngIf="!task.isTracking" class="btn btn-primary mb-3">Démarrer le suivi du temps</button>
+      <button (click)="stopTracking(task.id_task)" *ngIf="task.isTracking" class="btn btn-warning mb-3">Arrêter le suivi du temps</button>
 
-          <button (click)="startTracking(task.id_task)" *ngIf="!task.isTracking" class="btn btn-primary">Démarrer le suivi du temps</button>
-      <button (click)="stopTracking(task.id_task)" *ngIf="task.isTracking" class="btn btn-warning">Arrêter le suivi du temps</button>
 
-      
-          <a [routerLink]="['/task/edit', task.id_task]" class="btn btn-success">Modifier</a>
+          <a [routerLink]="['/task/edit', task.id_task]" class="btn btn-success mb-3">Modifier</a>
           <button (click)="deleteTask(task.id_task)" class="btn btn-danger">delete</button>
         </li>
       </ul>

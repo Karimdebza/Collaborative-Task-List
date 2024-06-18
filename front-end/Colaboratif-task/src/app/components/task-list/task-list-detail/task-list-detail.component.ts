@@ -99,6 +99,11 @@ export class TaskListDetailComponent implements OnInit {
         if (updatedTaskIndex !== -1) {
           this.tasks[updatedTaskIndex] = task;
         }
+        const notification = { message: `Suivi du temps démarré pour la tâche: ${task.name}`, date: new Date() };
+        this.socketService.sendNotification(notification);
+        this.notificationService.showNotification('Suivi du temps démarré', {
+          body: notification.message
+        });
         console.log('Suivi du temps démarré pour la tâche', task);
       },
       error: error => {
@@ -114,6 +119,11 @@ export class TaskListDetailComponent implements OnInit {
         if (updatedTaskIndex !== -1) {
           this.tasks[updatedTaskIndex] = task;
         }
+        const notification = { message: `Suivi du temps a été arreter  pour la tâche: ${task.name}`, date: new Date() };
+        this.socketService.sendNotification(notification);
+        this.notificationService.showNotification('Suivi du temps stoper', {
+          body: notification.message
+        });
         console.log('Suivi du temps arrêté pour la tâche', task);
       },
       error: error => {
