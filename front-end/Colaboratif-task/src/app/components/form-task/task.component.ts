@@ -62,6 +62,9 @@ initializeTaskForm(): void {
     description: ['', Validators.required],
     date_of_create: [new Date(), Validators.required],
     date_of_expiry: [new Date(), Validators.required],
+    timeSpent: [0, Validators.required],
+    startTime: [null],
+    isTracking: [false],
     id_task_list: [this.taskListId, Validators.required]
   });
 }
@@ -88,6 +91,9 @@ loadTaskDetails(taskId: number): void {
       description: task.description,
       date_of_create: formattedDateCreate,
       date_of_expiry: formattedDateExpiry,
+      timeSpent: task.timeSpent,
+      startTime: task.startTime || 0,
+      isTracking: task.isTracking || false, 
       id_task_list: task.id_task_list
     });
   });
@@ -151,9 +157,42 @@ createTask(): void {
     }
   });
 }
-
-
-
+startTracking(): void {
+  if (this.taskId) {
+    this.ServiceTask.startTracking(this.taskId).subscribe({
+      next: task => {
+        this.taskForm.patchValue({
+          startTime: task.startTime,
+          isTracking: task.isTracking
+        });
+        console.log("Suivi du temps démarré", task);
+      },
+      error: error => {
+        console.error("Erreur lors du démarrage du suivi du temps :", error);
+      }
+    });
+  }
 }
+
+stopTracking(): void {
+  if (this.taskId) {
+    this.ServiceTask.stopTracking(this.taskId).subscribe({
+      next: task => {
+        this.taskForm.patchValue({
+          timeSpent: task.timeSpent,
+          startTime: task.startTime,
+          isTracking: task.isTracking
+        });
+        console.log("Suivi du temps arrêté", task);
+      },
+      error: error => {
+        console.error("Erreur lors de l'arrêt du suivi du temps :", error);
+      }
+    });
+  }
+}
+}
+
+
 
 

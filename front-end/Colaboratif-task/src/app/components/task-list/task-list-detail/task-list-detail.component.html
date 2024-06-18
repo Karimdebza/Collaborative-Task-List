@@ -7,6 +7,11 @@
           <p>{{ task.description }}</p>
           <p> date de expiration: {{ task.date_of_expiry | date:'yyyy-MM-dd'}}</p>
           <p>Date de création: {{ task.date_of_create | date:'yyyy-MM-dd'}}</p>
+
+          <button (click)="startTracking(task.id_task)" *ngIf="!task.isTracking" class="btn btn-primary">Démarrer le suivi du temps</button>
+      <button (click)="stopTracking(task.id_task)" *ngIf="task.isTracking" class="btn btn-warning">Arrêter le suivi du temps</button>
+
+      
           <a [routerLink]="['/task/edit', task.id_task]" class="btn btn-success">Modifier</a>
           <button (click)="deleteTask(task.id_task)" class="btn btn-danger">delete</button>
         </li>

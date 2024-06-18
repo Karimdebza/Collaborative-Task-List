@@ -1,3 +1,4 @@
+<div>
 <form [formGroup]="taskForm"  (ngSubmit)="formTask()">
     <div class="grid gap-3">
         <div class="form-group p-2 g-col-6">
@@ -30,3 +31,14 @@
         
         Créer la tâche</button>
   </form>
+  
+  <div *ngIf="taskId">
+    <button (click)="startTracking()">Démarrer le suivi du temps</button>
+    <button (click)="stopTracking()" *ngIf="taskForm.value.isTracking">Arrêter le suivi du temps</button>
+  </div>
+
+  <!-- Affichage du temps passé sur la tâche -->
+  <div *ngIf="taskId">
+    <p>Temps passé : {{ taskForm.value.timeSpent }} minutes</p>
+  </div>
+</div>

@@ -6,4 +6,7 @@ export interface TaskInterfaceTs {
     date_of_expiry:Date;
     id_user:number
     id_task_list:number;
+    timeSpent: number; // en minutes
+    startTime?: Date;
+    isTracking: boolean;
 }

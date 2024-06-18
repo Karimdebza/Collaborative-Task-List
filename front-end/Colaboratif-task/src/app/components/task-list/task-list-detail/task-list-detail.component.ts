@@ -91,5 +91,35 @@ export class TaskListDetailComponent implements OnInit {
       }
     })
   }
+
+  startTracking(taskId: number): void {
+    this.taskService.startTracking(taskId).subscribe({
+      next: task => {
+        const updatedTaskIndex = this.tasks.findIndex(t => t.id_task === task.id_task);
+        if (updatedTaskIndex !== -1) {
+          this.tasks[updatedTaskIndex] = task;
+        }
+        console.log('Suivi du temps démarré pour la tâche', task);
+      },
+      error: error => {
+        console.error('Erreur lors du démarrage du suivi du temps :', error);
+      }
+    });
+  }
+
+  stopTracking(taskId: number): void {
+    this.taskService.stopTracking(taskId).subscribe({
+      next: task => {
+        const updatedTaskIndex = this.tasks.findIndex(t => t.id_task === task.id_task);
+        if (updatedTaskIndex !== -1) {
+          this.tasks[updatedTaskIndex] = task;
+        }
+        console.log('Suivi du temps arrêté pour la tâche', task);
+      },
+      error: error => {
+        console.error('Erreur lors de l\'arrêt du suivi du temps :', error);
+      }
+    });
+  }
   
 }

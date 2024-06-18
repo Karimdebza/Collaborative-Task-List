@@ -27,4 +27,12 @@ export class TaskServiceTsService {
   deleteTask(taskId: number): Observable<void> {
     return this.http.delete<void>(`http://localhost:3400/task/delete/${taskId}`);
   }
+
+  startTracking(taskId: number): Observable<TaskInterfaceTs> {
+    return this.http.put<TaskInterfaceTs>(`http://localhost:3400/task/${taskId}/start-tracking`, {});
+  }
+
+  stopTracking(taskId: number): Observable<TaskInterfaceTs> {
+    return this.http.put<TaskInterfaceTs>(`http://localhost:3400/task/${taskId}/stop-tracking`, {});
+  }
 }
