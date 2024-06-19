@@ -108,7 +108,7 @@ export async function deleteUser(req:Request, res:Response): Promise<void> {
 
     export function signoutUser(req: Request, res: Response): void {
         try{
-        res.clearCookie('jwt'); // Si vous utilisez des cookies pour stocker le token JWT
+        res.clearCookie('jwt');
         res.status(200).json({ message: "Déconnexion réussie" });
         }catch(error){
             res.status(500).json({message : error})

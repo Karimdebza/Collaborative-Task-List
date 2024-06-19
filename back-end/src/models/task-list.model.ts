@@ -3,5 +3,6 @@ export interface TaskLists {
     title:string;
     date_of_create:Date;
     id_user?:number;
+    is_public?:boolean;
 
 }

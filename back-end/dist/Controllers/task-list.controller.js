@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTaskList = exports.updateTaskList = exports.getTaskListById = exports.getAllTaskLists = exports.createTaskList = void 0;
+exports.deleteTaskList = exports.updateTaskList = exports.getTaskListById = exports.updateTaskLystVisibilty = exports.getAllTaskLists = exports.createTaskList = void 0;
 const connexion_db_1 = __importDefault(require("../config/connexion-db"));
 async function createTaskList(req, res) {
     const userId = req.params.id;
@@ -26,7 +26,7 @@ exports.createTaskList = createTaskList;
 async function getAllTaskLists(req, res) {
     const userId = req.params.id;
     try {
-        const [rows] = await connexion_db_1.default.execute("SELECT * FROM TaskLists WHERE  id_user = ? ", [userId]);
+        const [rows] = await connexion_db_1.default.execute("SELECT * FROM TaskLists WHERE  id_user = ? OR is_public = TRUE", [userId]);
         res.status(200).json(rows);
     }
     catch (error) {
@@ -35,6 +35,27 @@ async function getAllTaskLists(req, res) {
     }
 }
 exports.getAllTaskLists = getAllTaskLists;
+async function updateTaskLystVisibilty(req, res) {
+    const taskListId = req.params.id;
+    const { is_public } = req.body;
+    if (typeof is_public !== 'boolean') {
+        res.status(400).json({ message: "Le champ 'is_public' doit être un booléen." });
+    }
+    try {
+        const [result] = await connexion_db_1.default.execute("UPDATE TaskLists SET is_public = ? WHERE id_task_list = ?", [is_public, taskListId]);
+        if (result.affectedRows > 0) {
+            res.status(200).json({ message: "Visibilité de la liste de tâches mise à jour avec succès." });
+        }
+        else {
+            res.status(404).json({ message: "Liste de tâches non trouvée." });
+        }
+    }
+    catch (error) {
+        console.error("Erreur lors de la mise à jour de la visibilité de la liste de tâches :", error);
+        res.status(500).json({ message: "Erreur du serveur lors de la mise à jour de la visibilité de la liste de tâches." });
+    }
+}
+exports.updateTaskLystVisibilty = updateTaskLystVisibilty;
 async function getTaskListById(req, res) {
     const taskListId = parseInt(req.params.id);
     try {

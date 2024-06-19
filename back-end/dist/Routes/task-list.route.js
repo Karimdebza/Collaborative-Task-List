@@ -35,3 +35,4 @@ exports.taskListRouter.get("/all/:id", taskListController.getAllTaskLists);
 exports.taskListRouter.get("/:id", taskListController.getTaskListById);
 exports.taskListRouter.put("/update/:id", taskListController.updateTaskList);
 exports.taskListRouter.delete("/delete/:id", taskListController.deleteTaskList);
+exports.taskListRouter.put("/update-visibility/:id", taskListController.updateTaskLystVisibilty);
