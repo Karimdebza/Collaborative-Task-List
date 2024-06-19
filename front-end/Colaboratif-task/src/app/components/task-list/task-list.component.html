@@ -6,3 +6,12 @@
   </div>
 </div>
 <button class="btn btn-primary "><a href="form-list" class="link-light">creation de liste</a></button>
+
+<div>
+  <label>
+    <input type="checkbox" [(ngModel)]="isPublic">
+    Public
+  </label>
+</div>
+
+<button (click)="updateVisibility()">Mettre à jour la visibilité</button>

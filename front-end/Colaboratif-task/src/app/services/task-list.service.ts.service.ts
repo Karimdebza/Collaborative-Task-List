@@ -12,6 +12,10 @@ export class TaskListServiceTsService {
   getAllTaskLists(userId:number): Observable<TaskListInterfaceTs[]> {
     return this.http.get<TaskListInterfaceTs[]>(`http://localhost:3400/task-list/all/${userId}`);
   }
+  updateTaskListVisibility(taskListId: number, isPublic: boolean): Observable<TaskListInterfaceTs> {
+    const url = `http://localhost:3400/task-list/update-visibility/${taskListId}`;
+    return this.http.put<TaskListInterfaceTs>(url, { is_public: isPublic });
+  }
 
   getTaskListById(taskListId: number): Observable<TaskListInterfaceTs> {
     return this.http.get<TaskListInterfaceTs>(`http://localhost:3400/task-list/${taskListId}`);

@@ -14,7 +14,7 @@ import { FormListComponent } from './components/task-list/form-list/form-list.co
 import { RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { NotificationComponent } from './components/notification/notification.component';
- 
+import { FormsModule } from '@angular/forms'; 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarComponent } from './components/calendar/calendar.component'; 
 
@@ -39,7 +39,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule,
-    FullCalendarModule // Add FullCalendarModule to imports
+    FullCalendarModule,// Add FullCalendarModule to imports
+    FormsModule 
     
   ],
   providers: [DatePipe],
