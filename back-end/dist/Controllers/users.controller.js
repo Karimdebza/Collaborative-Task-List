@@ -115,7 +115,7 @@ async function signinUser(req, res) {
 exports.signinUser = signinUser;
 function signoutUser(req, res) {
     try {
-        res.clearCookie('jwt'); // Si vous utilisez des cookies pour stocker le token JWT
+        res.clearCookie('jwt');
         res.status(200).json({ message: "Déconnexion réussie" });
     }
     catch (error) {

@@ -8,3 +8,4 @@ taskListRouter.get("/all/:id", taskListController.getAllTaskLists);
 taskListRouter.get("/:id", taskListController.getTaskListById);
 taskListRouter.put("/update/:id", taskListController.updateTaskList);
 taskListRouter.delete("/delete/:id",taskListController.deleteTaskList);
+taskListRouter.put("/update-visibility/:id", taskListController.updateTaskLystVisibilty);

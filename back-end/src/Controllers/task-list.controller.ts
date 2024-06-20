@@ -25,11 +25,30 @@ export async function createTaskList(req:Request, res:Response): Promise<void> {
 export async function getAllTaskLists(req:Request, res:Response): Promise<void> {
    const  userId = req.params.id;
     try{
-        const [rows] = await pool.execute("SELECT * FROM TaskLists WHERE  id_user = ? ", [userId]);
+        const [rows] = await pool.execute("SELECT * FROM TaskLists WHERE  id_user = ? OR is_public = TRUE", [userId]);
         res.status(200).json(rows);
     } catch (error) {
         console.error("Erreur lors de la récupération des listes de  taches :", error);
         res.status(500).json({ message: "Erreur du serveur lors de la récupération des listes de  taches" });
+    }
+}
+
+export async function updateTaskLystVisibilty(req:Request, res:Response): Promise<void> {
+    const taskListId = req.params.id;
+    const {is_public} = req.body;
+    if(typeof is_public !== 'boolean'){
+         res.status(400).json({message:"Le champ 'is_public' doit être un booléen."});
+    }
+    try {
+        const [result] = await pool.execute("UPDATE TaskLists SET is_public = ? WHERE id_task_list = ?", [is_public, taskListId]);
+        if ((result as any).affectedRows > 0) { 
+            res.status(200).json({ message: "Visibilité de la liste de tâches mise à jour avec succès." });
+        } else {
+            res.status(404).json({ message: "Liste de tâches non trouvée." });
+        }
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour de la visibilité de la liste de tâches :", error);
+        res.status(500).json({ message: "Erreur du serveur lors de la mise à jour de la visibilité de la liste de tâches." });
     }
 }
 

@@ -9,6 +9,7 @@ export interface Task {
     timeSpent : number;
     startTime :Date;
     isTracking : boolean;
+    is_public?:boolean;
 
 
 }
