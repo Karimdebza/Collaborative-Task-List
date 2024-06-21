@@ -1,28 +1,56 @@
 import { Request, Response } from 'express';
 import pool from '../config/connexion-db';
-import { Task } from "../models/task.model";
+// import { Task } from "../models/task.model";
 import { Comments } from "../models/Comment.model";
-import { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
 
-export async function addComment(req:Request, res:Response): Promise<void> {
-    const commetData :Comments = req.body;
-    try {
-        const [result]:[ResultSetHeader, any] = await pool.execute("INSERT INTO Comments(content, id_user, id_task) VALUES (?,?,?)", [commetData.content, commetData.id_user, commetData.id_task]);
-        if (result.insertId) {
-            res.status(201).json({ message: "Commentaire ajouté avec succès", id: result.insertId });
-        } else {
-            res.status(500).json({ message: "Erreur lors de l'ajout du commentaire: aucun ID inséré" });
-        }
-        
-    }catch(error){
-        console.error("Erreur lors de l'ajout du commentaire :", error);
-        res.status(500).json({ message: "Erreur du serveur lors de l'ajout du commentaire", error });
+
+export async function addComment(req: Request, res: Response): Promise<void> {
+    const { content, id_user, id_task } = req.body;
+  
+    if (!content || !id_user || !id_task) {
+      res.status(400).json({ message: 'Les données du commentaire sont incomplètes' });
+      return;
     }
-}
+  
+    try {
+      // Vérifiez que la tâche existe
+      const [taskCheck]: [any, any] = await pool.execute(
+        "SELECT id_task FROM Task WHERE id_task = ?",
+        [id_task]
+      );
+  
+      if (taskCheck.length === 0) {
+        res.status(400).json({ message: 'La tâche spécifiée n\'existe pas' });
+        return;
+      }
+  
+      const [result]: [any, any] = await pool.execute(
+        "INSERT INTO Comments(content, id_user, id_task) VALUES (?, ?, ?)",
+        [content, id_user, id_task]
+      );
+  
+      if (result.insertId) {
+        const newComment: Comments = {
+          id_comment: result.insertId,
+          content,
+          id_user,
+          id_task,
+          date_of_create: new Date()
+        };
+  
+        res.status(201).json(newComment);
+      } else {
+        res.status(500).json({ message: "Erreur lors de l'ajout du commentaire: aucun ID inséré" });
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'ajout du commentaire :", error);
+      res.status(500).json({ message: "Erreur du serveur lors de l'ajout du commentaire", error });
+    }
+  }
 
 
 export async function getComments(req: Request, res: Response): Promise<void> {
-    const taskId = req.params.taskId;
+    const taskId = req.params.id;
     try {
         const [rows] = await pool.execute("SELECT * FROM Comments WHERE id_task = ?", [taskId]);
         res.status(200).json(rows);

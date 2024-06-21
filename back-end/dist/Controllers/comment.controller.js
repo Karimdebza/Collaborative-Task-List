@@ -6,11 +6,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteComment = exports.getComments = exports.addComment = void 0;
 const connexion_db_1 = __importDefault(require("../config/connexion-db"));
 async function addComment(req, res) {
-    const commetData = req.body;
+    const { content, id_user, id_task } = req.body;
+    if (!content || !id_user || !id_task) {
+        res.status(400).json({ message: 'Les données du commentaire sont incomplètes' });
+        return;
+    }
     try {
-        const [result] = await connexion_db_1.default.execute("INSERT INTO Comments(content, id_user, id_task) VALUES (?,?,?)", [commetData.content, commetData.id_user, commetData.id_task]);
+        // Vérifiez que la tâche existe
+        const [taskCheck] = await connexion_db_1.default.execute("SELECT id_task FROM Task WHERE id_task = ?", [id_task]);
+        if (taskCheck.length === 0) {
+            res.status(400).json({ message: 'La tâche spécifiée n\'existe pas' });
+            return;
+        }
+        const [result] = await connexion_db_1.default.execute("INSERT INTO Comments(content, id_user, id_task) VALUES (?, ?, ?)", [content, id_user, id_task]);
         if (result.insertId) {
-            res.status(201).json({ message: "Commentaire ajouté avec succès", id: result.insertId });
+            const newComment = {
+                id_comment: result.insertId,
+                content,
+                id_user,
+                id_task,
+                date_of_create: new Date()
+            };
+            res.status(201).json(newComment);
         }
         else {
             res.status(500).json({ message: "Erreur lors de l'ajout du commentaire: aucun ID inséré" });
@@ -23,7 +40,7 @@ async function addComment(req, res) {
 }
 exports.addComment = addComment;
 async function getComments(req, res) {
-    const taskId = req.params.taskId;
+    const taskId = req.params.id;
     try {
         const [rows] = await connexion_db_1.default.execute("SELECT * FROM Comments WHERE id_task = ?", [taskId]);
         res.status(200).json(rows);

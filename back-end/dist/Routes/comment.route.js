@@ -31,5 +31,5 @@ const express_1 = __importDefault(require("express"));
 const commentController = __importStar(require("../Controllers/comment.controller"));
 exports.commentRouter = express_1.default.Router();
 exports.commentRouter.post("/add", commentController.addComment);
-exports.commentRouter.get("/all/:taskId", commentController.getComments);
+exports.commentRouter.get("/all/:id", commentController.getComments);
 exports.commentRouter.delete("/delete/:id", commentController.deleteComment);
