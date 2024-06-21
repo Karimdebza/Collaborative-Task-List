@@ -8,13 +8,26 @@
           <p> date de expiration: {{ task.date_of_expiry | date:'yyyy-MM-dd'}}</p>
           <p>Date de création: {{ task.date_of_create | date:'yyyy-MM-dd'}}</p>
           <p>Temps passé: {{ task.timeSpent }} minutes</p>
-          <button (click)="startTracking(task.id_task)" *ngIf="!task.isTracking" class="btn btn-primary mb-3">Démarrer le suivi du temps</button>
-      <button (click)="stopTracking(task.id_task)" *ngIf="task.isTracking" class="btn btn-warning mb-3">Arrêter le suivi du temps</button>
+          <button (click)="startTracking(task.id_task)" *ngIf="!task.isTracking" class="btn mx-auto w-75 btn-primary mb-3">Démarrer le suivi du temps</button>
+      <button (click)="stopTracking(task.id_task)" *ngIf="task.isTracking" class="btn mx-auto w-75 btn-warning mb-3">Arrêter le suivi du temps</button>
 
 
-          <a [routerLink]="['/task/edit', task.id_task]" class="btn btn-success mb-3">Modifier</a>
-          <button (click)="deleteTask(task.id_task)" class="btn btn-danger">delete</button>
-        </li>
-      </ul>
-      <button class="btn btn-primary" > <a class="link-light" href="/task">create task</a></button>
-</div>
+          <a [routerLink]="['/task/edit', task.id_task]" class="btn mx-auto w-75 btn-success mb-3">Modifier</a>
+          <button (click)="deleteTask(task.id_task)" class="btn mx-auto w-75 btn-danger mb-3">delete</button>
+          <button class="btn mx-auto w-75 btn-primary mb-3" > <a class="link-light" href="/task">create task</a></button>
+          <div class="comments-section">
+            <h4>Commentaires</h4>
+            <ul>
+              <li *ngFor="let comment of comments[task.id_task]">
+                <div *ngIf="comment.id_comment !== undefined">
+                  <p>{{ comment.content }}</p>
+                  <button (click)="deleteComment(comment.id_comment, task.id_task)">Supprimer</button>
+                </div>
+              </li>
+            </ul>
+            <form (submit)="addComment(task.id_task); $event.preventDefault();">
+              <input [(ngModel)]="newComment[task.id_task]" [ngModelOptions]="{ standalone: true }" placeholder="Ajouter un commentaire" class="form-control " required />
+              <button type="submit" class="btn btn-primary mt-3 mb-3">Ajouter</button>
+            </form>
+          </div>
+        
