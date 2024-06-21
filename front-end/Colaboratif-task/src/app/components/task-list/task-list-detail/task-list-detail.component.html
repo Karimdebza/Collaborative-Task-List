@@ -21,13 +21,14 @@
               <li *ngFor="let comment of comments[task.id_task]">
                 <div *ngIf="comment.id_comment !== undefined">
                   <p>{{ comment.content }}</p>
-                  <button (click)="deleteComment(comment.id_comment, task.id_task)">Supprimer</button>
+         <button class="btn btn-danger mb-2">  <i  (click)="deleteComment(comment.id_comment, task.id_task)" class="fas fa-trash-alt "></i>  </button>
+                
                 </div>
               </li>
             </ul>
             <form (submit)="addComment(task.id_task); $event.preventDefault();">
               <input [(ngModel)]="newComment[task.id_task]" [ngModelOptions]="{ standalone: true }" placeholder="Ajouter un commentaire" class="form-control " required />
-              <button type="submit" class="btn btn-primary mt-3 mb-3">Ajouter</button>
+              <button type="submit" class="btn btn-primary mt-3 mb-3 ">Ajouter</button>
             </form>
           </div>
         
