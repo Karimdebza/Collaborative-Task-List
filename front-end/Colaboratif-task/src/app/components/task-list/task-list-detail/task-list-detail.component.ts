@@ -44,7 +44,7 @@ export class TaskListDetailComponent implements OnInit {
     if (this.taskListId) {
       this.loadTaskListDetails(this.taskListId);
       if (typeof this.userid === 'number') {
-      this.loadTasks(this.userid);
+      this.loadTasks();
       
       }
     } else {
@@ -67,9 +67,9 @@ export class TaskListDetailComponent implements OnInit {
     const taskIdString = this.route.snapshot.paramMap.get('id');
     return taskIdString ? Number(taskIdString) : null;
   }
-  loadTasks(userid:number): void {
-    if (typeof this.userid === 'number') {
-    this.taskService.getAllTasks(this.userid).subscribe(tasks => {
+  loadTasks(): void {
+    if (typeof this.taskListId === 'number') {
+    this.taskService.getAllTasks(this.taskListId).subscribe(tasks => {
       
       this.tasks = tasks;
       this.loadCommentsForTasks();
@@ -99,7 +99,7 @@ export class TaskListDetailComponent implements OnInit {
           console.error("userId doit être un nombre.");
           return;
         }
-        this.loadTasks(this.taskListId); 
+        this.loadTasks(); 
        
       },
       error : error => {

@@ -12,8 +12,12 @@
         <label>Date de création:</label>
         <input class="form-control"  type="date" formControlName="date_of_create">
     </div>
+    <div class="form-group  p-2 g-col-6">
+        <label>Rendre la tache public:</label>
+        <input   type="checkbox" formControlName="is_public">
+    </div>
 
   
     
-    <button type="submit" class="btn btn-primary " [disabled]="listForm.invalid">Créer la tâche</button>
+    <button type="submit" class="btn btn-primary " [disabled]="listForm.invalid">Créer la list</button>
   </form>

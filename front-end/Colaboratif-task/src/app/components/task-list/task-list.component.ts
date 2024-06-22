@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class TaskListComponent implements OnInit {
 userId:number |null = null;
 taskList:TaskListInterfaceTs[] = [];
-taskListId = 21; // ID de la liste de tâches à mettre à jour
+taskListId : number | null = null;; // ID de la liste de tâches à mettre à jour
   isPublic = true; 
 constructor(private TaskService:TaskListServiceTsService, private route:ActivatedRoute
  
@@ -21,7 +21,8 @@ ngOnInit(): void {
   const userIdString = localStorage.getItem('id_user');
   console.log('ID de l\'utilisateur :', userIdString); // Vérifier la valeur de l'ID dans la console
   this.userId = userIdString ? Number(userIdString) : null;
-      this.displayAllTask();
+  this.taskListId = this.getTaskListIdFromRoute();
+  this.displayAllTask();
 }
 
 displayAllTask(): void {
@@ -31,9 +32,14 @@ displayAllTask(): void {
      });
   }
 }
+getTaskListIdFromRoute(): number | null {
+  const id = this.route.snapshot.paramMap.get('id');
+  return id ? +id : null;
+}
 
 updateVisibility(): void {
-  if (typeof this.userId === 'number') {
+  if (typeof this.userId  === 'number') {
+    if(this.taskListId !== null)
   this.TaskService.updateTaskListVisibility(this.taskListId, this.isPublic).subscribe(
     {
       next : data => {
@@ -45,8 +51,8 @@ updateVisibility(): void {
       }
     })
   }
+  }
 }
 
 
-}
 

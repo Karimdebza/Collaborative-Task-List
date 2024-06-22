@@ -12,8 +12,8 @@ export class TaskServiceTsService {
   createTask(taskData:TaskInterfaceTs, userId:number): Observable<TaskInterfaceTs>{
     return this.http.post<TaskInterfaceTs>(`http://localhost:3400/task/create/${userId}`,taskData);
   }
-  getAllTasks(userId: number): Observable<TaskInterfaceTs[]> {
-    return this.http.get<TaskInterfaceTs[]>(`http://localhost:3400/task/all/${userId}`);
+  getAllTasks(taskLisId: number): Observable<TaskInterfaceTs[]> {
+    return this.http.get<TaskInterfaceTs[]>(`http://localhost:3400/task/all/${taskLisId}`);
   }
 
   getTaskById(taskId: number): Observable<TaskInterfaceTs> {
