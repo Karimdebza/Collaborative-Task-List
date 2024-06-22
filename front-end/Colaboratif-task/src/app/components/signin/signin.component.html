@@ -1,26 +1,21 @@
-<div class="body">
-
-<form [formGroup]="authForm" (ngSubmit)="authenticateUser()"
-class="card w-75 mb-3 pt-3 mx-auto shadow-lg bg-body-tertiary rounded form-container"
- 
->
-    <div class="form-group row">
-      <label for="email" class="col-sm-2 col-form-label ">Email:</label>
-      <div class="col-sm-5">
-        <input type="email" class="form-control mb-5 mt-3  " id="email" formControlName="email" placeholder="adresse email"  required>
-      </div>    
-    </div>
-    <div class="form-group row">
-      <label for="password" class="col-sm-2 col-form-label">Mot de passe:</label>
-      <div class="col-sm-5">
-        <input type="password" class="form-control mb-5 mt-3 "id="password" formControlName="password" placeholder="Password" required>
+<div class="bg-image">
+  <div class="card">
+    <h2 class="text-center mb-4">Connexion</h2>
+    <form [formGroup]="authForm" (ngSubmit)="authenticateUser()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" class="form-control" id="email" placeholder="Entrez votre adresse email" formControlName="email" required>
       </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe:</label>
+        <input type="password" class="form-control" id="password" placeholder="Entrez votre mot de passe" formControlName="password" required>
+      </div>
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary">Connexion</button>
+      </div>
+    </form>
+    <div class="mt-3 text-center">
+      Vous n'avez pas de compte? <a routerLink="/signup">Inscrivez-vous ici</a>
     </div>
-    <p class="mb-5">
-      vous avez pas de compte?
-    <a href="signup"> Inscrivez-vous</a>
-  </p>
-    <button type="submit" class="btn btn-primary mb-2 w-75 mx-auto">Connectez vous</button>
-  </form>
-
+  </div>
 </div>

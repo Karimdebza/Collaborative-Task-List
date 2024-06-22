@@ -1,5 +1,4 @@
-.background-image{
-    background-image: url("../../../assets/markus-winkler-3Rn2EjoAC1g-unsplash.jpg");
-   
-    height: 20em;
-}
+.carousel-inner img {
+    max-height: 500px;
+    object-fit: cover;
+  }

@@ -1,18 +1,32 @@
-<form [formGroup]="profilForm"  (ngSubmit)="updateUserData()" class="card w-75  mb-3 shadow-lg bg-body-tertiary rounded" 
-style=" margin-left: auto; margin-right: auto; margin-top: 5em;">
-<div class="form-group row">
-    <label for="name" class="col-sm-2 col-form-label">Nom:</label>
-    <input type="text" id="name" class="form-control mb-5 w-75 mx-auto" formControlName="name">
+<div class="container">
+  <form [formGroup]="profilForm" (ngSubmit)="updateUserData()" class="card shadow-lg rounded">
+    <h2 class="text-center mb-4">Profil Utilisateur</h2>
+    <div class="mb-3 row">
+      <label for="name" class="col-sm-3 col-form-label">Nom:</label>
+      <div class="col-sm-9">
+        <input type="text" id="name" class="form-control" formControlName="name">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="email" class="col-sm-3 col-form-label">Email:</label>
+      <div class="col-sm-9">
+        <input type="email" id="email" class="form-control" formControlName="email">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="password" class="col-sm-3 col-form-label">Mot de passe:</label>
+      <div class="col-sm-9">
+        <input type="password" id="password" class="form-control" formControlName="password">
+      </div>
+    </div>
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </div>
+  </form>
+  <div class="text-center mt-3">
+   
   </div>
-  <div class="form-group row">
-    <label for="email" class="col-sm-2 col-form-label">Email:</label>
-    <input type="email" id="email" class="form-control mb-5 w-75 mx-auto" formControlName="email">
-  </div>
-  <div class="form-group row">
-    <label for="password" class="col-sm-2 col-form-label">Mot de passe:</label>
-    <input type="password" class="form-control mb-5 w-75 mx-auto" id="password" formControlName="password">
-  </div>
-  <button type="submit" class="btn btn-primary mb-2 w-75 mx-auto" >Enregistrer</button>
-</form>
 
-<button  *ngIf="userSevice.isLoggedIn()" class="btn btn-danger mt-2 "   (click)="logout()">Deconexion</button>
+  <button *ngIf="userSevice.isLoggedIn()" class="btn btn-danger mt-3" (click)="logout()">Déconnexion</button>
+</div>
+ 

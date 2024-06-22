@@ -1,12 +1,31 @@
-<div class="row mx-auto ">
-<div *ngFor="let taskList of taskList" class="card  mb-5 mt-3 w-75 mx-auto    d-flex shadow-lg bg-body-tertiary rounded">
-  <h3 >{{ taskList.title }}</h3>
-    <p>Date de création : {{ taskList.date_of_create }}</p>
-   <button class="btn btn-primary mb-2 w-75 mx-auto " [routerLink]="['/task-list', taskList.id_task_list]">Voir les détails </button>
-   <button type="button" class="btn btn-success mb-2 w-75 mx-auto" [routerLink]="['/form-list/edit', taskList.id_task_list]">Modifier la liste</button>
-   <button type="button" class="btn btn-danger mb-2 w-75 mx-auto" (click)="deleteTaskList(taskList.id_task_list)">Supprimer la liste</button>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="text-center mt-3 mb-4">Listes de tâches</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div *ngFor="let taskList of taskList" class="card mb-3 shadow bg-body-tertiary rounded">
+            <div class="card-body">
+              <h3>{{ taskList.title }}</h3>
+              <p>Date de création : {{ taskList.date_of_create }}</p>
+              <div class="text-center">
+                <a class="btn btn-primary mb-2 w-75" [routerLink]="['/task-list', taskList.id_task_list]">Voir les détails</a>
+                <button type="button" class="btn btn-success mb-2 w-75" [routerLink]="['/form-list/edit', taskList.id_task_list]">Modifier la liste</button>
+                <button type="button" class="btn btn-danger mb-2 w-75" (click)="deleteTaskList(taskList.id_task_list)">Supprimer la liste</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-12 text-center mb-2">
+          <button class="btn btn-primary"><a href="form-list" class="text-light">Créer une nouvelle liste de tâches</a></button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<button class="btn btn-primary "><a href="form-list" class="link-light">creation de liste</a></button>
-
-

@@ -1,46 +1,17 @@
-.body {
-    display: flex;
-    height: 100%;
-    min-height: 100vh;
-    background-image: url('../../../assets/R.jpg'); /* Replace with your image path */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
-  
-  /* You can add global styles to this file, and also import other style files */
- 
-  /* Specific styles for the form to adjust its position */
-  .form-container {
-    margin-top: 50px; /* Adjust this value to move the form down */
-  }
-  
-  @media (max-width: 768px) {
-    .form-container {
-      width: 90%; /* Make the form wider on small screens */
-      margin-top: 30px; /* Adjust the top margin */
-      padding: 30px; /* Increase padding for more space */
-    }
-  
-    .form-group.row {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .form-group.row label {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-  
-    .form-group.row .col-sm-5 {
-      width: 100%;
-    }
-  
-    button[type="submit"] {
-      width: 100%;
-    }
-  }
+.bg-image {
+  background-image: url('../../../assets/R.jpg'); /* Chemin vers votre image de fond */
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Ajuste la hauteur en fonction de la fenêtre visible */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.8); /* Fond légèrement transparent pour améliorer la lisibilité */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}

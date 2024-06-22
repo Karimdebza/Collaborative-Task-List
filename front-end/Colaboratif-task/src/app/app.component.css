@@ -1,0 +1,18 @@
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajoute une légère ombre pour la profondeur */
+  }
+  
+  .navbar-nav .nav-link {
+    color: #f1f1f1; /* Couleur du texte des liens de la navbar */
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #ebf7ff; /* Couleur du texte des liens de la navbar au survol */
+  }
+  
+  footer {
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Ajoute une légère ombre pour la séparation avec le contenu */
+  }
+  .margin-bottom-footer {
+    margin-top: 23rem; /* */
+  }

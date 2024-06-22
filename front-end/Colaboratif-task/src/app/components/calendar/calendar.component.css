@@ -1,0 +1,47 @@
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .fullcalendar-container {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .fc-header-toolbar {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .fc-daygrid-day {
+    border: 1px solid #ccc;
+  }
+  
+  .fc-daygrid-day-top {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  .fc-event {
+    margin-top: 5px;
+    padding: 2px 5px;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #ffffff;
+  }
+  
+  .fc-event-title {
+    font-size: 14px;
+  }
+  
+  .fc-today {
+    background-color: #ffc107;
+  }
+  
+  .fc-timegrid-axis {
+    background-color: #f0f0f0;
+  }

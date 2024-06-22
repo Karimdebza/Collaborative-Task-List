@@ -1,0 +1,72 @@
+.container {
+    max-width: 600px;
+    margin: auto;
+    margin-top: 5em;
+    padding: 20px;
+  }
+  
+  .card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333;
+  }
+  
+  .text-center {
+    text-align: center;
+    color: #007bff; /* Couleur bleue */
+  }
+  
+  .mb-3 {
+    margin-bottom: 15px;
+  }
+  
+  .mt-3 {
+    margin-top: 15px;
+  }
+  
+  /* Couleur de fond pour le formulaire */
+  .bg-body-tertiary {
+    background-color: #f0f0f0; /* Gris clair */
+  }
+  
+  /* Styles spécifiques aux liens et aux boutons */
+  a {
+    color: #007bff; /* Bleu pour les liens */
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
