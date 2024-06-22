@@ -78,7 +78,7 @@ async function updateTaskList(req, res) {
     const taskListId = parseInt(req.params.id);
     const taskListData = req.body;
     try {
-        await connexion_db_1.default.execute("UPDATE TaskLists SET title = ?, date_of_create = ?, id_user = ? WHERE id_task_list = ?", [taskListData.title, taskListData.date_of_create, taskListData.id_user, taskListId]);
+        await connexion_db_1.default.execute("UPDATE TaskLists SET title = ?, date_of_create = ?, is_public = ? WHERE id_task_list = ?", [taskListData.title, taskListData.date_of_create, taskListData.is_public, taskListId]);
         res.status(201).json({ message: " les informations de la liste des taches on etais  mis à jour avec succès" });
     }
     catch (error) {
