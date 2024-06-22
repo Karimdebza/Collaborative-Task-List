@@ -23,6 +23,7 @@ const routes: Routes = [
   { path: 'profil', component: ProfilComponent, canActivate:[authGuard] },
   { path: 'form-list', component: FormListComponent, canActivate:[authGuard]},
   { path: 'task/edit/:id', component: TaskComponent, canActivate:[authGuard] },
+  { path: 'form-list/edit/:id', component: FormListComponent }, 
   {path:'notification', component:NotificationComponent, canActivate:[authGuard]},
   {path:'calendar', component:CalendarComponent, canActivate:[authGuard]},
   { path: '', redirectTo: '/task', pathMatch: 'full' }

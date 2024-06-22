@@ -1,17 +1,12 @@
 <div class="row mx-auto ">
-<div *ngFor="let taskList of taskList" class="card  mb-5 mt-3    d-flex shadow-lg bg-body-tertiary rounded">
+<div *ngFor="let taskList of taskList" class="card  mb-5 mt-3 w-75 mx-auto    d-flex shadow-lg bg-body-tertiary rounded">
   <h3 >{{ taskList.title }}</h3>
     <p>Date de création : {{ taskList.date_of_create }}</p>
-   <button class="btn btn-primary  " [routerLink]="['/task-list', taskList.id_task_list]">Voir les détails </button>
+   <button class="btn btn-primary mb-2 w-75 mx-auto " [routerLink]="['/task-list', taskList.id_task_list]">Voir les détails </button>
+   <button type="button" class="btn btn-success mb-2 w-75 mx-auto" [routerLink]="['/form-list/edit', taskList.id_task_list]">Modifier la liste</button>
+   <button type="button" class="btn btn-danger mb-2 w-75 mx-auto" (click)="deleteTaskList(taskList.id_task_list)">Supprimer la liste</button>
   </div>
 </div>
 <button class="btn btn-primary "><a href="form-list" class="link-light">creation de liste</a></button>
 
-<div>
-  <label>
-    <input type="checkbox" [(ngModel)]="isPublic">
-    Public
-  </label>
-</div>
 
-<button (click)="updateVisibility()" class="btn btn-success">Mettre à jour la visibilité</button>

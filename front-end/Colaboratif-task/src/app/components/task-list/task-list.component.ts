@@ -32,6 +32,21 @@ displayAllTask(): void {
      });
   }
 }
+deleteTaskList(taskListId: number): void {
+  if (taskListId) {
+    console.log('Suppression de la liste des tâches avec ID :', taskListId); 
+    this.TaskService.deleteTaskList(taskListId).subscribe({
+      next: () => {
+        console.log('Liste des tâches supprimée');
+        this.displayAllTask();
+        // Rediriger après la suppression
+      },
+      error: error => {
+        console.error('Erreur lors de la suppression de la liste des tâches :', error);
+      }
+    });
+  }
+}
 getTaskListIdFromRoute(): number | null {
   const id = this.route.snapshot.paramMap.get('id');
   return id ? +id : null;
