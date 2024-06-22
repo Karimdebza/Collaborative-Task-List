@@ -9,7 +9,7 @@ async function createTaskList(req, res) {
     const userId = req.params.id;
     try {
         const taskListData = req.body;
-        const [result] = await connexion_db_1.default.execute("INSERT INTO TaskLists (title, date_of_create, id_user) VALUES (?, ?, ?)", [taskListData.title, taskListData.date_of_create, userId]);
+        const [result] = await connexion_db_1.default.execute("INSERT INTO TaskLists (title, date_of_create, is_public, id_user) VALUES (?, ?,?, ?)", [taskListData.title, taskListData.date_of_create, taskListData.is_public, userId]);
         if ('insertId' in result) {
             res.status(201).json({ id: result.insertId });
         }

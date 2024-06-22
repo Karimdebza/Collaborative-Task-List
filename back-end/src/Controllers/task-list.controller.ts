@@ -8,7 +8,7 @@ export async function createTaskList(req:Request, res:Response): Promise<void> {
     const userId = req.params.id;
     try {
         const taskListData : TaskLists = req.body;
-        const [result] = await pool.execute("INSERT INTO TaskLists (title, date_of_create, id_user) VALUES (?, ?, ?)", [taskListData.title, taskListData.date_of_create, userId]);
+        const [result] = await pool.execute("INSERT INTO TaskLists (title, date_of_create, is_public, id_user) VALUES (?, ?,?, ?)", [taskListData.title, taskListData.date_of_create,taskListData.is_public, userId]);
         if('insertId' in result ) {
             res.status(201).json({id: result.insertId});
         }

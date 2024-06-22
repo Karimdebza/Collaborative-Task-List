@@ -32,9 +32,9 @@ async function createTask(req, res) {
 }
 exports.createTask = createTask;
 async function getAllTasks(req, res) {
-    const userId = req.params.id;
+    const taskListId = req.params.id;
     try {
-        const [rows] = await connexion_db_1.default.execute("SELECT * FROM Task WHERE id_user = ?", [userId]);
+        const [rows] = await connexion_db_1.default.execute("SELECT * FROM Task WHERE id_task_list = ?", [taskListId]);
         res.status(200).json(rows);
     }
     catch (error) {

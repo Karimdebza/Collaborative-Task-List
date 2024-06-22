@@ -35,9 +35,9 @@ export async function createTask(req:Request, res:Response): Promise<void> {
 }
 
 export async function getAllTasks(req:Request, res:Response): Promise<void> {
-   const  userId = req.params.id;
+   const  taskListId = req.params.id;
     try{
-        const [rows] = await pool.execute("SELECT * FROM Task WHERE id_user = ?", [userId]);
+        const [rows] = await pool.execute("SELECT * FROM Task WHERE id_task_list = ?", [taskListId]);
         res.status(200).json(rows);
     } catch (error) {
         console.error("Erreur lors de la récupération des taches :", error);
