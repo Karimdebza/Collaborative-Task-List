@@ -64,10 +64,8 @@ exports.getTaskById = getTaskById;
 async function updateTask(req, res) {
     const taskId = parseInt(req.params.id);
     const taskData = req.body;
-    // Debug: Afficher les paramètres pour vérifier leur contenu
-    //   console.log("Paramètres SQL :", parameters);
     try {
-        await connexion_db_1.default.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry, timeSpent = ?, startTime = ?, isTracking = ?, = ?, id_task_list = ?  WHERE id_task = ?", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskData.timeSpent, taskData.startTime, taskData.isTracking, taskId]);
+        await connexion_db_1.default.execute("UPDATE Task SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?,  id_task_list = ?  WHERE id_task = ?", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskId]);
         const taskName = taskData.name;
         const io = req.app.get('io'); // Accédez à l'instance de Socket.io
         if (io) { // Vérifiez si l'instance de Socket.io est définie
