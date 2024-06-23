@@ -14,7 +14,7 @@ Ajout, Modification et Suppression de Tâches : Les utilisateurs peuvent ajouter
 
 
 
-# Nouvelle fonctionalité mise a jour rajouter un systeme de notification
+# Nouvelle fonctionalité 
 
 1. Notifications en Temps Réel
 Notifications Push : Ajoutez des notifications push pour informer les utilisateurs des mises à jour en temps réel sur leurs listes de tâches, par exemple lorsqu'une nouvelle tâche est ajoutée ou lorsqu'une tâche est complétée.
