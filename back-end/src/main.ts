@@ -6,6 +6,8 @@ import { userRouter } from "./Routes/users.route";
 import { taskRouter } from "./Routes/task.route";
 import { commentRouter } from './Routes/comment.route';
 import { taskListRouter } from "./Routes/task-list.route";
+import { subTaskRouter } from "./Routes/subTask.route";
+import { tagRouter } from "./Routes/tag.route";
 import { Server } from "socket.io";
 import { createServer } from "http";
 
@@ -51,6 +53,8 @@ app.use("/user", userRouter);
 app.use("/task", taskRouter);
 app.use("/task-list", taskListRouter);
 app.use('/comments', commentRouter);
+app.use("/subtask", subTaskRouter);
+app.use("/tag", tagRouter);
 // Utilisez le serveur HTTP pour écouter les connexions
 server.listen(API_PORT, (): void => {
   console.log("L'application tourne sur le port " + API_PORT);

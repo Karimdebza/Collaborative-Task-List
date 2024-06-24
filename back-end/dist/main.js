@@ -11,6 +11,8 @@ const users_route_1 = require("./Routes/users.route");
 const task_route_1 = require("./Routes/task.route");
 const comment_route_1 = require("./Routes/comment.route");
 const task_list_route_1 = require("./Routes/task-list.route");
+const subTask_route_1 = require("./Routes/subTask.route");
+const tag_route_1 = require("./Routes/tag.route");
 const socket_io_1 = require("socket.io");
 const http_1 = require("http");
 dotenv_1.default.config();
@@ -45,6 +47,8 @@ app.use("/user", users_route_1.userRouter);
 app.use("/task", task_route_1.taskRouter);
 app.use("/task-list", task_list_route_1.taskListRouter);
 app.use('/comments', comment_route_1.commentRouter);
+app.use("/subtask", subTask_route_1.subTaskRouter);
+app.use("/tag", tag_route_1.tagRouter);
 // Utilisez le serveur HTTP pour écouter les connexions
 server.listen(API_PORT, () => {
     console.log("L'application tourne sur le port " + API_PORT);
