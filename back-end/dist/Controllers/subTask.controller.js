@@ -8,7 +8,8 @@ const connexion_db_1 = __importDefault(require("../config/connexion-db"));
 async function createSubTask(req, res) {
     try {
         const subTaskData = req.body;
-        const [result] = await connexion_db_1.default.execute("INSERT INTO Sub_task (name, description, date_of_create, date_of_expiry, id_task, isCompleted) VALUES (?, ?, ?, ?, ?, ?)", [subTaskData.name, subTaskData.description, subTaskData.date_of_create, subTaskData.date_of_expiry, subTaskData.id_task, subTaskData.isCompleted]);
+        const taskId = req.params.taskId;
+        const [result] = await connexion_db_1.default.execute("INSERT INTO subTask (name, description, date_of_create, date_of_expiry, isCompleted , id_task) VALUES (?, ?, ?, ?, ?,?)", [subTaskData.name, subTaskData.description, subTaskData.date_of_create, subTaskData.date_of_expiry, subTaskData.isCompleted, taskId]);
         if ('insertId' in result) {
             res.status(201).json({ id: result.insertId });
         }
@@ -23,9 +24,9 @@ async function createSubTask(req, res) {
 }
 exports.createSubTask = createSubTask;
 async function getAllSubTasks(req, res) {
-    const taskId = req.params.id;
+    const taskId = req.params.taskId;
     try {
-        const [rows] = await connexion_db_1.default.execute("SELECT * FROM Sub_task WHERE id_task = ?", [taskId]);
+        const [rows] = await connexion_db_1.default.execute("SELECT * FROM subTask WHERE  id_task = ? ", [taskId]);
         res.status(200).json(rows);
     }
     catch (error) {
@@ -37,7 +38,7 @@ exports.getAllSubTasks = getAllSubTasks;
 async function getSubTaskById(req, res) {
     const subTaskId = req.params.id;
     try {
-        const [rows] = await connexion_db_1.default.execute("SELECT * FROM sub_task WHERE id_subTask = ?", [subTaskId]);
+        const [rows] = await connexion_db_1.default.execute("SELECT * FROM subTask WHERE id_subTask = ?", [subTaskId]);
         const subTask = rows;
         if (Array.isArray(subTask) && subTask.length === 0) {
             res.status(404).json({ message: "Sous Tache non trouvé dans la base de données" });
@@ -56,7 +57,7 @@ async function updateSubTask(req, res) {
     const subtaskId = parseInt(req.params.id);
     const taskData = req.body;
     try {
-        await connexion_db_1.default.execute("UPDATE sub_task SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?,  isCompleted = ?  WHERE id_subTask = ?", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, subtaskId]);
+        await connexion_db_1.default.execute("UPDATE subTask SET name = ?, description = ?, date_of_create = ?, date_of_expiry = ?,  isCompleted = ?  WHERE id_subTask = ?", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.isCompleted, subtaskId]);
         const taskName = taskData.name;
         const io = req.app.get('io'); // Accédez à l'instance de Socket.io
         if (io) { // Vérifiez si l'instance de Socket.io est définie
@@ -65,11 +66,11 @@ async function updateSubTask(req, res) {
                 date: new Date()
             });
         }
-        res.status(201).json({ message: "Sous tache ache mis à jour avec succès" });
+        res.status(201).json({ message: "Sous tache  mis à jour avec succès" });
     }
     catch (error) {
         console.error("Erreur lors de la mise à jour de la sous tache :", error);
-        res.status(500).json({ message: "Erreur du serveur lors de la mise à jour de la sous tache " });
+        res.status(500).json({ message: "Erreur du serveur lors de la mise à jour de la sous tache ", error });
     }
 }
 exports.updateSubTask = updateSubTask;
@@ -77,7 +78,7 @@ async function deleteSubTask(req, res) {
     const taskData = req.body;
     const taskId = parseInt(req.params.id);
     try {
-        await connexion_db_1.default.execute("DELETE FROM sub_task WHERE id_subTask = ?", [taskId]);
+        await connexion_db_1.default.execute("DELETE FROM subTask WHERE id_subTask = ?", [taskId]);
         const taskName = taskData.name;
         const io = req.app.get('io'); // Accédez à l'instance de Socket.io
         if (io) { // Vérifiez si l'instance de Socket.io est définie

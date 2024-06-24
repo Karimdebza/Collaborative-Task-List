@@ -30,7 +30,7 @@ exports.subTaskRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const subTaskController = __importStar(require("../Controllers/subTask.controller"));
 exports.subTaskRouter = express_1.default.Router();
-exports.subTaskRouter.post("/create", subTaskController.createSubTask);
+exports.subTaskRouter.post("/create/:taskId", subTaskController.createSubTask);
 exports.subTaskRouter.get("/all/:taskId", subTaskController.getAllSubTasks);
 exports.subTaskRouter.get("/:id", subTaskController.getSubTaskById);
 exports.subTaskRouter.put("/update/:id", subTaskController.updateSubTask);
