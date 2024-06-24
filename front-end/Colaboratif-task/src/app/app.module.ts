@@ -16,7 +16,8 @@ import { DatePipe } from '@angular/common';
 import { NotificationComponent } from './components/notification/notification.component';
 import { FormsModule } from '@angular/forms'; 
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarComponent } from './components/calendar/calendar.component'; 
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { TaskDetailComponent } from './components/task-detail/task-detail.component'; 
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     FormListComponent,
     NotificationComponent,
     CalendarComponent,
+    TaskDetailComponent,
     
   ],
   imports: [
