@@ -18,11 +18,11 @@
               <p>Date d'expiration : {{ subtask.date_of_expiry | date: 'medium' }}</p>
               <p>Complétée : {{ subtask.isCompleted ? 'Oui' : 'Non' }}</p>
               
-              <!-- Boutons pour modifier ou supprimer une sous-tâche -->
-              <!-- <div class="btn-group mt-3">
-                <button class="btn btn-primary" (click)="editSubTask(subtask.id)">Modifier</button>
-                <button class="btn btn-danger" (click)="deleteSubTask(subtask.id)">Supprimer</button>
-              </div> -->
+              
+              <div class="btn-group">
+                <button *ngIf="subtask.id_subTask !== undefined" class="btn btn-primary" [routerLink]="['/task', subtask.id_subTask, 'edit']">Modifier</button>
+                <button *ngIf="subtask.id_subTask !== undefined" class="btn btn-danger" (click)="deleteSubtask(subtask.id_subTask)">Supprimer</button>
+              </div>
             </li>
           </ul>
         </div>

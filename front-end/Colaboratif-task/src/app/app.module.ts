@@ -17,7 +17,8 @@ import { NotificationComponent } from './components/notification/notification.co
 import { FormsModule } from '@angular/forms'; 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import { TaskDetailComponent } from './components/task-detail/task-detail.component'; 
+import { TaskDetailComponent } from './components/task-detail/task-detail.component';
+import { SubTaskFormComponent } from './components/sub-task-form/sub-task-form.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { TaskDetailComponent } from './components/task-detail/task-detail.compon
     NotificationComponent,
     CalendarComponent,
     TaskDetailComponent,
+    SubTaskFormComponent,
     
   ],
   imports: [

@@ -4,7 +4,7 @@ import { TaskInterfaceTs } from 'src/app/interface/task.interface.ts';
 import { TaskServiceTsService } from 'src/app/services/task.service.ts.service';
 import { SubTask } from "../../interface/sub-task"
 import { SubTaskService } from 'src/app/services/sub-task.service';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-task-detail',
   templateUrl: './task-detail.component.html',
@@ -17,7 +17,8 @@ export class TaskDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private taskService: TaskServiceTsService,
-    private subtaskService: SubTaskService
+    private subtaskService: SubTaskService,
+    private datePipe: DatePipe,
   ) {
     this.subtasks = [];
   }
@@ -42,11 +43,17 @@ export class TaskDetailComponent implements OnInit {
   }
 
   deleteSubtask(subtaskId: number): void {
+    if (subtaskId === undefined) {
+      console.error('Invalid subtask ID');
+      return;
+    }else{
     this.subtaskService.deleteSubTask(subtaskId).subscribe(() => {
-      // Rechargez la liste des sous-tâches après suppression
       this.loadSubtasks();
     });
   }
+  }
+
+  
 
  
 }

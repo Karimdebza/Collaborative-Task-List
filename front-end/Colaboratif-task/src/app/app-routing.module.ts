@@ -12,6 +12,7 @@ import { NotificationComponent } from './components/notification/notification.co
 import { authGuard } from './guard/auth.guard';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
+import { SubTaskFormComponent } from './components/sub-task-form/sub-task-form.component';
 
 const routes: Routes = [
   {path: "", redirectTo:"/signin", pathMatch:"full"},
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'form-list', component: FormListComponent, canActivate:[authGuard]},
   { path: 'task/edit/:id', component: TaskComponent, canActivate:[authGuard] },
   { path: 'task/:id', component: TaskDetailComponent, canActivate:[authGuard] },
+  { path: 'task/:id/edit', component: SubTaskFormComponent, canActivate:[authGuard] },
   { path: 'form-list/edit/:id', component: FormListComponent }, 
   {path:'notification', component:NotificationComponent, canActivate:[authGuard]},
   {path:'calendar', component:CalendarComponent, canActivate:[authGuard]},
