@@ -1,5 +1,5 @@
 export interface SubTask {
-    id_subtask?: number;
+    id_subTask?: number;
     name: string;
     description: string;
     date_of_create?: Date;
