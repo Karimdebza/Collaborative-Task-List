@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { TaskListInterfaceTs } from 'src/app/interface/task-list.interface.ts';
 import { TaskListServiceTsService } from 'src/app/services/task-list.service.ts.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { TaskInterfaceTs } from 'src/app/interface/task.interface.ts';
 import { TaskServiceTsService } from 'src/app/services/task.service.ts.service';
 import { NgIf,NgFor } from "@angular/common";
@@ -34,7 +34,8 @@ export class TaskListDetailComponent implements OnInit {
     private taskService: TaskServiceTsService,
     private socketService: SocketServiceTsService,
     private notificationService: NotificationServiceTsService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private router :Router,
   ) { }
 
   ngOnInit(): void  {
@@ -75,6 +76,9 @@ export class TaskListDetailComponent implements OnInit {
       this.loadCommentsForTasks();
     });
   }
+  }
+  navigateToTaskDetails(taskId: number): void {
+    this.router.navigate(['/task', taskId]);
   }
 
   loadTaskListDetails(taskListId: number): void {

@@ -1,0 +1,32 @@
+<div class="container mt-4">
+    <div *ngIf="task">
+      <div class="card">
+        <div class="card-header">
+          <h2>{{ task.name }}</h2>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ task.description }}</p>
+          <p>Date de création : {{ task.date_of_create | date: 'medium' }}</p>
+          <p>Date d'expiration : {{ task.date_of_expiry | date: 'medium' }}</p>
+          
+          <h3 class="mt-4">Sous-tâches :</h3>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let subtask of subtasks">
+              <h4>{{ subtask.name }}</h4>
+              <p>{{ subtask.description }}</p>
+              <p>Date de création : {{ subtask.date_of_create | date: 'medium' }}</p>
+              <p>Date d'expiration : {{ subtask.date_of_expiry | date: 'medium' }}</p>
+              <p>Complétée : {{ subtask.isCompleted ? 'Oui' : 'Non' }}</p>
+              
+              
+              <div class="btn-group">
+                <button *ngIf="subtask.id_subTask !== undefined" class="btn btn-primary" [routerLink]="['/task', subtask.id_subTask, 'edit']">Modifier</button>
+                <button *ngIf="subtask.id_subTask !== undefined" class="btn btn-danger" (click)="deleteSubtask(subtask.id_subTask)">Supprimer</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  

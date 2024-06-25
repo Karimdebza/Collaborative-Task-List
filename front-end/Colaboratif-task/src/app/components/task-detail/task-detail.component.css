@@ -1,0 +1,57 @@
+.card {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #f8f9fa; /* Couleur de fond */
+    border: 1px solid #ced4da; /* Bordure */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  }
+  
+  .card-header {
+    background-color: #007bff; /* Couleur de l'en-tête */
+    color: #fff; /* Couleur du texte */
+    padding: 12px 20px; /* Espacement intérieur */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125); /* Bordure inférieure */
+    border-top-left-radius: 8px; /* Coins arrondis supérieurs */
+    border-top-right-radius: 8px;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-text {
+    font-size: 1.1rem; /* Taille de la police */
+    color: #343a40; /* Couleur du texte */
+  }
+  
+  .list-group-item {
+    background-color: #fff; /* Couleur de fond des éléments de liste */
+    border: 1px solid rgba(0, 0, 0, 0.125); /* Bordure */
+    margin-bottom: 10px; /* Marge inférieure */
+  }
+  
+  .btn-group {
+    margin-top: 10px; /* Marge supérieure pour les boutons */
+  }
+  
+  .btn-primary {
+    background-color: #007bff; /* Couleur de fond du bouton primaire */
+    border-color: #007bff; /* Bordure */
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Couleur de fond du bouton primaire au survol */
+    border-color: #0056b3;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545; /* Couleur de fond du bouton danger */
+    border-color: #dc3545;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333; /* Couleur de fond du bouton danger au survol */
+    border-color: #bd2130;
+  }
+  
