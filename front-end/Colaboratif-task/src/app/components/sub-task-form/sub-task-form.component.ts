@@ -16,6 +16,8 @@ export class SubTaskFormComponent implements OnInit {
   taskId: number | null = null;
   subTaskId: number | null = null;
   isEditMode = false; 
+  tags: string[] = [];
+  
   constructor(private taskService: SubTaskService,
     private router: Router,
     private route: ActivatedRoute,
