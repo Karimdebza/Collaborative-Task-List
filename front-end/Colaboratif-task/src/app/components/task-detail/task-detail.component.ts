@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TaskInterfaceTs } from 'src/app/interface/task.interface.ts';
 import { TaskServiceTsService } from 'src/app/services/task.service.ts.service';
 import { SubTask } from "../../interface/sub-task"
@@ -13,18 +13,23 @@ import { DatePipe } from '@angular/common';
 export class TaskDetailComponent implements OnInit {
   task: TaskInterfaceTs | undefined;
   subtasks: SubTask[] = []; 
-
+  taskId: number | null = null;
   constructor(
     private route: ActivatedRoute,
     private taskService: TaskServiceTsService,
     private subtaskService: SubTaskService,
-    private datePipe: DatePipe,
+    private router: Router
   ) {
     this.subtasks = [];
   }
 
   ngOnInit(): void {
-    this.loadTaskDetails();
+    this.taskId = this.getTaskIdFromRoute();
+    if (this.taskId !== null) {
+      this.loadTaskDetails();
+    } else {
+      console.error('ID de tâche non trouvé dans les paramètres de l\'URL.');
+    }
     this.loadSubtasks();
   }
 
@@ -34,7 +39,10 @@ export class TaskDetailComponent implements OnInit {
       this.task = task;
     });
   }
-
+  getTaskIdFromRoute(): number | null {
+    const taskIdString = this.route.snapshot.paramMap.get('id');
+    return taskIdString ? +taskIdString : null;
+  }
   loadSubtasks(): void {
     const taskId = this.route.snapshot.params['id'];
     this.subtaskService.getAllSubTasks(taskId).subscribe(subtasks => {
@@ -54,6 +62,10 @@ export class TaskDetailComponent implements OnInit {
   }
 
   
-
+  navigateToSubTaskForm(): void {
+    if (this.taskId !== null) {
+      this.router.navigate(['/task', this.taskId, 'new']);
+    }
+  }
  
 }

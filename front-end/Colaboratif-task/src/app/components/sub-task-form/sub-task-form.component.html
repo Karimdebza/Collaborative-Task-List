@@ -1,48 +1,45 @@
 <div class="form-container">
-    <form [formGroup]="subTaskForm" (ngSubmit)="submitForm()">
-      
-      <div class="form-group">
-        <label for="name">Nom de la sous-tâche</label>
-        <input type="text" formControlName="name" id="name" required>
-        <div *ngIf="subTaskForm.get('name')?.invalid && subTaskForm.get('name')?.touched" class="error-message">
-          Le nom de la sous-tâche est requis.
-        </div>
+  <form [formGroup]="subTaskForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <label for="name">Nom de la sous-tâche</label>
+      <input type="text" formControlName="name" id="name" required>
+      <div *ngIf="subTaskForm.get('name')?.invalid && subTaskForm.get('name')?.touched" class="error-message">
+        Le nom de la sous-tâche est requis.
       </div>
-      
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea formControlName="description" id="description" required></textarea>
-        <div *ngIf="subTaskForm.get('description')?.invalid && subTaskForm.get('description')?.touched" class="error-message">
-          La description est requise.
-        </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea formControlName="description" id="description" required></textarea>
+      <div *ngIf="subTaskForm.get('description')?.invalid && subTaskForm.get('description')?.touched" class="error-message">
+        La description est requise.
       </div>
-      
-      <div class="form-group">
-        <label for="date_of_create">Date de création</label>
-        <input type="date" formControlName="date_of_create" id="date_of_create" required>
-        <div *ngIf="subTaskForm.get('date_of_create')?.invalid && subTaskForm.get('date_of_create')?.touched" class="error-message">
-          La date de création est requise.
-        </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="date_of_create">Date de création</label>
+      <input type="date" formControlName="date_of_create" id="date_of_create" required>
+      <div *ngIf="subTaskForm.get('date_of_create')?.invalid && subTaskForm.get('date_of_create')?.touched" class="error-message">
+        La date de création est requise.
       </div>
-      
-      <div class="form-group">
-        <label for="date_of_expiry">Date d'expiration</label>
-        <input type="date" formControlName="date_of_expiry" id="date_of_expiry" required>
-        <div *ngIf="subTaskForm.get('date_of_expiry')?.invalid && subTaskForm.get('date_of_expiry')?.touched" class="error-message">
-          La date d'expiration est requise.
-        </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="date_of_expiry">Date d'expiration</label>
+      <input type="date" formControlName="date_of_expiry" id="date_of_expiry" required>
+      <div *ngIf="subTaskForm.get('date_of_expiry')?.invalid && subTaskForm.get('date_of_expiry')?.touched" class="error-message">
+        La date d'expiration est requise.
       </div>
-      
-      <div class="form-group">
-        <label for="isCompleted">Complétée</label>
-        <input type="checkbox" formControlName="isCompleted" id="isCompleted">
-      </div>
-      
-      <div class="btn-container">
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
-      </div>
-      
-    </form>
+    </div>
+    
+    <div class="form-group">
+      <label for="isCompleted">Complétée</label>
+      <input type="checkbox" formControlName="isCompleted" id="isCompleted">
+    </div>
+    
+    <div class="btn-container">
+      <button type="submit" class="btn btn-primary">{{ subTaskId ? 'Modifier' : 'Créer' }}</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+    </div>
+  </form>
 </div>
-
-  
