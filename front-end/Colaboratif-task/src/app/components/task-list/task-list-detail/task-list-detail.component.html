@@ -2,7 +2,7 @@
   <h2>{{ taskList.title }}</h2>
   <p>Date de création : {{ taskList.date_of_create | date:'yyyy-MM-dd'}}</p>
 
-  <div *ngFor="let task of tasks" (click)="navigateToTaskDetails(task.id_task)" class="card mx-auto w-75 mb-3 shadow-lg bg-body-tertiary rounded">
+  <div *ngFor="let task of tasks" (click)="navigateToTaskDetails(task.id_task)" class="task-card card mx-auto w-75 mb-3 shadow-lg bg-body-tertiary rounded">
     <div class="card-body">
       
       <h3>{{ task.name }}</h3>

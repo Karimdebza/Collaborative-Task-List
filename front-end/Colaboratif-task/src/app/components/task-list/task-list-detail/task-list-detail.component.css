@@ -1,0 +1,10 @@
+/* Styles pour les cartes de tâches */
+.task-card {
+    cursor: pointer; /* Change le curseur pour indiquer que l'élément est cliquable */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ajoute des transitions pour l'effet de survol */
+}
+
+.task-card:hover {
+    transform: translateY(-5px); /* Soulève légèrement la carte lorsqu'elle est survolée */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Ajoute une ombre plus prononcée */
+}
