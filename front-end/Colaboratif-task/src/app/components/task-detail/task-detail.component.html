@@ -20,7 +20,7 @@
               
               
               <div class="btn-group">
-                <button *ngIf="subtask.id_subTask !== undefined" class="btn btn-primary" [routerLink]="['/task', subtask.id_subTask, 'edit']">Modifier</button>
+                <button *ngIf="subtask.id_subTask !== undefined" class="btn btn-primary" [routerLink]="['/task', subtask.id_task, 'edit',subtask.id_subTask]">Modifier</button>
                 <button *ngIf="subtask.id_subTask !== undefined" class="btn btn-danger" (click)="deleteSubtask(subtask.id_subTask)">Supprimer</button>
                 <button *ngIf="subtask.id_subTask !== undefined" type="button" class="btn btn-primary" (click)="navigateToSubTaskForm()">Ajouter une sous-tâche</button>
               </div>

@@ -26,9 +26,9 @@ const routes: Routes = [
   { path: 'form-list', component: FormListComponent, canActivate:[authGuard]},
   { path: 'task/edit/:id', component: TaskComponent, canActivate:[authGuard] },
   { path: 'task/:id', component: TaskDetailComponent, canActivate:[authGuard] },
-  { path: 'task/:id/edit', component: SubTaskFormComponent, canActivate:[authGuard] },
-  { path: 'task/:id/new', component: SubTaskFormComponent, canActivate:[authGuard] },
-  { path: 'form-list/edit/:id', component: FormListComponent ,canActivate:[authGuard] }, 
+  { path: 'task/:id/new', component: SubTaskFormComponent, canActivate: [authGuard] },
+  { path: 'task/:id/edit/:subTaskId', component: SubTaskFormComponent, canActivate: [authGuard] },
+  { path: 'task/:id/new', component: SubTaskFormComponent, canActivate: [authGuard] },
   {path:'notification', component:NotificationComponent, canActivate:[authGuard]},
   {path:'calendar', component:CalendarComponent, canActivate:[authGuard]},
   { path: '', redirectTo: '/task', pathMatch: 'full' }

@@ -28,9 +28,12 @@ export class SubTaskFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskId = this.getTaskIdFromRoute();
+    if (!this.taskId) {
+      console.error('Erreur : taskId est null au moment de l\'initialisation');
+    } 
     this.subTaskId = this.getSubTaskIdFromRoute();
     this.initializeForm();
-    
+
     if (this.subTaskId) {
       this.loadSubTaskDetails(this.subTaskId);
     }
@@ -40,8 +43,8 @@ export class SubTaskFormComponent implements OnInit {
     this.subTaskForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      date_of_create: [new Date(), Validators.required],
-      date_of_expiry: [new Date(), Validators.required],
+      date_of_create: ['', Validators.required],
+      date_of_expiry: ['', Validators.required],
       isCompleted: [false]
     });
   }
@@ -52,7 +55,7 @@ export class SubTaskFormComponent implements OnInit {
   }
 
   getSubTaskIdFromRoute(): number | null {
-    const subTaskIdString = this.route.snapshot.paramMap.get('id');
+    const subTaskIdString = this.route.snapshot.paramMap.get('subTaskId');
     return subTaskIdString ? +subTaskIdString : null;
   }
 
@@ -108,10 +111,18 @@ export class SubTaskFormComponent implements OnInit {
     const notification = { message: `Sous-tâche ${action} avec succès`, date: new Date() };
     this.socketService.sendNotification(notification);
     this.notificationService.showNotification(`Sous-tâche ${action}`, { body: notification.message });
-    this.router.navigate(['/task', this.taskId]);
+    if (this.taskId !== null) {
+      this.router.navigate(['/task', this.taskId]);
+    } else {
+      console.error('Erreur : taskId est null lors de la redirection');
+    }
   }
 
   cancel(): void {
-    this.router.navigate(['/task', this.taskId]);
+    if (this.taskId !== null) {
+      this.router.navigate(['/task', this.taskId]);
+    } else {
+      console.error('Erreur : taskId est null lors de la redirection');
+    }
   }
 }
