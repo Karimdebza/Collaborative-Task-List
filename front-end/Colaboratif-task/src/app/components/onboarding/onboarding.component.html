@@ -1,0 +1,27 @@
+<div class="onboarding-container">
+  <div class="onboarding-step" *ngIf="step === 1">
+    <h2>Bienvenue dans l'application de gestion de tâches !</h2>
+    <p>Gérez vos tâches efficacement et restez organisé. Cette application est également conçue pour la collaboration en équipe.</p>
+    <button (click)="nextStep()">Suivant</button>
+  </div>
+  <div class="onboarding-step" *ngIf="step === 2">
+    <h2>Créer et gérer des tâches</h2>
+    <p>Créez facilement de nouvelles tâches, gérez-les et suivez vos progrès en temps réel.</p>
+    <button (click)="nextStep()">Suivant</button>
+  </div>
+  <div class="onboarding-step" *ngIf="step === 3">
+    <h2>Collaborez avec votre équipe</h2>
+    <p>Partagez des tâches et collaborez avec vos coéquipiers pour une gestion de projet optimale.</p>
+    <button (click)="nextStep()">Suivant</button>
+  </div>
+  <div class="onboarding-step" *ngIf="step === 4">
+    <h2>Vérifiez votre progression</h2>
+    <p>Surveillez l'avancement de vos tâches et restez motivé.</p>
+    <button (click)="nextStep()">Suivant</button>
+  </div>
+  <div class="onboarding-step" *ngIf="step === 5">
+    <h2>C'est parti !</h2>
+    <p>Vous êtes prêt. Profitez de l'application et boostez votre productivité !</p>
+    <button (click)="finishOnboarding()">Terminer</button>
+  </div>
+</div>
