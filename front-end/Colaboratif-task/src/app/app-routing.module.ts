@@ -13,9 +13,11 @@ import { authGuard } from './guard/auth.guard';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { SubTaskFormComponent } from './components/sub-task-form/sub-task-form.component';
+import { OnboardingComponent } from './components/onboarding/onboarding.component';
 
 const routes: Routes = [
   {path: "", redirectTo:"/signin", pathMatch:"full"},
+  { path: 'onboarding', component: OnboardingComponent },
   {path:"signup", component:ComponentssignupComponent},
   {path:"signin", component: SigninComponent},
   {path:"home", component: HomeComponent, canActivate:[authGuard]},

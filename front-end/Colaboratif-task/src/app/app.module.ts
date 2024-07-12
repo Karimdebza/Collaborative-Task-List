@@ -19,6 +19,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { SubTaskFormComponent } from './components/sub-task-form/sub-task-form.component';
+import { OnboardingComponent } from './components/onboarding/onboarding.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { SubTaskFormComponent } from './components/sub-task-form/sub-task-form.c
     CalendarComponent,
     TaskDetailComponent,
     SubTaskFormComponent,
+    OnboardingComponent,
     
   ],
   imports: [
