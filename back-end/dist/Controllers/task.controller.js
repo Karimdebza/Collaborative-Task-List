@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.stopTracking = exports.startTraking = exports.deleteTask = exports.updateTask = exports.getTaskById = exports.getAllTasks = exports.createTask = void 0;
+exports.updateTaskStatus = exports.stopTracking = exports.startTraking = exports.deleteTask = exports.updateTask = exports.getTaskById = exports.getAllTasks = exports.createTask = void 0;
 const connexion_db_1 = __importDefault(require("../config/connexion-db"));
 async function createTask(req, res) {
     const userId = req.params.id;
@@ -142,3 +142,28 @@ async function stopTracking(req, res) {
     }
 }
 exports.stopTracking = stopTracking;
+async function updateTaskStatus(req, res) {
+    const taskId = parseInt(req.params.id);
+    const { status } = req.body;
+    try {
+        const [result] = await connexion_db_1.default.execute('UPDATE Task SET status = ? WHERE id_task = ?', [status, taskId]);
+        if (result.affectedRows === 0) {
+            res.status(404).json({ message: "Tâche non trouvée" });
+            return;
+        }
+        const [updatedTask] = await connexion_db_1.default.execute('SELECT * FROM Task WHERE id_task = ?', [taskId]);
+        const io = req.app.get('io');
+        if (io) {
+            io.emit('receivedNotification', {
+                message: `Statut de la tâche mis à jour: ${status}`,
+                date: new Date()
+            });
+        }
+        res.json(updatedTask[0]);
+    }
+    catch (error) {
+        console.error("Erreur lors de la mise à jour du statut de la tache :", error);
+        res.status(500).json({ message: "Erreur du serveur lors de la mise à jour du statut de la tache" });
+    }
+}
+exports.updateTaskStatus = updateTaskStatus;

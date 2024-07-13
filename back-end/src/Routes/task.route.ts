@@ -8,5 +8,6 @@ taskRouter.get("/all/:id", taskController.getAllTasks);
 taskRouter.get("/:id", taskController.getTaskById);
 taskRouter.put("/update/:id", taskController.updateTask);
 taskRouter.delete("/delete/:id", taskController.deleteTask);
-taskRouter.put("/:id/start-tracking", taskController.startTraking)
-taskRouter.put("/:id/stop-tracking", taskController.stopTracking)
+taskRouter.put("/:id/start-tracking", taskController.startTraking);
+taskRouter.put("/:id/stop-tracking", taskController.stopTracking);
+taskRouter.put('/update-status/:id', taskController.updateTaskStatus);

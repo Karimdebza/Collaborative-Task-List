@@ -10,6 +10,7 @@ export interface Task {
     startTime :Date;
     isTracking : boolean;
     is_public?:boolean;
+    status?:string;
 
 
 }
