@@ -20,6 +20,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { SubTaskFormComponent } from './components/sub-task-form/sub-task-form.component';
 import { OnboardingComponent } from './components/onboarding/onboarding.component';
+import { KanbanComponent } from './kanban/kanban.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { OnboardingComponent } from './components/onboarding/onboarding.componen
     TaskDetailComponent,
     SubTaskFormComponent,
     OnboardingComponent,
+    KanbanComponent,
     
   ],
   imports: [
