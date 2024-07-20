@@ -22,7 +22,8 @@ import { SubTaskFormComponent } from './components/sub-task-form/sub-task-form.c
 import { OnboardingComponent } from './components/onboarding/onboarding.component';
 import { CommonModule } from '@angular/common';
 import { KanbanComponent } from './components/kanban/kanban.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,9 @@ import { KanbanComponent } from './components/kanban/kanban.component';
     RouterModule,
     FullCalendarModule,// Add FullCalendarModule to imports
     FormsModule ,
-    CommonModule
+    CommonModule,
+    BrowserAnimationsModule,
+    MatCardModule
     
   ],
   providers: [DatePipe],
