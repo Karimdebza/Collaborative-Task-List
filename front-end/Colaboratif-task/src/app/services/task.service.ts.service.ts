@@ -35,4 +35,12 @@ export class TaskServiceTsService {
   stopTracking(taskId: number): Observable<TaskInterfaceTs> {
     return this.http.put<TaskInterfaceTs>(`http://localhost:3400/task/${taskId}/stop-tracking`, {});
   }
+
+  updateTaskStatus(taskId: number, status: string): Observable<TaskInterfaceTs> {
+    return this.http.put<TaskInterfaceTs>(`http://localhost:3400/task/update-status/${taskId}`, { status });
+  }
+
+  getTasksByStatus(taskListId: number, status: string): Observable<TaskInterfaceTs[]> {
+    return this.http.get<TaskInterfaceTs[]>(`http://localhost:3400/task/${taskListId}/status/${status}`);
+  }
 }

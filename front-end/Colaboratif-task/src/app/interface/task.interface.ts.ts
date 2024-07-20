@@ -9,4 +9,5 @@ export interface TaskInterfaceTs {
     timeSpent: number; // en minutes
     startTime?: Date;
     isTracking: boolean;
+    status?: string;
 }

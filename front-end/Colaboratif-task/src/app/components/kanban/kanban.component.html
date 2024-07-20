@@ -1,0 +1,46 @@
+<div class="kanban-board">
+  <div class="kanban-column" (drop)="onTaskDrop($event, 'to-do')" (dragover)="allowDrop($event)">
+    <h2>À faire</h2>
+    <mat-card *ngFor="let task of toDoTasks" class="kanban-task" 
+             
+              draggable="true" 
+              (dragstart)="drag($event, task.id_task)">
+      <mat-card-header>
+        <mat-card-title>{{ task.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ task.description }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <div class="kanban-column" (drop)="onTaskDrop($event, 'in-progress')" (dragover)="allowDrop($event)">
+    <h2>En cours</h2>
+    <mat-card *ngFor="let task of inProgressTasks" class="kanban-task" 
+             
+              draggable="true" 
+              (dragstart)="drag($event, task.id_task)">
+      <mat-card-header>
+        <mat-card-title>{{ task.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ task.description }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <div class="kanban-column" (drop)="onTaskDrop($event, 'completed')" (dragover)="allowDrop($event)">
+    <h2>Complété</h2>
+    <mat-card *ngFor="let task of completedTasks" class="kanban-task" 
+             
+              draggable="true" 
+              (dragstart)="drag($event, task.id_task)">
+      <mat-card-header>
+        <mat-card-title>{{ task.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ task.description }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

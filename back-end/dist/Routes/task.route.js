@@ -37,3 +37,5 @@ exports.taskRouter.put("/update/:id", taskController.updateTask);
 exports.taskRouter.delete("/delete/:id", taskController.deleteTask);
 exports.taskRouter.put("/:id/start-tracking", taskController.startTraking);
 exports.taskRouter.put("/:id/stop-tracking", taskController.stopTracking);
+exports.taskRouter.put('/update-status/:id', taskController.updateTaskStatus);
+exports.taskRouter.get('/:taskListId/status/:status', taskController.getTasksByStatus);

@@ -9,7 +9,8 @@ export async function createTask(req:Request, res:Response): Promise<void> {
     const userId = req.params.id;
     try {
         const taskData : Task = req.body;
-        const [result] = await pool.execute("INSERT INTO Task (name, description, date_of_create, date_of_expiry, id_task_list, timeSpent,  startTime, isTracking,  id_user ) VALUES (?, ?, ?, ?, ?, ?,?,?,?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskData.timeSpent, taskData.startTime, taskData.isTracking, userId ] )
+        const status = taskData.status || 'to-do';
+        const [result] = await pool.execute("INSERT INTO Task (name, description, date_of_create, date_of_expiry, id_task_list, timeSpent,  startTime, isTracking, status,  id_user ) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?)", [taskData.name, taskData.description, taskData.date_of_create, taskData.date_of_expiry, taskData.id_task_list, taskData.timeSpent, taskData.startTime, taskData.isTracking, status, userId ] )
         if('insertId' in result ) {
             const taskName = taskData.name;
       const io = req.app.get('io'); // Accédez à l'instance de Socket.io
@@ -102,7 +103,7 @@ export async function deleteTask(req:Request, res:Response): Promise<void> {
         console.error("Erreur lors de la supression de la tache :", error);
         res.status(500).json({ message: "Erreur du serveur  lors de la supression de la tache " });
         }
-    }
+}
 
     export async function startTraking(req:Request, res: Response) : Promise<void> {
        try {
@@ -144,4 +145,52 @@ export async function deleteTask(req:Request, res:Response): Promise<void> {
                   console.error('Error stopping task tracking:', error);
                   res.status(500).json({ message: 'Internal server error' });
                 }
-              }
+    }
+
+
+
+export async function updateTaskStatus(req:Request, res:Response): Promise<void> {
+
+  const taskId:number = parseInt(req.params.id) ;
+
+  const {status}: {status:string} = req.body;
+
+  try {
+    const [result] = await pool.execute('UPDATE Task SET status = ? WHERE id_task = ?', [status, taskId]);
+    if ((result as any).affectedRows === 0) {
+       res.status(404).json({ message: "Tâche non trouvée" });
+       return;
+  }
+
+  const [updatedTask] = await pool.execute<RowDataPacket[]>('SELECT * FROM Task WHERE id_task = ?', [taskId]);
+
+  const io = req.app.get('io');
+  if (io) {
+      io.emit('receivedNotification', {
+          message: `Statut de la tâche mis à jour: ${status}`,
+          date: new Date()
+      });
+  }
+
+   res.json(updatedTask[0]);
+} catch (error) {
+  console.error("Erreur lors de la mise à jour du statut de la tache :", error);
+  res.status(500).json({ message: "Erreur du serveur lors de la mise à jour du statut de la tache" });
+  }
+
+}
+
+
+export async function getTasksByStatus(req: Request, res: Response): Promise<void> {
+  const { taskListId, status } = req.params;
+  console.log('Received params:', { taskListId, status }); // Log des paramètres reçus
+
+  try {
+    const [rows] = await pool.execute("SELECT * FROM Task WHERE id_task_list = ? AND status = ?", [taskListId, status]);
+    console.log('Query result:', rows); // Log des résultats de la requête
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("Erreur lors de la récupération des tâches par statut :", error);
+    res.status(500).json({ message: "Erreur du serveur lors de la récupération des tâches par statut" });
+  }
+}
