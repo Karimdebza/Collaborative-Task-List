@@ -20,8 +20,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { SubTaskFormComponent } from './components/sub-task-form/sub-task-form.component';
 import { OnboardingComponent } from './components/onboarding/onboarding.component';
-import { KanbanComponent } from './kanban/kanban.component';
-
+import { CommonModule } from '@angular/common';
+import { KanbanComponent } from './components/kanban/kanban.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +40,7 @@ import { KanbanComponent } from './kanban/kanban.component';
     OnboardingComponent,
     KanbanComponent,
     
+    
   ],
   imports: [
     BrowserModule,
@@ -48,7 +49,8 @@ import { KanbanComponent } from './kanban/kanban.component';
     ReactiveFormsModule,
     RouterModule,
     FullCalendarModule,// Add FullCalendarModule to imports
-    FormsModule 
+    FormsModule ,
+    CommonModule
     
   ],
   providers: [DatePipe],

@@ -14,6 +14,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { SubTaskFormComponent } from './components/sub-task-form/sub-task-form.component';
 import { OnboardingComponent } from './components/onboarding/onboarding.component';
+import { KanbanComponent } from './components/kanban/kanban.component';
 
 const routes: Routes = [
   {path: "", redirectTo:"/signin", pathMatch:"full"},
@@ -33,7 +34,7 @@ const routes: Routes = [
   { path: 'task/:id/new', component: SubTaskFormComponent, canActivate: [authGuard] },
   {path:'notification', component:NotificationComponent, canActivate:[authGuard]},
   {path:'calendar', component:CalendarComponent, canActivate:[authGuard]},
-  { path: '', redirectTo: '/task', pathMatch: 'full' }
+  {path: 'kanban/:id', component: KanbanComponent, canActivate:[authGuard]},
 ];
 
 @NgModule({
