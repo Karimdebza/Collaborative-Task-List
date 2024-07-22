@@ -8,3 +8,19 @@
     transform: translateY(-5px); /* Soulève légèrement la carte lorsqu'elle est survolée */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Ajoute une ombre plus prononcée */
 }
+
+.kanban-link {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #3f51b5;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    display: inline-block;
+    text-align: center;
+  }
+  
+  .kanban-link:hover {
+    background-color: #303f9f;
+  }

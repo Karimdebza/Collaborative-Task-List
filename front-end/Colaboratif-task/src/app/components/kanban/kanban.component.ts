@@ -29,15 +29,12 @@ export class KanbanComponent implements OnInit {
   loadTasks() {
     if (typeof this.taskListId === 'number') {
       this.taskService.getTasksByStatus(this.taskListId, 'to-do').subscribe(tasks => {
-        console.log('To-Do Tasks:', tasks); // Vérifiez ici
         this.toDoTasks = tasks;
       });
       this.taskService.getTasksByStatus(this.taskListId, 'in-progress').subscribe(tasks => {
-        console.log('In-Progress Tasks:', tasks); // Vérifiez ici
         this.inProgressTasks = tasks;
       });
       this.taskService.getTasksByStatus(this.taskListId, 'completed').subscribe(tasks => {
-        console.log('Completed Tasks:', tasks); // Vérifiez ici
         this.completedTasks = tasks;
       });
     }
