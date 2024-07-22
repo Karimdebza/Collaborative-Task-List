@@ -77,7 +77,8 @@ export class TaskListDetailComponent implements OnInit {
     });
   }
   }
-  navigateToTaskDetails(taskId: number): void {
+  navigateToTaskDetails(taskId: number, event: Event): void {
+    event.stopPropagation();
     this.router.navigate(['/task', taskId]);
   }
 
@@ -87,7 +88,8 @@ export class TaskListDetailComponent implements OnInit {
     });
   }
 
-  deleteTask(taskId:number): void{
+  deleteTask(taskId:number, event: Event): void{
+    event.stopPropagation();
     this.taskService.deleteTask(taskId).subscribe({
       next : data => {
         console.log("supression reussie", data); // Ajout du log ici pour vérifier
@@ -112,7 +114,8 @@ export class TaskListDetailComponent implements OnInit {
     })
   }
 
-  startTracking(taskId: number): void {
+  startTracking(taskId: number,event: Event): void {
+    event.stopPropagation();
     this.taskService.startTracking(taskId).subscribe({
       next: task => {
         const updatedTaskIndex = this.tasks.findIndex(t => t.id_task === task.id_task);
@@ -132,7 +135,8 @@ export class TaskListDetailComponent implements OnInit {
     });
   }
 
-  stopTracking(taskId: number): void {
+  stopTracking(taskId: number, event: Event): void {
+    event.stopPropagation();
     this.taskService.stopTracking(taskId).subscribe({
       next: task => {
         const updatedTaskIndex = this.tasks.findIndex(t => t.id_task === task.id_task);
@@ -166,7 +170,8 @@ export class TaskListDetailComponent implements OnInit {
     });
   }
 
-  addComment(taskId:number):void {
+  addComment(taskId:number,event: Event):void {
+    event.stopPropagation();
     if (!this.newComment[taskId]?.trim()) {
       return;
     }
@@ -197,7 +202,8 @@ export class TaskListDetailComponent implements OnInit {
   });
   }
 
-  deleteComment(commentId: number, taskId: number): void {
+  deleteComment(commentId: number, taskId: number, event: Event): void {
+    event.stopPropagation();
     this.commentService.deleteComment(commentId).subscribe({
       next: () => {
         this.comments[taskId] = this.comments[taskId].filter(comment => comment.id_comment !== commentId);
@@ -206,6 +212,11 @@ export class TaskListDetailComponent implements OnInit {
         console.error('Erreur lors de la suppression du commentaire :', error);
       }
     });
+  }
+
+
+  goToKanban(taskListId: number) {
+    this.router.navigate(['/kanban', taskListId]);
   }
 }
 

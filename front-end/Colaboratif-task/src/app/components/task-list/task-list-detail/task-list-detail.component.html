@@ -2,7 +2,11 @@
   <h2>{{ taskList.title }}</h2>
   <p>Date de création : {{ taskList.date_of_create | date:'yyyy-MM-dd'}}</p>
 
-  <div *ngFor="let task of tasks" (click)="navigateToTaskDetails(task.id_task)" class="task-card card mx-auto w-75 mb-3 shadow-lg bg-body-tertiary rounded">
+  <a mat-button [routerLink]="['/kanban', taskList.id_task_list]" class="kanban-link mb-5">
+    Voir le tableau Kanban
+  </a>
+
+  <div *ngFor="let task of tasks" (click)="navigateToTaskDetails(task.id_task, $event)" class="task-card card mx-auto w-75 mb-3 shadow-lg bg-body-tertiary rounded">
     <div class="card-body">
       
       <h3>{{ task.name }}</h3>
@@ -11,11 +15,11 @@
       <p>Date d'expiration : {{ task.date_of_expiry | date:'yyyy-MM-dd'}}</p>
       <p>Temps passé : {{ task.timeSpent }} minutes</p>
 
-      <button *ngIf="!task.isTracking" (click)="startTracking(task.id_task)" class="btn mx-auto w-75 btn-primary mb-3">Démarrer le suivi du temps</button>
-      <button *ngIf="task.isTracking" (click)="stopTracking(task.id_task)" class="btn mx-auto w-75 btn-warning mb-3">Arrêter le suivi du temps</button>
+      <button *ngIf="!task.isTracking" (click)="startTracking(task.id_task, $event)" class="btn mx-auto w-75 btn-primary mb-3">Démarrer le suivi du temps</button>
+      <button *ngIf="task.isTracking" (click)="stopTracking(task.id_task, $event)" class="btn mx-auto w-75 btn-warning mb-3">Arrêter le suivi du temps</button>
 
       <a [routerLink]="['/task/edit', task.id_task]" class="btn mx-auto w-75 btn-success mb-3">Modifier</a>
-      <button (click)="deleteTask(task.id_task)" class="btn mx-auto w-75 btn-danger mb-3">Supprimer</button>
+      <button (click)="deleteTask(task.id_task, $event)" class="btn mx-auto w-75 btn-danger mb-3">Supprimer</button>
     </div>
 
     <div class="comments-section">
@@ -24,15 +28,15 @@
         <li *ngFor="let comment of comments[task.id_task]">
           <div *ngIf="comment.id_comment !== undefined">
             <p>{{ comment.content }}</p>
-            <button class="btn btn-danger mb-2">
-              <i (click)="deleteComment(comment.id_comment, task.id_task)" class="fas fa-trash-alt"></i>
+            <button class="btn btn-danger mb-2" (click)="deleteComment(comment.id_comment, task.id_task, $event)">
+              <i class="fas fa-trash-alt"></i>
             </button>
           </div>
         </li>
       </ul>
 
-      <form (submit)="addComment(task.id_task); $event.preventDefault();" class="mb-3">
-        <input [(ngModel)]="newComment[task.id_task]" [ngModelOptions]="{ standalone: true }" placeholder="Ajouter un commentaire" class="form-control" required />
+      <form (submit)="addComment(task.id_task, $event); $event.preventDefault();" class="mb-3">
+        <input [(ngModel)]="newComment[task.id_task]" [ngModelOptions]="{ standalone: true }" placeholder="Ajouter un commentaire" class="form-control" required (click)="$event.stopPropagation()" />
         <button type="submit" class="btn btn-primary mt-3">Ajouter</button>
       </form>
     </div>
